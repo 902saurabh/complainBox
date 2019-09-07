@@ -258,10 +258,10 @@ a:link, a:visited{
               
             }).done(function(data){
                 console.log(data);
-                window.location.href = "dashboard.php";
+                window.location.href = "";
 
             }).fail(function() { 
-                alert( "Login with Somaiya mail" );
+                alert( "something went wrong!" );
             });
           </script>';
 

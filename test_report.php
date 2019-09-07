@@ -146,7 +146,7 @@
     case 11: $month="November"; break;
     case 12: $month="December"; break;
   }
-  switch($day1[1]){
+  switch($day2[1]){
     case 1: $month2="January"; break;
     case 2:  $month2="February"; break;
     case 3: $month2="March"; break;
@@ -407,12 +407,12 @@ $dname= date("d-m-Y H:i:s");
 $download = "complain(".$dname.").pdf";
 $mpdf = new \Mpdf\Mpdf();
 $mpdf->WriteHTML($html);
-//$pdf = $mpdf->Output('','S');
+$pdf = $mpdf->Output('','S');
 $mpdf->Output($download,'D');
 
-//if($_GET['complain_send_to']!='')
+if($_GET['complain_send_to']!='')
 
-//sendEmail($_GET['complain_send_to'],$pdf);
+sendEmail($_GET['complain_send_to'],$pdf);
 //header("Location: admindashboard.php");
 
 /* $var ='<script type="text/javascript">

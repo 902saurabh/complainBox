@@ -83,12 +83,7 @@
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./userprofile.php">
-              <i class="material-icons">person</i>
-              <p>My Profile</p>
-            </a>
-          </li>
+          
           <li class="nav-item ">
             <a class="nav-link" href="./usercomplain.php?status=">
               <i class="material-icons">content_paste</i>
@@ -606,8 +601,8 @@ include("footer.php");
 
          echo $var;
     }else{
-      $msg='<script>alert("Sorry, Something went wrong.")</script>';
-      echo $msg;
+     // $msg='<script>alert("Sorry, Something went wrong.")</script>';
+      //echo $msg;
       //header("Location: complain.php?department=$department");
         
     }
@@ -631,10 +626,16 @@ include("footer.php");
    // $("#dropdownMenuLink").innerHTML=$(this).text();
    // build = $(this).text();
   
-  })
+  });
 </script>
+<?php  
+if(isset($_COOKIE['building'])){
+  echo' var se = document.getElementById("dropdownMenuLink");
+    se.innerHTML = $(this).text();
+     document.cookie = "building=" + $(this).text(); ';
+}
 
- 
+?> 
 
 </body>
 </html>
