@@ -1,5 +1,6 @@
 <?php
-     include("config/config.php");
+   
+	include("checkuser.php");
 	//dashboard of department
 	//$mysqli = new mysqli("localhost", "root", "", "complainbox");
 	$sql = "SELECT name FROM user WHERE email='".$_SESSION["email"]."'";
@@ -214,6 +215,7 @@
                   <table class="table table-hover">
                     <thead class="text-primary">
                         <th>ID</th>               
+                        <th>Department</th>               
 						<th>Detail</th>
 						<th>Date Time</th>                        
 						<th>Status</th>                    
@@ -222,12 +224,12 @@
 						<th>View</th>
                     </thead> <tbody>';
 				
-						$sql = "SELECT * FROM complain WHERE Departmentname='".$_SESSION['name']."' AND status like '%".$_GET['status']."%' ORDER BY id DESC";
+						$sql = "SELECT * FROM complain WHERE Departmentname like '%".$_SESSION['name']."%' AND status like '%".$_GET['status']."%' ORDER BY id DESC";
 						$result=mysqli_query($con,$sql);
 while($row = mysqli_fetch_array($result)){  
 							//Creates a loop to dipslay all complain
 							echo "<tr><td>".$row['id']."</td>";
-							
+								echo "<td>".$row['Departmentname']."</td>";
 							if(strlen($row['description'])>50)
 							{
 								echo "<td >".substr($row['description'],0,50) ." ...</td>";

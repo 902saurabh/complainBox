@@ -263,7 +263,7 @@
 
     }
 $html .= '</tbody></table><br>
-    <table class="table">
+    <table class="table" align="center">
   <thead class="thead-dark">
     <tr>
       <th scope="col">Total Complains</th>
@@ -379,7 +379,7 @@ $html .= '</tbody></table><br>
 
 
     $html .= '</table><br>
-    <table class="table">
+    <table class="table" align="center">
   <thead class="thead-dark">
     <tr>
       <th scope="col">Total Complains</th>
@@ -413,6 +413,8 @@ $mpdf->Output($download,'D');
 if($_GET['complain_send_to']!='')
 
 sendEmail($_GET['complain_send_to'],$pdf);
+
+echo $_GET['complain_send_to'];
 //header("Location: admindashboard.php");
 
 /* $var ='<script type="text/javascript">
@@ -659,13 +661,13 @@ try {
     color: black;" for="customRadio1" required>All</label>
       </div>';
 
-    $dep = mysqli_query($con, "SELECT DISTINCT Departmentname FROM complain");
+    $dep = mysqli_query($con, "SELECT * from department");
     while($row= mysqli_fetch_array($dep)){
 
     echo '<div class="custom-control custom-radio">
-        <input type="radio" name="radio" id="'.$row['Departmentname'].'" class="custom-control-input" value="'.$row['Departmentname'].'" required>
+        <input type="radio" name="radio" id="'.$row['dname'].'" class="custom-control-input" value="'.$row['dname'].'" required>
         <label class="custom-control-label"  style="
-    color: black; " for="'.$row['Departmentname'].'">'.$row['Departmentname'].'</label>
+    color: black; " for="'.$row['dname'].'">'.$row['dname'].'</label>
       </div>';
       //echo '<input type="radio" name="radio" value="'.$row['Departmentname'].'"/>'.$row['Departmentname'];
     }
@@ -683,7 +685,14 @@ try {
   <option value="3">Test</option>
 </select>-->
   <h4 for="send_to" style="margin-top: 20px; font-size:18px"><strong>Send Report To:</strong></h4>
+  <div class="row">
+ <div class="col-md-8 col-sd-12 col-ld-8"> 
  <input placeholder="Enter Email" id="send_to" class="form-control" name="complain_send_to" type="email">
+ </div>
+ <div class="col-md-4 col-sd-12 col-ld-4"> 
+ <input type="submit" class="btn btn-primary btn-block" name="date_submit" value="Send Mail">
+ </div>
+ </div>
  <div class="row" style="margin-top: 10px;">
   <div class="col">
  <input type="submit" class="btn btn-primary btn-block" name="date_submit" value="Export to PDF">

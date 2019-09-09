@@ -1,9 +1,8 @@
 <?php
 	
-  include("config/config.php");
-  //display form to generate password and username
-  
-  $sql = "SELECT * FROM user WHERE email='".$_SESSION['email']."';";
+  include("checkuser.php");
+
+	$sql = "SELECT * FROM user WHERE email='".$_SESSION['email']."';";
 	$result=mysqli_query($con,$sql);
 		//display all department
 	$row = mysqli_fetch_array($result);
@@ -225,7 +224,7 @@
               <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title">Profile</h4>
-                  <p class="card-category">Create username and Password</p>
+                  <p class="card-category">Change  Password</p>
                 </div>
                 <div class="card-body">
                   <form  action="adduserdb.php" method="post">
@@ -267,7 +266,8 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Username</label>
-                          <input type="text" name="username" class="form-control center" value="<?php echo $uname;  ?>" >
+                          <input type="text" name="username" class="form-control center" value="<?php echo $uname;  ?>" disabled>
+                          <input type="hidden" name="username" class="form-control center" value="<?php echo $uname;  ?>" >
                         </div>
                       </div>
                     </div>

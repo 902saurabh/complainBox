@@ -19,11 +19,15 @@
 		else if($row['usertype']=='Department'){
 		header("Location: depthome.php");
         exit();
-
+		}
+		else if($row['usertype']=='Manager'){
+		header("Location: managerdashboard.php");
+        exit();
 			
 		}
-	}
 	
+	
+	}
 	}
     $sql = "SELECT name FROM user WHERE email='".$_SESSION["email"]."'";
     $res=$res_u=mysqli_query($con,$sql);

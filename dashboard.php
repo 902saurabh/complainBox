@@ -287,11 +287,10 @@
 						
 						
                             <label class="bmd-label-floating"> Describe your complain</label>
-						 <textarea class="form-control" name="complain_body" rows="5" required><?php
-                          if(isset($_SESSION['complain_body'])){
-                              echo $_SESSION['complain_body'];
-                          }
-                        ?></textarea>
+						 <textarea class="form-control" name="complain_body" rows="5" required>
+						 
+						 
+						 </textarea>
 						
                       </div>
 
@@ -355,7 +354,17 @@
                               var fileName = input.files[0].name;
                               
                               // use fileName however fits your app best, i.e. add it into a div
-                              infoArea.textContent = 'File name: ' + fileName;
+							var res = fileName.split(".");
+				if(res[res.length-1]== "jpg" || res[res.length-1]== "jpeg" ||res[res.length-1]== "pdf" || res[res.length-1]== "png"){
+					infoArea.textContent = 'File name: ' + fileName;
+						$("#file-upload-filename").css("color", "blue");
+						$("#file_test").show();	
+				}else{
+					$("#file-upload-filename").css("color", "red");
+					infoArea.textContent ="*Following file format is not 							supported!";
+					$("#file_test").hide();				
+				}
+			
                             }
 
 
@@ -366,7 +375,9 @@
 
 
 
-                    	<input type="submit" name="com_submit" class="btn btn-primary" value="Submit">
+                    	<input type="submit" 
+						id="file_test" 
+						name="com_submit" class="btn btn-primary" value="Submit">
 						
                     <div class="clearfix"></div>
                   </form>
@@ -468,10 +479,9 @@ include("footer.php");
 
   if($complain_body != ''){
     $body = mysqli_real_escape_string($con,$complain_body);
+  $location = mysqli_real_escape_string($con,$location);
 
-    $_SESSION['complain_body']=$body;
-
-
+    
 
 
       //  if(isset($_POST['submit'])){
@@ -492,13 +502,14 @@ include("footer.php");
                 $shortname = $_FILES['upload']['name'];
 
                 //save the url and the file
-                $filePath = "assets/img/" . date('d-m-Y-H-i-s').'-'.$_FILES['upload']['name'];
+                $filePath = "$filerootpath" . date('d-m-Y-H-i-s').'-'.$_FILES['upload']['name'];
 
                 $imageFileType = strtolower(pathinfo($filePath,PATHINFO_EXTENSION));
 
 
 
-                if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "gif" || $imageFileType == "pdf" || $imageFileType == "doc" || $imageFileType == "docx" ) {
+if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" ||  $imageFileType == "pdf"  )
+                {
 
                 //echo $imageFileType;
                 //Upload the file into the temp dir
@@ -564,7 +575,6 @@ include("footer.php");
      $id=mysqli_insert_id($con);
 		
 		echo '<script>	swal("Your complain successfully submitted"); </script>';
-     unset($_SESSION['complain_body']);
      unset($_COOKIE['building']);
 	 
 	 
@@ -590,13 +600,26 @@ include("footer.php");
               
             }).done(function(data){
                 console.log(data);
-                window.location.href = "dashboard.php";
+               // window.location.href = "dashboard.php";
 
             }).fail(function() { 
-                alert( "Login with Somaiya mail" );
+                alert( "Something went wrong" );
             });
 			
-			
+	$.ajax({              
+                url:"complain_submit_by_ajax.php",
+                type:"POST",
+                data:"id='.$id.'&mail_by='.$email.'",
+                cache:false,
+
+              
+            }).done(function(data){
+                console.log(data);
+               // window.location.href = "";
+
+            }).fail(function() { 
+                alert( "something went wrong!" );
+            });
           </script>';
 
          echo $var;

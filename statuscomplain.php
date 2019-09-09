@@ -174,7 +174,7 @@
 				if(!isset($_GET['department']))
 						$dptn='';
 				else
-					$dptn=$_GET['department'].' : ';
+					$dptn=$_GET['department'];
       echo '
       <div class="content" id="complainDetail">
         <div class="container-fluid">
@@ -256,7 +256,7 @@
 				<div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">'.$dptn.$_GET["status"].' Complains</h4>
+                  <h4 class="card-title ">'.$dptn.' : '.$_GET["status"].' Complains</h4>
                   <p class="card-category">  </p>
                 </div>';
 				

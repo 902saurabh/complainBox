@@ -1,6 +1,24 @@
 <?php
    include("config/config.php");
-	
+	if(isset($_SESSION['type'])){
+       
+	   if($_SESSION['type']=='admin'){
+		header("Location: admindashboard.php");
+		exit();
+	   }
+	   else if($_SESSION['type']=='Manager'){
+		header("Location: managerdashboard.php");
+		exit();
+	   }
+	   else if($_SESSION['type']=='Department'){
+		header("Location: depthome.php");
+		exit();
+	   }
+	   else {
+		header("Location: dashboard.php");
+		exit();
+	   }
+    }
 	
 ?>
 <!DOCTYPE html>
@@ -213,7 +231,7 @@
 					
 					else if(usertype=="Firstuser"){
 						console.log("In first user");						
-						window.location.href = 'userprofile.php';
+						window.location.href = 'dashboard.php';
 					}
 						
 					//window.location.href = 'dashboard.php';

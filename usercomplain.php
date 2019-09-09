@@ -80,13 +80,7 @@
               <p>Dashboard</p>
             </a>
           </li>
-		  
-          <li class="nav-item ">
-            <a class="nav-link" href="./userprofile.php">
-              <i class="material-icons">person</i>
-              <p>My Profile</p>
-            </a>
-          </li>
+		 
 		  
           <li class="nav-item active">
             <a class="nav-link" href="./usercomplain.php?status=">

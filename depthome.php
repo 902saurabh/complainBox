@@ -1,5 +1,5 @@
 <?php
-  include("config/config.php");
+  include("checkuser.php");
 	
 	//dashboard of department
 	//$mysqli = new mysqli("localhost", "root", "", "complainbox");
@@ -571,7 +571,7 @@ echo'  </div>';
                   <div class="stats">
                   <div class="form-group">
                      
-                       <input type="number"  name="timer" class="form-control" style="">
+                       <input type="number"  name="timer" class="form-control" style="" value=0>
                     </div>
                    
                    
@@ -594,7 +594,7 @@ echo'  </div>';
                   <div class="stats">
                   <div class="form-group">
                      
-                       <input type="number" name="cost" class="form-control" >
+                       <input type="number" name="cost" class="form-control"  value=0>
                     </div>
                    
                    
@@ -1062,18 +1062,10 @@ margin-top: 34px;
 
       if (isset($_POST['forward_admin'])) {
 		  
-		    if(isset($_COOKIE['status'])){
-    $status=$_COOKIE['status'];
-  }else{
-    $status="Pending";
-  }
-  
-  
-  
-$query= mysqli_query($con,"UPDATE complain SET status='$status#' WHERE id='$id'");
 
    
   $remark = $_POST['remark'];
+  $remark=mysqli_real_escape_string($con,$remark);
 $sql7="INSERT INTO admincomplain (`ogid`, `remark`) values ($id,'".$remark."')";
 //echo $sql7;
   $query= mysqli_query($con,$sql7);

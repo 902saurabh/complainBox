@@ -1,6 +1,6 @@
 <?php
 	
-  include("config/config.php");
+  include("checkuser.php");
   //display form to generate password and username
   
   $sql = "SELECT * FROM user WHERE email='".$_SESSION['email']."';";

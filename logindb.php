@@ -1,13 +1,12 @@
 <?php
 	//verify and login user from database by providing id and password
-
   include("config/config.php");
 	
 	$name=$_POST["username"];
 	$pass=$_POST["password"];
 	
-	echo $name;
-	echo $pass;
+	//echo $name;
+	//echo $pass;
 	$sqlque="select * from user where username='$name' AND password='$pass'";
 
 	$res_u=mysqli_query($con,$sqlque);
@@ -25,27 +24,39 @@
 		$_SESSION['email'] = $row["email"];
 		$_SESSION['imgurl'] =$row["Imgurl"];
 		$type=$row["usertype"];
-		if($type=="Department")	{	
+		if($type=="Department")	{
+			$_SESSION['type']=$type;
 		    header('Location: depthome.php');
 			exit();
 		}
 		else if($type=="admin"){
+			
+			$_SESSION['type']=$type;
 		 header('Location: admindashboard.php');
 			  exit();
 		}
 		
 		else if($type=="Manager"){
+			
+			$_SESSION['type']=$type;
 		 header('Location: managerdashboard.php');
 			  exit();
 		}
 		else{
+			
+			$_SESSION['type']=$type;
 			  header('Location: dashboard.php');
 			  exit();
 		}
 	
 	}
 	else{
-		echo "Wrong id or password";
+		echo "<script>
+		alert('Wrong Username or Password') ;
+
+		window.location.href='./index.php';
+		
+		</script>";
 	}
 	
 	

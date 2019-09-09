@@ -3,7 +3,7 @@
 
     include("config/config.php");
 	
-	$deptn=$_GET['dept'].','.;
+	$deptn=$_GET['dept'].',';
 	$id=$_GET['id'];
 	
 	 $query= mysqli_query($con,"UPDATE complain SET Departmentname=concat( '$deptn',Departmentname)  WHERE id='$id'");

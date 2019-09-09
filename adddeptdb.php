@@ -1,7 +1,37 @@
 <?php
 	
   include("config/config.php");
-	//set  password and username for new user (first time user) to database
+if(!isset($_SESSION['name'])){
+   
+        header("Location: index.php");
+        exit();
+    }
+	else{
+		 $sql = "SELECT usertype FROM user WHERE email='".$_SESSION["email"]."'";
+    $res=mysqli_query($con,$sql);
+	$row=$res->fetch_assoc();
+	
+	if( $row['usertype']!='admin' )
+    {
+		if($row['usertype']=='User'){
+		header("Location: dashboard.php");
+        exit();
+		}
+		else if($row['usertype']=='Department'){
+		header("Location: depthome.php");
+        exit();
+		}
+		else if($row['usertype']=='Manager'){
+		header("Location: managerdashboard.php");
+        exit();
+			
+		}
+	
+	
+	}
+	}
+
+
 	
 	$name=$_POST["departmentname"];
 	$pass=$_POST["passwrd1"];
@@ -17,7 +47,7 @@
 	//echo mysqli_num_rows($res_u);
 	if (mysqli_num_rows($res_u) == 1) {
 
-				$sql="insert into department (dname,deptimg) values('$name','$dimg')";
+		$sql="insert into department (dname,deptimg) values('$name','$dimg')";
 		mysqli_query($con,$sql);
 		
 		$sql="update  user set name='$name',username='$name',email='$hmail',password='$pass',usertype='Department' where email='$hmail';";
