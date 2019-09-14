@@ -353,7 +353,7 @@ echo "<td class='";
            //display all department
 			while($row = mysqli_fetch_array($result)){ 
                                 
-                  $sql1 = "SELECT * FROM complain WHERE Departmentname='".$row['dname']."' ORDER BY id DESC ";
+                  $sql1 = "SELECT * FROM complain WHERE Departmentname like '%".$row['dname']."%' ORDER BY id DESC ";
                     $result1=mysqli_query($con,$sql1);
 					$uname=$row['dname'];/*
 					$pendingcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE Departmentname='".."' AND status='Pending'"));
@@ -364,11 +364,11 @@ echo "<td class='";
 					
 					//$totcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE Departmentname='".$uname."'"));
 	
-	$pendingcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE (status='Pending' OR status='Pending#' ) AND Departmentname='".$uname."'"));
+	$pendingcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE (status='Pending' OR status='Pending#' ) AND Departmentname like '%".$uname."%'"));
 					
-	$solvedcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE  (status='Resolved' OR status='Resolved#' ) AND Departmentname='".$uname."'"));
+	$solvedcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE  (status='Resolved' OR status='Resolved#' ) AND Departmentname like '%".$uname."%'"));
 					
-	$inprogresscomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#' ) AND Departmentname='".$uname."'"));
+	$inprogresscomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#' ) AND Departmentname like '%".$uname."%'"));
 					
 					
                echo  "<div class='tab-pane";

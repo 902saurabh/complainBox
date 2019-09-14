@@ -77,19 +77,28 @@
 		</li>
 		
 		
-         <li class="nav-item active ">
-            <a class="nav-link" href="#">
+         <li class="nav-item  ">
+            <a class="nav-link" href="./depthome.php">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-          
+     
           <li class="nav-item ">
-            <a class="nav-link" href="./usercomplain.php?status=">
+            <a class="nav-link" href="./deptstatuscomplain.php?status=">
               <i class="material-icons">content_paste</i>
-              <p>My Complains</p>
+              <p>View Complain</p>
             </a>
           </li>
+		
+		
+          <li class="nav-item active">
+            <a class="nav-link" href="./deptdocomplain.php">
+              <i class="material-icons">content_paste</i>
+              <p>Do Complain</p>
+            </a>
+          </li>
+		  
           <li class="nav-item ">
             <a class="nav-link" href="./logout.php">
               <i class="material-icons">arrow_back</i>
@@ -575,10 +584,7 @@ if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg
      $id=mysqli_insert_id($con);
 		
 		echo '<script>	swal("Your complain successfully submitted"); </script>';
- 
-		
-	//	echo '<script>	alert("Your complain successfully submitted"); </script>';
-     //unset($_COOKIE['building']);
+     unset($_COOKIE['building']);
 	 
 	 
 
@@ -592,6 +598,7 @@ if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg
 
       $var ='<script type="text/javascript">
 
+
         
       $.ajax({              
                 url:"complain_submit_ajax.php",
@@ -602,7 +609,7 @@ if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg
               
             }).done(function(data){
                 console.log(data);
-               // window.location.href = "complaindone.php";
+               // window.location.href = "dashboard.php";
 
             }).fail(function() { 
                 alert( "Something went wrong" );
@@ -616,17 +623,15 @@ if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg
 
               
             }).done(function(data){
-				
                 console.log(data);
-                window.location.href = "dashboard.php";
+               // window.location.href = "";
 
             }).fail(function() { 
                 alert( "something went wrong!" );
             });
-			
-			
           </script>';
-echo $var;
+
+         echo $var;
     }else{
      // $msg='<script>alert("Sorry, Something went wrong.")</script>';
       //echo $msg;

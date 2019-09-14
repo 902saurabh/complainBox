@@ -84,6 +84,14 @@
             </a>
           </li>
 		
+		
+          <li class="nav-item ">
+            <a class="nav-link" href="./deptdocomplain.php">
+              <i class="material-icons">content_paste</i>
+              <p>Do Complain</p>
+            </a>
+          </li>
+		  
           <li class="nav-item ">
             <a class="nav-link" href="./logout.php">
               <i class="material-icons">arrow_back</i>
