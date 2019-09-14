@@ -408,9 +408,121 @@
 
 
               <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
 
+                <div class="card card-stats">
+                <br>
+                <div class="card-header card-header-warning card-header-icon">
+                  
+                  <p class="card-category text-left text-primary">Assign to Department :</p>
+                  
+                </div>
+                <div class="card-footer" style="margin-top:0px;">
+                  <div class="stats">
+                    <div class="dropdown" >
+                      <a class="btn btn-primary btn-block dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        SELECT DEPARTMENT
+                      </a>
+            
+                      <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenuLink" >
+					  
+					  <?php
+					  
+					  $deptsql="SELECT * FROM complain WHERE id=$id";
+					  $resultdpt=mysqli_query($con,$deptsql);
+                      $rowdpt = mysqli_fetch_array($resultdpt);
+					  $compdept=$rowdpt['Departmentname'];
+					  
+					  
+							$sql = "SELECT * FROM department";
+						$result=mysqli_query($con,$sql);
+                        	
+							while($row = mysqli_fetch_array($result)){  
+							
+							
+								if(strpos($compdept,$row['dname'])!==false){
+									echo'';
+								}else{
+								echo'
+								
+								<a href="./forwarddept.php?dept='.$row['dname'].'&id='.$id.'">
+								<li class="dropdown-item forward_department" id="item'.$row['id'].'" name="'.$row['dname'].'" href="#">'.$row['dname'].'</li>
+								</a>
+								
+								
+								';}
+							
+							}
+					  ?>
+                      </ul>
+                    </div>
+                   
+                  </h4>
+                  </div>
+                </div>
+              </div>
 
-              <div class="col-lg-4 col-md-6 col-sm-6">
+                </div>
+                  
+        <div class="col-lg-6 col-md-6 col-sm-6">
+
+                <div class="card card-stats">
+                <br>
+                <div class="card-header card-header-warning card-header-icon">
+                  
+                  <p class="card-category text-left text-primary">Remove  Department :</p>
+                  
+                </div>
+                <div class="card-footer" style="margin-top:0px;">
+                  <div class="stats">
+                    <div class="dropdown" >
+                      <a class="btn btn-primary btn-block dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        SELECT DEPARTMENT
+                      </a>
+            
+                      <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenuLink" >
+					  
+					  <?php
+					  
+					  $deptsql="SELECT * FROM complain WHERE id=$id";
+					  $resultdpt=mysqli_query($con,$deptsql);
+                      $rowdpt = mysqli_fetch_array($resultdpt);
+					  $compdept=$rowdpt['Departmentname'];
+					  
+					  
+							$sql = "SELECT * FROM department";
+						$result=mysqli_query($con,$sql);
+                        	
+							while($row = mysqli_fetch_array($result)){  
+							
+							
+								if(strpos($compdept,$row['dname'])!==false){
+									echo'
+									
+								<a href="./removedeptcomp.php?dept='.$row['dname'].'&id='.$id.'">
+								<li class="dropdown-item forward_department" id="item'.$row['id'].'" name="'.$row['dname'].'" href="#">'.$row['dname'].'</li>
+								</a>
+									';
+								}else{
+								echo'
+								
+								
+								
+								';}
+							
+							}
+					  ?>
+                      </ul>
+                    </div>
+                   
+                  </h4>
+                  </div>
+                </div>
+              </div>
+
+                </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-6">
 
                 <div class="card card-stats">
                 <br>
@@ -441,7 +553,7 @@
                 </div>
 
 
-                <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
 
                 <div class="card card-stats" id="start">
                 <br>
@@ -489,119 +601,7 @@
 
 
                 </div>
-				              <div class="col-lg-4 col-md-6 col-sm-6">
-
-                <div class="card card-stats">
-                <br>
-                <div class="card-header card-header-warning card-header-icon">
-                  
-                  <p class="card-category text-left text-primary">Assign to Department :</p>
-                  
-                </div>
-                <div class="card-footer" style="margin-top:0px;">
-                  <div class="stats">
-                    <div class="dropdown" >
-                      <a class="btn btn-primary btn-block dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        SELECT Dept
-                      </a>
-            
-                      <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenuLink" >
-					  
-					  <?php
-					  
-					  $deptsql="SELECT * FROM complain WHERE id=$id";
-					  $resultdpt=mysqli_query($con,$deptsql);
-                      $rowdpt = mysqli_fetch_array($resultdpt);
-					  $compdept=$rowdpt['Departmentname'];
-					  
-					  
-							$sql = "SELECT * FROM department";
-						$result=mysqli_query($con,$sql);
-                        	
-							while($row = mysqli_fetch_array($result)){  
-							
-							
-								if(strpos($compdept,$row['dname'])!==false){
-									echo'';
-								}else{
-								echo'
-								
-								<a href="./forwarddept.php?dept='.$row['dname'].'&id='.$id.'">
-								<li class="dropdown-item forward_department" id="item'.$row['id'].'" name="'.$row['dname'].'" href="#">'.$row['dname'].'</li>
-								</a>
-								
-								
-								';}
-							
-							}
-					  ?>
-                      </ul>
-                    </div>
-                   
-                  </h4>
-                  </div>
-                </div>
-              </div>
-
-                </div>
-                  
-        <div class="col-lg-4 col-md-6 col-sm-6">
-
-                <div class="card card-stats">
-                <br>
-                <div class="card-header card-header-warning card-header-icon">
-                  
-                  <p class="card-category text-left text-primary">REMOVE  Department :</p>
-                  
-                </div>
-                <div class="card-footer" style="margin-top:0px;">
-                  <div class="stats">
-                    <div class="dropdown" >
-                      <a class="btn btn-primary btn-block dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        SELECT DEPT
-                      </a>
-            
-                      <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenuLink" >
-					  
-					  <?php
-					  
-					  $deptsql="SELECT * FROM complain WHERE id=$id";
-					  $resultdpt=mysqli_query($con,$deptsql);
-                      $rowdpt = mysqli_fetch_array($resultdpt);
-					  $compdept=$rowdpt['Departmentname'];
-					  
-					  
-							$sql = "SELECT * FROM department";
-						$result=mysqli_query($con,$sql);
-                        	
-							while($row = mysqli_fetch_array($result)){  
-							
-							
-								if(strpos($compdept,$row['dname'])!==false){
-									echo'
-									
-								<a href="./removedeptcomp.php?dept='.$row['dname'].'&id='.$id.'">
-								<li class="dropdown-item forward_department" id="item123'.$row['id'].'" name="'.$row['dname'].'" href="#">'.$row['dname'].'</li>
-								</a>
-									';
-								}else{
-								echo'
-								
-								
-								
-								';}
-							
-							}
-					  ?>
-                      </ul>
-                    </div>
-                   
-                  </h4>
-                  </div>
-                </div>
-              </div>
-
-                </div>
+				
 </div>
 
 <!--
