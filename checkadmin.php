@@ -23,6 +23,9 @@
 		header("Location: managerdashboard.php");
         exit();	
 			
+		}else{
+				header("Location: index.php");
+        exit();	
 		}
 	}
 	

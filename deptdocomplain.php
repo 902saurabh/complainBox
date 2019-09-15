@@ -44,7 +44,7 @@
 </head>
 
 <body class="">
-  <div class="wrapper ">
+  <div class="wrapper " id="completebody">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar.jpg">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -98,7 +98,12 @@
               <p>Do Complain</p>
             </a>
           </li>
-		  
+		      <li class="nav-item ">
+            <a class="nav-link" href="./deptpass.php">
+              <i class="material-icons">person</i>
+              <p>My Profile</p>
+            </a>
+          </li>
           <li class="nav-item ">
             <a class="nav-link" href="./logout.php">
               <i class="material-icons">arrow_back</i>
@@ -151,7 +156,7 @@
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-				  <a href="./usercomplain.php?status=">View Details</a>
+				  <a href="./deptviewowncomp.php?status=">View Details</a>
 
                   </div>
                 </div>
@@ -168,7 +173,7 @@
                   <h3 class="card-title"><?php echo $totpendingcomp?></h3>
                 </div>
                 <div class="card-footer">
-                  <div class="stats"><a href="./usercomplain.php?status=Pending">View Details</a>
+                  <div class="stats"><a href="./deptviewowncomp.php?status=Pending">View Details</a>
               </div>
                 </div>
               </div>
@@ -183,7 +188,7 @@
                   <h3 class="card-title"><?php echo $totinprogresscomp?></h3>
                 </div>
                 <div class="card-footer">
-                  <div class="stats"> <a href="./usercomplain.php?status=In-Progress">View Details</a>
+                  <div class="stats"> <a href="./deptviewowncomp.php?status=In-Progress">View Details</a>
             </div>
                 </div>
               </div>
@@ -199,7 +204,7 @@
                   <h3 class="card-title"><?php echo $totsolvedcomp?></h3>
                 </div>
                 <div class="card-footer">
-                  <div class="stats"><a href="./usercomplain.php?status=Solved">View Details</a>
+                  <div class="stats"><a href="./deptviewowncomp.php?status=Solved">View Details</a>
                  </div>
                 </div>
               </div>
@@ -578,13 +583,81 @@ if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg
 
       $datetime = date("Y-m-d H:i:s");
 	//    $datetime = date('m/d/Y H:i:s ', time());
+echo '
+<style>
+/* Center the loader */
 
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid blue;
+  border-right: 16px solid green;
+  border-bottom: 16px solid red;
+  border-left: 16px solid pink;
+  
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: center;
+}
+</style>
+<script>
+document.getElementById("completebody").style.display = "none";
+</script>
+<h4>Processing please wait...</h4>
+<div id="loader">
+
+</div>
+
+
+
+';
       mysqli_query($con,"INSERT into complain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate) values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime')");
 
      $id=mysqli_insert_id($con);
 		
-		echo '<script>	swal("Your complain successfully submitted"); </script>';
-     unset($_COOKIE['building']);
+		unset($_COOKIE['building']);
 	 
 	 
 
@@ -624,7 +697,10 @@ if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg
               
             }).done(function(data){
                 console.log(data);
-               // window.location.href = "";
+document.getElementById("loader").style.display = "none";
+  document.getElementById("completebody").style.display = "block";
+				swal("Your complain successfully submitted");								  
+                window.location.href = "./depthome.php";
 
             }).fail(function() { 
                 alert( "something went wrong!" );

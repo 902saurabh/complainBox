@@ -226,7 +226,9 @@
                         <th>
                           Status
                         </th>
-						
+						 <th>
+                         Cancel 
+                        </th>
 						
 						
 					
@@ -267,6 +269,30 @@
 		}
 		
 		echo "</td>"; 
+ $start_date = new DateTime($row['complaindate']);
+   $new = date("Y-m-d H:i:s");
+    $since_start = $start_date->diff(new DateTime($new));
+
+
+
+$minutes = $since_start->days * 24 * 60;
+$minutes += $since_start->h * 60;
+$minutes += $since_start->i;
+//secho $minutes.' minutes';
+
+  if($minutes<=5){
+
+   /*echo '<td>
+   <from action="delete_complain.php?id='.$row['id'].'" method="POST">
+   <input type="submit" class="btn btn-danger" id="cancel_button" name="'.$row['id'].'" value="Cancel">
+   </form></td>';*/
+
+   echo '<td><a type="button" class="btn btn-danger" name="'.$row['id'].'" href="delete_complain.php?id='.$row['id'].'" onClick="return confirm('."'are you sure you want to cancel the complain?\'".');">Cancel</a></td>';
+  }else{
+  
+    echo '<td><button type="button" class="btn btn-danger" id="cancel_button" disabled>Cancel</button></td>';
+
+  }							  
 		  }
 					
                      echo '</tbody>
@@ -1111,6 +1137,35 @@ $sql7="INSERT INTO admincomplain (`ogid`, `remark`) values ($id,'".$remark."')";
     
 
   <script>
+
+    function cancelButton(event){
+
+      alert("v");
+       // var building = document.getElementById('building');
+       // var location = document.getElementById('location');
+       // var msg = document.getElementById('complain_message');
+        var id= event.target.name;
+
+       document.cookie = "cancelID="+id;
+       window.open("usercomplain.php","_self");
+    }
+
+
+
+
+
+    
+
+
+
+    function takeAction(event){
+       // var building = document.getElementById('building');
+       // var location = document.getElementById('location');
+       // var msg = document.getElementById('complain_message');
+        var id= event.target.name;
+
+        window.open("depthome.php?id="+id,"_self");
+    }
 
   $("li").click(function(){
     

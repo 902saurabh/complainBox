@@ -19,7 +19,7 @@
 	if (mysqli_num_rows($res_u) == 1) 
 	{
 	//	echo "updating..";
-		$sql="Update user SET   password='$pass' WHERE email='$mail';";
+		$sql="Update user SET   password='$pass' WHERE email like '%$mail%';";
 		mysqli_query($con,$sql);
 	
 	header('Location: admindashboard.php');

@@ -86,7 +86,12 @@
               <p>Do Complain</p>
             </a>
           </li>
-		
+		    <li class="nav-item ">
+            <a class="nav-link" href="./deptpass.php">
+              <i class="material-icons">person</i>
+              <p>My Profile</p>
+            </a>
+          </li>
           <li class="nav-item ">
             <a class="nav-link" href="./logout.php">
               <i class="material-icons">arrow_back</i>
