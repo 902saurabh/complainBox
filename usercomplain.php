@@ -287,7 +287,7 @@ $minutes += $since_start->i;
    <input type="submit" class="btn btn-danger" id="cancel_button" name="'.$row['id'].'" value="Cancel">
    </form></td>';*/
 
-   echo '<td><a type="button" class="btn btn-danger" name="'.$row['id'].'" href="delete_complain.php?id='.$row['id'].'" onClick="return confirm('."'are you sure you want to cancel the complain?\'".');">Cancel</a></td>';
+   echo '<td><a type="button" class="btn btn-danger" name="'.$row['id'].'" href="delete_complain.php?id='.$row['id'].'" onClick="return confirm('."'are you sure you want to cancel the complain?'".');">Cancel</a></td>';
   }else{
   
     echo '<td><button type="button" class="btn btn-danger" id="cancel_button" disabled>Cancel</button></td>';
