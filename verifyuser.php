@@ -8,10 +8,9 @@ if(isset($_POST["id"])){
 	$_SESSION["email"] = $_POST["email"];
 	$_SESSION["imgurl"] = $_POST["imgurl"];	
 
-	$sql = "SELECT usertype FROM user WHERE email='".$_POST["email"]."'";
-	$res=$res_u=mysqli_query($con,$sql);
+	$sql = "SELECT usertype FROM user WHERE email like '%".$_POST["email"]."%'";
+	$res=mysqli_query($con,$sql);
 	$row=$res->fetch_assoc();
-	
 	$result = $con->query($sql);
 		if($row["usertype"]=="admin")
 	{	

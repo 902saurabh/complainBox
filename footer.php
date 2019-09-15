@@ -1,9 +1,9 @@
  <footer class="footer footer-default">
     <div class="container">
-      <nav class="float-left">
+     <!-- <nav class="float-left">
         <ul>
           <li>
-            <a href="#">
+            <a >
              Complain Box
             </a>
           </li>
@@ -23,13 +23,14 @@
             </a>
           </li>
         </ul>
-      </nav>
+      </nav>-->
       <div class="copyright float-right">
         &copy;
         <script>
           document.write(new Date().getFullYear()+" KJSCE, All Rights Reserved.") ; 
-        </script> Made with <i class="material-icons">favorite</i> by
-        <a href="https://www.somaiya.edu/" target="_blank">Somaiya</a>.
+        </script> 
+		Made by
+        <a href="https://kjsce.somaiya.edu/kjsce" target="_blank">KJSCE Somaiya</a>.
       </div>
     </div>
   </footer>

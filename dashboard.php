@@ -43,8 +43,8 @@
 
 </head>
 
-<body class="">
-  <div class="wrapper ">
+<body >
+  <div class="wrapper" id="completebody">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar.jpg">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -569,13 +569,81 @@ if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg
 
       $datetime = date("Y-m-d H:i:s");
 	//    $datetime = date('m/d/Y H:i:s ', time());
+echo '
+<style>
+/* Center the loader */
 
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid blue;
+  border-right: 16px solid green;
+  border-bottom: 16px solid red;
+  border-left: 16px solid pink;
+  
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#myDiv {
+  display: none;
+  text-align: center;
+}
+</style>
+<script>
+document.getElementById("completebody").style.display = "none";
+</script>
+<h4>Processing please wait...</h4>
+<div id="loader">
+
+</div>
+
+
+
+';
       mysqli_query($con,"INSERT into complain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate) values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime')");
 
      $id=mysqli_insert_id($con);
 		
-		echo '<script>	swal("Your complain successfully submitted"); </script>';
- 
+		
 		
 	//	echo '<script>	alert("Your complain successfully submitted"); </script>';
      //unset($_COOKIE['building']);
@@ -618,6 +686,9 @@ if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg
             }).done(function(data){
 				
                 console.log(data);
+ document.getElementById("loader").style.display = "none";
+  document.getElementById("completebody").style.display = "block";
+				swal("Your complain successfully submitted");
                 window.location.href = "dashboard.php";
 
             }).fail(function() { 
@@ -627,6 +698,8 @@ if($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg
 			
           </script>';
 echo $var;
+
+
     }else{
      // $msg='<script>alert("Sorry, Something went wrong.")</script>';
       //echo $msg;
@@ -655,14 +728,7 @@ echo $var;
   
   });
 </script>
-<?php  
-if(isset($_COOKIE['building'])){
-  echo' var se = document.getElementById("dropdownMenuLink");
-    se.innerHTML = $(this).text();
-     document.cookie = "building=" + $(this).text(); ';
-}
 
-?> 
 
 </body>
 </html>

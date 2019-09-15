@@ -2,7 +2,7 @@
 	session_start();
 	//dashboard of department
 	$mysqli = new mysqli("localhost", "root", "", "complainbox");
-	$sql = "SELECT name FROM user WHERE email='".$_SESSION["email"]."'";
+	$sql = "SELECT name FROM user WHERE email like '%".$_SESSION["email"]."%'";
 	$res=$res_u=mysqli_query($mysqli,$sql);
 	$row=$res->fetch_assoc();
 	$uname=$row["name"];//set name to department name instead of gmail account name
