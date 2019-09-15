@@ -401,16 +401,11 @@ $html .= '</tbody></table><br>
     </table>
     <hr>';
 }
-
-
   //echo $row['id']."<br>";
   //$html="xfnblkndf";
 $dname= date("d-m-Y H:i:s");
 $download = "complain(".$dname.").pdf";
 $mpdf = new \Mpdf\Mpdf();
-$currentTime = date("d-m-Y H:i:s");
- $mpdf->SetFooter($currentTime);
-//$mpdf->SetFooter('Document Title');
 $mpdf->WriteHTML($html);
 $pdf = $mpdf->Output('','S');
 $mpdf->Output($download,'D');

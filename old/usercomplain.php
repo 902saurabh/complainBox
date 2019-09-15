@@ -1,26 +1,27 @@
 <?php
-  include("checkuser.php");
- use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-// Load Composer's autoloader
-require 'vendor/autoload.php'	;				  
-
+  include("config/config.php");
+	
 	//dashboard of department
 	//$mysqli = new mysqli("localhost", "root", "", "complainbox");
-	$sql = "SELECT name FROM user WHERE email like '%".$_SESSION["email"]."%'";
-	$res=$res_u=mysqli_query($con,$sql);
-	$row=$res->fetch_assoc();
-	$uname=$row["name"];//set name to department name instead of gmail account name
-	$_SESSION["name"] =$uname;
+
+  if(isset($_SESSION['name'])){
+    $name = $_SESSION['name'];
+    $email = $_SESSION['email'];
+    $img   = $_SESSION['imgurl'];
+  }
+  else{
+	header("Location: index.php");
+	exit();
+  }
+
+ 	$totcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE complainantmail='".$email."'"));
 	
- 	$totcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE Departmentname like'%".$uname."%'"));
-	
-	$totpendingcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE (status='Pending' OR status='Pending#' ) AND Departmentname like'%".$uname."%'"));
+	$totpendingcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE (status='Pending' OR status='Pending#') AND complainantmail='".$email."'"));
 					
-	$totsolvedcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE  (status='Resolved' OR status='Resolved#' ) AND Departmentname like'%".$uname."%'"));
+	$totsolvedcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE  (status='Resolved' OR status='Resolved#')  AND complainantmail='".$email."'"));
 					
-	$totinprogresscomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#' ) AND Departmentname like'%".$uname."%'"));
+	$totinprogresscomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#') AND complainantmail='".$email."'"));
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,12 +29,11 @@ require 'vendor/autoload.php'	;
 <head>
  
 
-
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>Dashboard | Complain Box </title>
+  <title>Complain | Complain Box </title>
    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -51,7 +51,7 @@ require 'vendor/autoload.php'	;
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
-        <a  class="simple-text logo-normal">
+        <a href="#" class="simple-text logo-normal">
           Complain Box
         </a>
       </div>
@@ -60,46 +60,32 @@ require 'vendor/autoload.php'	;
       <div class="sidebar-wrapper">
         <ul class="nav">
 
-		<li class="nav-item">
+			<li class="nav-item">
 			<br/>
 			<div class="card-profile">
                 <div class="card-avatar">
-                
                     <img class="img" src="<?php  echo $_SESSION['imgurl'];  ?>" />
-                
                 </div>
-	               <div class="card-body">
-                  <h5 class="card-title">	<?php echo $_SESSION['name'];  ?></h5>
-                 
-                </div>
+					<div class="card-body">
+						<h5 class="card-title">	<?php echo $_SESSION['name'];  ?></h5>
+					</div>
+
+			</div>
 		</li>
 		
 		
-         <li class="nav-item active ">
-            <a class="nav-link">
+         <li class="nav-item  ">
+            <a class="nav-link" href="./dashboard.php">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-     
-          <li class="nav-item ">
-            <a class="nav-link" href="./deptstatuscomplain.php?status=">
+		 
+		  
+          <li class="nav-item active">
+            <a class="nav-link" href="./usercomplain.php?status=">
               <i class="material-icons">content_paste</i>
-              <p>View Complain</p>
-            </a>
-          </li>
-		
-		
-          <li class="nav-item ">
-            <a class="nav-link" href="./deptdocomplain.php">
-              <i class="material-icons">content_paste</i>
-              <p>Do Complain</p>
-            </a>
-          </li>
-		     <li class="nav-item ">
-            <a class="nav-link" href="./deptpass.php">
-              <i class="material-icons">person</i>
-              <p>My Profile</p>
+              <p>My Complains</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -117,7 +103,7 @@ require 'vendor/autoload.php'	;
           <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#"><b>Dashboard</b></a>
+            <a class="navbar-brand" href="#"><b>Complains</b></a>
           </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -141,16 +127,16 @@ require 'vendor/autoload.php'	;
 		  <div class="col-md-12">
               <div class="card card-plain">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title mt-0"><b>Complains Status</b></h4>
+                  <h4 class="card-title mt-0"><b>Complain Status</b></h4>
                 </div>
                 </div>
                 </div>
 </div>            
 			<br/>
 		         <div class="row">
-           <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
-                <div class="card-header card-header-primary card-header-icon">
+                <div class="card-header card-header-danger card-header-icon">
                   <div class="card-icon">
                     <i class="material-icons">format_list_bulleted</i>
                   </div>
@@ -159,9 +145,7 @@ require 'vendor/autoload.php'	;
                   </h3>
                 </div>
                 <div class="card-footer">
-                  <div class="stats">
-				  
-                    <i class="material-icons">content_paste</i><a href="./deptstatuscomplain.php?status=">View Details</a>
+                  <div class="stats"><a href="./usercomplain.php?status=">View Details</a>
 
                   </div>
                 </div>
@@ -178,8 +162,7 @@ require 'vendor/autoload.php'	;
                   <h3 class="card-title">'.$totpendingcomp.'</h3>
                 </div>
                 <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">error_outline</i><a href="./deptstatuscomplain.php?status=Pending">View Details</a>
+                  <div class="stats"><a href="./usercomplain.php?status=Pending">View Details</a>
                   </div>
                 </div>
               </div>
@@ -195,7 +178,7 @@ require 'vendor/autoload.php'	;
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">refresh</i><a href="./deptstatuscomplain.php?status=In-Progress">View Details</a>
+				  <a href="./usercomplain.php?status=In-Progress">View Details</a>
                   </div>
                 </div>
               </div>
@@ -211,8 +194,7 @@ require 'vendor/autoload.php'	;
                   <h3 class="card-title">'.$totsolvedcomp.'</h3>
                 </div>
                 <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">check</i><a href="./deptstatuscomplain.php?status=Solved">View Details</a>
+                  <div class="stats"><a href="./usercomplain.php?status=Solved">View Details</a>
                   </div>
                 </div>
               </div>
@@ -223,8 +205,8 @@ require 'vendor/autoload.php'	;
 			
 				<div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title ">List of Complains</h4>
+                <div class="card-header card-header-primary" style="margin:0;">
+                  <h4 class="card-title ">'.$_GET['status'].' Complains</h4>
                   <p class="card-category">  </p>
                 </div>
                 <div class="card-body">
@@ -234,11 +216,7 @@ require 'vendor/autoload.php'	;
                         <th>
                           ID
                         </th>
-						
                         <th>
-                          Dept
-                        </th>
-						<th>
                           Detail
                         </th>
                        
@@ -248,21 +226,22 @@ require 'vendor/autoload.php'	;
                         <th>
                           Status
                         </th>
-						
-						<th>
-                          Action
+						 <th>
+                         Cancel 
                         </th>
+						
+						
+					
                       </thead>
                       <tbody>';
 					   
 
 
-						$sql = "SELECT * FROM complain WHERE Departmentname like'%".$_SESSION['name']."%' ORDER BY id DESC";
+						$sql = "SELECT * FROM complain WHERE  status like '%".$_GET['status']."%' AND complainantmail='".$_SESSION['email']."' ORDER BY id DESC";
 						$result=mysqli_query($con,$sql);
             while($row = mysqli_fetch_array($result)){  
 	//Creates a loop to dipslay all complain
 		echo "<tr><td>".$row['id']."</td>";
-		echo "<td>".$row['Departmentname']."</td>";
 	if(strlen($row['description'])>50)
 							{
 								echo "<td >".substr($row['description'],0,50) ." ...</td>";
@@ -282,11 +261,39 @@ require 'vendor/autoload.php'	;
 			echo 'text-warning';	
 		}
 		else if($row['status']=='Resolved'||$row['status']=='Resolved#'){
-			echo 'text-success';
+			echo 'text-success';		
 		}
-		echo "'  style='    font-weight: 500;'>".$row['status']."</td>"; 
-		echo '<td><button type="button" class="btn btn-primary" name="'.$row['id'].'" onclick="takeAction(event)">Take Action</button></td></tr>'; 
-	   }
+		echo "'  style='    font-weight: 500;'>".$row['status'];
+		 if($row['status']=='In-Progress'||$row['status']=='In-Progress#'){
+			//echo " (" .$row['time_constraint']. ")";	
+		}
+		
+		echo "</td>"; 
+ $start_date = new DateTime($row['complaindate']);
+   $new = date("Y-m-d H:i:s");
+    $since_start = $start_date->diff(new DateTime($new));
+
+
+
+$minutes = $since_start->days * 24 * 60;
+$minutes += $since_start->h * 60;
+$minutes += $since_start->i;
+//secho $minutes.' minutes';
+
+  if($minutes<=5){
+
+   /*echo '<td>
+   <from action="delete_complain.php?id='.$row['id'].'" method="POST">
+   <input type="submit" class="btn btn-danger" id="cancel_button" name="'.$row['id'].'" value="Cancel">
+   </form></td>';*/
+
+   echo '<td><a type="button" class="btn btn-danger" name="'.$row['id'].'" href="delete_complain.php?id='.$row['id'].'" onClick="return confirm('."'are you sure you want to cancel the complain?\'".');">Cancel</a></td>';
+  }else{
+  
+    echo '<td><button type="button" class="btn btn-danger" id="cancel_button" disabled>Cancel</button></td>';
+
+  }							  
+		  }
 					
                      echo '</tbody>
                     </table>
@@ -366,7 +373,7 @@ echo'  </div>';
               
       <div class="col-md-8 offset-md-2">
               <div class="card" id="dept_card">
-                <div class="card-header card-header-primary" style="margin:0">
+                <div class="card-header card-header-primary">
                   <h4 class="card-title" id="complain_card">Complain Id : '.$id.'</h4>
                   <!--
                   <p class="card-category">Complain By '.$cname.'</p>
@@ -589,7 +596,7 @@ echo'  </div>';
                   <div class="stats">
                   <div class="form-group">
                      
-                       <input type="number"  name="timer" class="form-control" style="" value=0>
+                       <input type="number"  name="timer" class="form-control" style="">
                     </div>
                    
                    
@@ -612,7 +619,7 @@ echo'  </div>';
                   <div class="stats">
                   <div class="form-group">
                      
-                       <input type="number" name="cost" class="form-control"  value=0>
+                       <input type="number" name="cost" class="form-control" >
                     </div>
                    
                    
@@ -631,13 +638,13 @@ echo'  </div>';
                 <div class="card-header card-header-warning card-header-icon">
                   
                   <p class="card-category text-left text-primary">Unable To Resolve:</p>
-                    <input type="text"  name="remark" class="form-control" id="complainRemark" placeholder="Enter remark" onkeyup="stoppedTyping()">
+                    <input type="text"  name="remark" class="form-control" placeholder="Enter remark">
                     
                 </div>
                 <div class="card-footer" style="margin-top: 0px;">
                   <div class="stats" style="word-break: break-word">
 					
-                     <input type="submit" class="btn btn-primary btn-block"  id="forwardComplain" name="forward_admin"  value="Forward Admin" onClick="return confirm('."'Are you sure you want to forward the complain?'".');" disabled>
+                     <input type="submit" class="btn btn-primary btn-block"  name="forward_admin"  value="Forward Admin">
                   
                   </div>
                 </div>
@@ -743,97 +750,7 @@ if(isset($_POST['reg_complain'])){
 //echo $sql7;
   $query= mysqli_query($con,"UPDATE complain SET status='$status' , time_constraint='$timer' , cost='$cost' WHERE id='$id'");
 
-if($_COOKIE['status']=="Resolved"){
-  
-
-  $query = mysqli_query($con,"SELECT * FROM complain WHERE id='$id'");
-  $row   = mysqli_fetch_array($query);
-
-$body = $row['description'];
-$file_path=$row['complainimg'];
-$mail_to = $row['complainantmail'];
-$department = $row['Departmentname'];
-$sender     = $row['complainant'];
-$sender_mail=$row['complainantmail'];
-$building   = $row['building'];
-$location   = $row['location'];
-
-
-$msg = "<strong>department:</strong> ".$department."<br>
-<strong>Building:</strong> ".$building."<br>
-<strong>Location:</strong> ".$location."<br>
-<strong>Description:</strong> ".$body."<br><br>
-<strong>YOUR COMPLAIN HAS BEEN RESOLVED</strong>";
-//$department= $_POST['department'];
-//$location = $_POST['location'];
-//$building = $_POST['building'];
-
-//$query = mysqli_query($con,"INSERT into complain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location) values('$body','$file_path','$department','pending','$name','$email','$building','$location')");
-//echo '<script>  swal("Your complain successfully submitted"); </script>';
-
-//echo '"<script>".$body.'"
-  //      </script>"';
-
-//"body='.$body.'&attachment='.$file_path.'&deptmail='.$dptmail.'&department='.$department.'&location='.$location.'&building="+build,
-
-// Import PHPMailer classes into the global namespace
-// These must be at the top of your script, not inside a function
-
-// Instantiation and passing `true` enables exceptions
-$mail = new PHPMailer(true);
-
-try {
-    //Server settings
-    $mail->SMTPDebug = 1;                                       // Enable verbose debug output
-    $mail->isSMTP();                                            // Set mailer to use SMTP
-    $mail->Host       = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'saurabhkumar.t@somaiya.edu';                     // SMTP username
-    $mail->Password   = 'saurabh@807';                               // SMTP password
-    $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-    $mail->Port       = 587;                                    // TCP port to connect to
-
-    //Recipients
-    $mail->setFrom('saurabhkumar.t@somaiya.edu');
-     $mail->addAddress("9833saurabhtiwari@gmail.com");
-    $mail->addAddress($mail_to);     // Add a recipient
    
-    // Attachments
-    $mail->addAttachment($file_path);         // Add attachments
-    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-
-    // Content
-    //$var=$_POST['body'];
-    //$var='Test';//$_POST['body'];
-    $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'New Complain';
-    $mail->Body    = $msg;
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-    $mail->send();
-    echo 'Message has been sent';
-} catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  }
  header("Location:depthome.php");
 
   }
@@ -1170,10 +1087,16 @@ margin-top: 34px;
 
       if (isset($_POST['forward_admin'])) {
 		  
+		    if(isset($_COOKIE['status'])){
+    $status=$_COOKIE['status'];
+  }else{
+    $status="Pending";
+  }
+  
+$query= mysqli_query($con,"UPDATE complain SET status='$status#' WHERE id='$id'");
 
    
   $remark = $_POST['remark'];
-  $remark=mysqli_real_escape_string($con,$remark);
 $sql7="INSERT INTO admincomplain (`ogid`, `remark`) values ($id,'".$remark."')";
 //echo $sql7;
   $query= mysqli_query($con,$sql7);
@@ -1215,6 +1138,35 @@ $sql7="INSERT INTO admincomplain (`ogid`, `remark`) values ($id,'".$remark."')";
 
   <script>
 
+    function cancelButton(event){
+
+      alert("v");
+       // var building = document.getElementById('building');
+       // var location = document.getElementById('location');
+       // var msg = document.getElementById('complain_message');
+        var id= event.target.name;
+
+       document.cookie = "cancelID="+id;
+       window.open("usercomplain.php","_self");
+    }
+
+
+
+
+
+    
+
+
+
+    function takeAction(event){
+       // var building = document.getElementById('building');
+       // var location = document.getElementById('location');
+       // var msg = document.getElementById('complain_message');
+        var id= event.target.name;
+
+        window.open("depthome.php?id="+id,"_self");
+    }
+
   $("li").click(function(){
     
     var val=$(this).text();
@@ -1243,47 +1195,9 @@ $sql7="INSERT INTO admincomplain (`ogid`, `remark`) values ($id,'".$remark."')";
 */
 
     });
-
-
-
-
-
   
   
 </script>
-
-
-
-<script type="text/javascript">
-
-
-
-
-
-
-
-
-
-
-    function stoppedTyping(){
-      var t = document.getElementById('complainRemark');
-        if(t.value.length > 0) { 
-            document.getElementById('forwardComplain').disabled = false; 
-        } else { 
-            document.getElementById('forwardComplain').disabled = true;
-        }
-    }
-    function verify(){
-       /* if  is empty{
-            alert "Put some text in there!"
-            return
-        }
-        else{
-            do button functionality
-        }
-    */}
-</script>
-
 
 
 

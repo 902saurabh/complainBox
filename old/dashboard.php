@@ -267,15 +267,8 @@
                   <form action="" enctype="multipart/form-data" style="margin-top: -40px;" method="POST">
 					<br/>
 					<br/>
-					
-          <div class="row">
-                <div class="col">
-             <!--   <label for="dropCompulsion" style="margin-bottom: 5px">Location:</label> -->
-              <input type="text" class="form-control"  id="dropCompulsion" placeholder="Choose Building" spellcheck="false" name="buildingOption" required/>
-            </div>
-                  <div class="col col-lg-3">
-                    <div class="dropdown" required>		  
-                        <a class="btn btn-primary dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Options</a>
+                    <div class="dropdown">
+                      <a class="btn btn-primary dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choose Building</a>
 
                       <ul class="dropdown-menu" style="cursor:pointer;" aria-labelledby="dropdownMenuLink" name="ul" required>
                         <li class="dropdown-item" id="item1" value="j" href="#">KJ SOMAIYA SCIENCE AND COMMERCE BUILDING</li>
@@ -283,11 +276,8 @@
                         <li class="dropdown-item" id="item3" href="#">BHASKARACHARYA</li>
                       </ul>
                     </div>
-				</div>
-
-                  </div>
-                    <div class="form-group" style="margin-top: 25px;">
-                      <label for="exampleFormControlInput1" style="margin-bottom: 5px; color: #9128ac">Location:</label>
+                    <div class="form-group" style="margin-top: 35px;">
+                      <label for="exampleFormControlInput1" style="margin-bottom: 5px">Location:</label>
 					  
                       <input type="text" class="form-control" id="exampleFormControlInput1" name="location" placeholder="Eg: Room no,Lab name,Campus area..." required>
                     </div>
@@ -297,7 +287,10 @@
 						
 						
                             <label class="bmd-label-floating"> Describe your complain</label>
-						 <textarea class="form-control" name="complain_body" rows="5" required></textarea>
+						 <textarea class="form-control" name="complain_body" rows="5" required>
+						 
+						 
+						 </textarea>
 						
                       </div>
 
@@ -475,13 +468,12 @@ include("footer.php");
     }
   </script>';*/
   $location = $_POST['location'];
- $building = $_POST['buildingOption'];									   
-/*  if (isset($_COOKIE['building'])) {
+  if (isset($_COOKIE['building'])) {
     $building = $_COOKIE['building'];
   }else{
     $building='none';
   }
-  */  
+  
 
   $complain_body = $_POST['complain_body'];
 
@@ -726,13 +718,10 @@ echo $var;
 <!--/form-->
 
 <script >
-  $(".dropdown-item").click(function(){
+  $("li").click(function(){
 
-   /* var se = document.getElementById('dropdownMenuLink');
-    se.innerHTML = $(this).text();*/
-    var se = document.getElementById('dropCompulsion');
-    se.value = $(this).text();
-
+    var se = document.getElementById('dropdownMenuLink');
+    se.innerHTML = $(this).text();
      document.cookie = "building=" + $(this).text(); 
    // $("#dropdownMenuLink").innerHTML=$(this).text();
    // build = $(this).text();

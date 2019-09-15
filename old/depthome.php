@@ -631,13 +631,13 @@ echo'  </div>';
                 <div class="card-header card-header-warning card-header-icon">
                   
                   <p class="card-category text-left text-primary">Unable To Resolve:</p>
-                    <input type="text"  name="remark" class="form-control" id="complainRemark" placeholder="Enter remark" onkeyup="stoppedTyping()">
+                    <input type="text"  name="remark" class="form-control" placeholder="Enter remark">
                     
                 </div>
                 <div class="card-footer" style="margin-top: 0px;">
                   <div class="stats" style="word-break: break-word">
 					
-                     <input type="submit" class="btn btn-primary btn-block"  id="forwardComplain" name="forward_admin"  value="Forward Admin" onClick="return confirm('."'Are you sure you want to forward the complain?'".');" disabled>
+                     <input type="submit" class="btn btn-primary btn-block"  name="forward_admin"  value="Forward Admin">
                   
                   </div>
                 </div>
@@ -1243,47 +1243,9 @@ $sql7="INSERT INTO admincomplain (`ogid`, `remark`) values ($id,'".$remark."')";
 */
 
     });
-
-
-
-
-
   
   
 </script>
-
-
-
-<script type="text/javascript">
-
-
-
-
-
-
-
-
-
-
-    function stoppedTyping(){
-      var t = document.getElementById('complainRemark');
-        if(t.value.length > 0) { 
-            document.getElementById('forwardComplain').disabled = false; 
-        } else { 
-            document.getElementById('forwardComplain').disabled = true;
-        }
-    }
-    function verify(){
-       /* if  is empty{
-            alert "Put some text in there!"
-            return
-        }
-        else{
-            do button functionality
-        }
-    */}
-</script>
-
 
 
 
