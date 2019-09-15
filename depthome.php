@@ -806,7 +806,7 @@ try {
     //$var=$_POST['body'];
     //$var='Test';//$_POST['body'];
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'New Complain';
+    $mail->Subject = 'Complain Resolved';
     $mail->Body    = $msg;
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
