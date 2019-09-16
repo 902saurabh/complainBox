@@ -1,11 +1,56 @@
 <?php
    
-	include("checkuser.php");
-	//dashboard of department
-	//$mysqli = new mysqli("localhost", "root", "", "complainbox");
-	$sql = "SELECT name FROM user WHERE email like '%".$_SESSION["email"]."%'";
-	$res=$res_u=mysqli_query($con,$sql);
-	$row=$res->fetch_assoc();
+    include("config/config.php");
+	    if(!isset($_SESSION['name'])){
+   
+        header("Location: index.php");
+        exit();
+    }
+  else{
+     $sql = "SELECT usertype FROM user WHERE email='".$_SESSION["email"]."'";
+    $res=mysqli_query($con,$sql);
+  $row=$res->fetch_assoc();
+  
+  if($row['usertype']=='admin'){
+	  $sidebar='
+	  <li class="nav-item ">
+            <a class="nav-link" href="./adddepartment.php">
+              <i class="material-icons">group_add</i>
+              <p>Add department</p>
+            </a>
+          </li>
+            <li class="nav-item ">
+            <a class="nav-link" href="./removedepartment.php">
+              <i class="material-icons">clear</i>
+              <p>Remove department</p>
+            </a>
+          </li>
+	  '
+	  ;
+  }else{
+	  $sidebar='';
+  }
+  
+  if( $row['usertype']!='admin' )
+    {
+    if($row['usertype']=='User'){
+    header("Location: dashboard.php");
+        exit();
+    }
+    else if($row['usertype']=='Department'){
+    header("Location: depthome.php");
+        exit();
+	
+      
+    }
+  }
+  
+  }   
+  
+  $sql = "SELECT name FROM user WHERE email='".$_SESSION["email"]."'";
+    $res=$res_u=mysqli_query($con,$sql);
+    $row=$res->fetch_assoc();
+	
 	$uname=$row["name"];//set name to department name instead of gmail account name
 	$_SESSION["name"] =$uname;
 	
@@ -67,8 +112,8 @@
 			</div>
 		</li>
 		
-			 <li class="nav-item ">
-            <a class="nav-link" >
+			 <li class="nav-item"  >
+            <a class="nav-link" href="./admindashboard.php">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
@@ -87,12 +132,7 @@
               <p>Reports</p>
             </a>
           </li>
-            <li class="nav-item ">
-            <a class="nav-link" href="./adddepartment.php">
-              <i class="material-icons">group_add</i>
-              <p>Add department</p>
-            </a>
-          </li>
+   
       
             <li class="nav-item ">
             <a class="nav-link" href="./editdepartment.php">
@@ -101,13 +141,7 @@
             </a>
           </li>   
       
-            <li class="nav-item ">
-            <a class="nav-link" href="./removedepartment.php">
-              <i class="material-icons">clear</i>
-              <p>Remove department</p>
-            </a>
-          </li>
-		  
+      <?php echo $sidebar;?>
 		     <li class="nav-item active ">
             <a class="nav-link" >
               <i class="material-icons">clear</i>
