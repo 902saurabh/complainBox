@@ -88,13 +88,7 @@ require 'vendor/autoload.php'	;
               <p>View Complain</p>
             </a>
           </li>
-		    
-        <li class="nav-item ">
-            <a class="nav-link" href="./depthcancel.php">
-              <i class="material-icons">clear</i>
-              <p>Cancel Complains</p>
-            </a>
-          </li>
+		
 		
           <li class="nav-item ">
             <a class="nav-link" href="./deptdocomplain.php">
@@ -224,10 +218,6 @@ require 'vendor/autoload.php'	;
               </div>
             </div>
           </div>
-
-
-
-
 	<br/>																
           <div class="row">
 			
@@ -809,15 +799,14 @@ try {
     $mail->addAddress($mail_to);     // Add a recipient
    
     // Attachments
-  //  if($file_path!="")
-    //  $mail->addAttachment($file_path);         // Add attachments
+    $mail->addAttachment($file_path);         // Add attachments
     //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
     // Content
     //$var=$_POST['body'];
     //$var='Test';//$_POST['body'];
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Complain Resolved';
+    $mail->Subject = 'New Complain';
     $mail->Body    = $msg;
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 

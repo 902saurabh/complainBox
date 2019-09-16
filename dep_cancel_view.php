@@ -1,86 +1,39 @@
 <?php
-    include("config/config.php");
-    //dashboard of admin
-    if(!isset($_SESSION['name'])){
    
-        header("Location: index.php");
-        exit();
-    }
-  else{
-     $sql = "SELECT usertype FROM user WHERE email='".$_SESSION["email"]."'";
-    $res=mysqli_query($con,$sql);
+  include("checkuser.php");
+  //dashboard of department
+  //$mysqli = new mysqli("localhost", "root", "", "complainbox");
+  $sql = "SELECT name FROM user WHERE email like '%".$_SESSION["email"]."%'";
+  $res=$res_u=mysqli_query($con,$sql);
   $row=$res->fetch_assoc();
+  $uname=$row["name"];//set name to department name instead of gmail account name
+  $_SESSION["name"] =$uname;
   
-  if($row['usertype']=='admin'){
-	  $sidebar='
-	  <li class="nav-item ">
-            <a class="nav-link" href="./adddepartment.php">
-              <i class="material-icons">group_add</i>
-              <p>Add department</p>
-            </a>
-          </li>
-            <li class="nav-item ">
-            <a class="nav-link" href="./removedepartment.php">
-              <i class="material-icons">clear</i>
-              <p>Remove department</p>
-            </a>
-          </li>
-	  '
-	  ;
-  }else{
-	  $sidebar='';
-  }
+  $totcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE Departmentname like'%".$uname."%'"));
   
-  
-  if( $row['usertype']!='admin' )
-    {
-    if($row['usertype']=='User'){
-    header("Location: dashboard.php");
-        exit();
-    }
-    else if($row['usertype']=='Department'){
-    header("Location: depthome.php");
-        exit();
-
-      
-    }
-  }
-  
-  }
-    $sql = "SELECT name FROM user WHERE email='".$_SESSION["email"]."'";
-    $res=$res_u=mysqli_query($con,$sql);
-    $row=$res->fetch_assoc();
-    $uname=$row["name"];//set name to department name instead of gmail account name
-    $_SESSION["name"] =$uname;
-  
-  $totcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain "));
-  
-  $totpendingcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE status='Pending'"));
+  $totpendingcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE (status='Pending' OR status='Pending#' ) AND Departmentname like'%".$uname."%'"));
           
-  $totsolvedcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE  status='Resolved'"));
+  $totsolvedcomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE  (status='Resolved' OR status='Resolved#' ) AND Departmentname like'%".$uname."%'"));
           
-  $totinprogresscomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE status='In-Progress'"));
-  
+  $totinprogresscomp=mysqli_num_rows(mysqli_query($con,"SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#' ) AND Departmentname like'%".$uname."%'"));
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>
-    Admin Dashboard | Complain Box
-  </title>
-  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <title>Complain | Complain Box </title>
+   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
   <link href="assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet" />
-
-
 </head>
 
 <body class="">
@@ -92,60 +45,52 @@
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
-        <a  class="simple-text logo-normal">
+        <a href="#" class="simple-text logo-normal">
           Complain Box
         </a>
       </div>
-      
-      
+    
+    
       <div class="sidebar-wrapper">
         <ul class="nav">
 
-        <li class="nav-item">
-            <br/>
-            <div class="card-profile">
+      <li class="nav-item">
+      <br/>
+      <div class="card-profile">
                 <div class="card-avatar">
-                
                     <img class="img" src="<?php  echo $_SESSION['imgurl'];  ?>" />
-                
                 </div>
-    <div class="card-body">
-                  <h5 class="card-title">   <?php echo $_SESSION['name'];  ?></h5>
-                 
-                </div>
-        </li>
-        
-        
-         <li class="nav-item active ">
-            <a class="nav-link" href="./admindashboard.php">
+          <div class="card-body">
+            <h5 class="card-title"> <?php echo $_SESSION['name'];  ?></h5>
+          </div>
+
+      </div>
+    </li>
+    
+      
+         <li class="nav-item  ">
+            <a class="nav-link" href="./depthome.php">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-      <li class="nav-item ">
-            <a class="nav-link" href="./adminprofile.php">
+     
+          <li class="nav-item active">
+            <a class="nav-link" >
+              <i class="material-icons">content_paste</i>
+              <p>Cancel Complain</p>
+            </a>
+          </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="./deptdocomplain.php">
+              <i class="material-icons">clear</i>
+              <p>Do Complain</p>
+            </a>
+          </li>
+        <li class="nav-item ">
+            <a class="nav-link" href="./deptpass.php">
               <i class="material-icons">person</i>
               <p>My Profile</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="test_report.php">
-              <i class="material-icons">content_paste</i>
-              <p>Reports</p>
-            </a>
-          </li>
-		  
-            <li class="nav-item ">
-            <a class="nav-link" href="./editdepartment.php">
-              <i class="material-icons">create</i>
-              <p>Edit department</p>
-            </a>
-          </li>	  
-		  
-            <?php echo $sidebar;?>  <li class="nav-item">
-            <a class="nav-link"  href="./admincancel.php">
-              <i class="material-icons">clear</i>
-              <p>Cancel complains</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -155,33 +100,36 @@
             </a>
           </li>
      
+     
+     
         </ul>
       </div>
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+          <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" >View Complain</a>
+            <a class="navbar-brand" href="#"><b>Complains</b></a>
           </div>
-         
-                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
             <span class="navbar-toggler-icon icon-bar"></span>
           </button>
-          
-         </div>
+
+        </div>
       </nav>
+
      
 
 <?php 
  if(isset($_GET['id'])){
 
     $id = $_GET['id'];
-    $query=mysqli_query($con, "SELECT * FROM complain WHERE id='$id'");
+    $dp = $_GET['dept'];
+    $query=mysqli_query($con, "SELECT * FROM cancelcomplain WHERE id='$id' and Departmentname='$dp'");
     $fetch = mysqli_fetch_array($query);
     $building = $fetch['building'];
     $location = $fetch['location'];

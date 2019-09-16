@@ -80,6 +80,13 @@
               <p>View Complain</p>
             </a>
           </li>
+		    
+        <li class="nav-item ">
+            <a class="nav-link" href="./depthcancel.php">
+              <i class="material-icons">clear</i>
+              <p>Cancel Complains</p>
+            </a>
+          </li>
 		    <li class="nav-item ">
             <a class="nav-link" href="./deptdocomplain.php">
               <i class="material-icons">content_paste</i>

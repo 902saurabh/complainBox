@@ -142,12 +142,7 @@
             </a>
           </li>	  
 		  
-            <?php echo $sidebar;?>  <li class="nav-item">
-            <a class="nav-link"  href="./admincancel.php">
-              <i class="material-icons">clear</i>
-              <p>Cancel complains</p>
-            </a>
-          </li>
+            <?php echo $sidebar;?>
           <li class="nav-item ">
             <a class="nav-link" href="./logout.php">
               <i class="material-icons">arrow_back</i>
@@ -181,7 +176,7 @@
  if(isset($_GET['id'])){
 
     $id = $_GET['id'];
-    $query=mysqli_query($con, "SELECT * FROM complain WHERE id='$id'");
+    $query=mysqli_query($con, "SELECT * FROM cancelcomplain WHERE id='$id'");
     $fetch = mysqli_fetch_array($query);
     $building = $fetch['building'];
     $location = $fetch['location'];

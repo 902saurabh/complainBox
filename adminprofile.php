@@ -127,6 +127,12 @@
               <p>Remove department</p>
             </a>
           </li>
+		    <li class="nav-item">
+            <a class="nav-link"  href="./admincancel.php">
+              <i class="material-icons">clear</i>
+              <p>Cancel complains</p>
+            </a>
+          </li>
           <li class="nav-item ">
             <a class="nav-link" href="./logout.php">
               <i class="material-icons">arrow_back</i>

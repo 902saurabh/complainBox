@@ -90,7 +90,13 @@
               <p>View Complain</p>
             </a>
           </li>
-		
+			    
+        <li class="nav-item ">
+            <a class="nav-link" href="./depthcancel.php">
+              <i class="material-icons">clear</i>
+              <p>Cancel Complains</p>
+            </a>
+          </li>
 		
           <li class="nav-item active">
             <a class="nav-link" href="./deptdocomplain.php">
@@ -281,8 +287,16 @@
                   <form action="" enctype="multipart/form-data" style="margin-top: -40px;" method="POST">
 					<br/>
 					<br/>
-                    <div class="dropdown">
-                      <a class="btn btn-primary dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choose Building</a>
+			
+          <div class="row">
+                <div class="col">
+             <!--   <label for="dropCompulsion" style="margin-bottom: 5px">Location:</label> -->
+              <input type="text" class="form-control"  id="dropCompulsion" placeholder="Choose Building" spellcheck="false" name="buildingOption" required/>
+            </div>
+                  <div class="col col-lg-3">
+                    <div class="dropdown" required>		  
+                        <a class="btn btn-primary dropdown-toggle " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Options</a>
+
 
                       <ul class="dropdown-menu" style="cursor:pointer;" aria-labelledby="dropdownMenuLink" name="ul" required>
                         <li class="dropdown-item" id="item1" value="j" href="#">KJ SOMAIYA SCIENCE AND COMMERCE BUILDING</li>
@@ -290,21 +304,19 @@
                         <li class="dropdown-item" id="item3" href="#">BHASKARACHARYA</li>
                       </ul>
                     </div>
-                    <div class="form-group" style="margin-top: 35px;">
-                      <label for="exampleFormControlInput1" style="margin-bottom: 5px">Location:</label>
+	</div>
+
+                  </div>
+                    <div class="form-group" style="margin-top: 25px;">
+                      <label for="exampleFormControlInput1" style="margin-bottom: 5px; color: #9128ac">Location:</label>
 					  
                       <input type="text" class="form-control" id="exampleFormControlInput1" name="location" placeholder="Eg: Room no,Lab name,Campus area..." required>
                     </div>
 
                      <div class="form-group">
-                      
-						
-						
+                      	
                             <label class="bmd-label-floating"> Describe your complain</label>
-						 <textarea class="form-control" name="complain_body" rows="5" required>
-						 
-						 
-						 </textarea>
+						 <textarea class="form-control" name="complain_body" rows="5" required></textarea>
 						
                       </div>
 
@@ -482,11 +494,8 @@ include("footer.php");
     }
   </script>';*/
   $location = $_POST['location'];
-  if (isset($_COOKIE['building'])) {
-    $building = $_COOKIE['building'];
-  }else{
-    $building='none';
-  }
+ $building = $_POST['buildingOption'];																		   
+
   
 
   $complain_body = $_POST['complain_body'];
@@ -657,7 +666,7 @@ document.getElementById("completebody").style.display = "none";
 
      $id=mysqli_insert_id($con);
 		
-		unset($_COOKIE['building']);
+	
 	 
 	 
 
@@ -726,24 +735,23 @@ document.getElementById("loader").style.display = "none";
 <!--/form-->
 
 <script >
-  $("li").click(function(){
 
-    var se = document.getElementById('dropdownMenuLink');
-    se.innerHTML = $(this).text();
+ $(".dropdown-item").click(function(){
+
+   /* var se = document.getElementById('dropdownMenuLink');
+    se.innerHTML = $(this).text();*/
+    var se = document.getElementById('dropCompulsion');
+    se.value = $(this).text();
+
+														 
+								  
      document.cookie = "building=" + $(this).text(); 
    // $("#dropdownMenuLink").innerHTML=$(this).text();
    // build = $(this).text();
   
   });
 </script>
-<?php  
-if(isset($_COOKIE['building'])){
-  echo' var se = document.getElementById("dropdownMenuLink");
-    se.innerHTML = $(this).text();
-     document.cookie = "building=" + $(this).text(); ';
-}
 
-?> 
 
 </body>
 </html>

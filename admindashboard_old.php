@@ -78,7 +78,6 @@
               <p>Dashboard</p>
             </a>
           </li>
-           
       <li class="nav-item ">
             <a class="nav-link" href="./adminprofile.php">
               <i class="material-icons">person</i>
@@ -109,12 +108,6 @@
             <a class="nav-link" href="./removedepartment.php">
               <i class="material-icons">clear</i>
               <p>Remove department</p>
-            </a>
-          </li>
-		  <li class="nav-item">
-            <a class="nav-link"  href="./admincancel.php">
-              <i class="material-icons">clear</i>
-              <p>Cancel complains</p>
             </a>
           </li>
           <li class="nav-item ">
