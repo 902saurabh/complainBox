@@ -1,37 +1,37 @@
 <?php
-	
-	  include("config/config.php");
-	   
-	 $cl = $_GET['id'];
 
-	 $query= mysqli_query($con,"SELECT * FROM complain WHERE id='$cl'");
+include("config/config.php");
 
-	 $row = mysqli_fetch_array($query);
+$cl = $_GET['id'];
 
-	 $body= $row['description'];
+$query = mysqli_query($con, "SELECT * FROM complain WHERE id='$cl'");
 
-	 $file_path= $row['complainimg'];
+$row = mysqli_fetch_array($query);
 
-	 $department= $row['Departmentname'];
-	 $name= $row['complainant'];
-	 $email= $row['complainantmail'];
-	 $building= $row['building'];
+$body = $row['description'];
 
-	 $location= $row['location'];
-	 $datetime= $row['complaindate'];
+$file_path = $row['complainimg'];
 
+$department = $row['Departmentname'];
+$name = $row['complainant'];
+$email = $row['complainantmail'];
+$building = $row['building'];
 
-	  $sq="INSERT into cancelcomplain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate,complain_id) values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime','$cl')";
-          //echo $sq;
-          mysqli_query($con,$sq);
-$it=mysqli_insert_id($con);
-	  $sql = "SELECT email FROM user where name='$department' ";
-		$result=mysqli_query($con,$sql);
-		$row = mysqli_fetch_array($result);
-		$mail_to=$row['email'];
+$location = $row['location'];
+$datetime = $row['complaindate'];
 
 
-	    $var ='
+$sq = "INSERT into cancelcomplain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate,complain_id) values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime','$cl')";
+//echo $sq;
+mysqli_query($con, $sq);
+$it = mysqli_insert_id($con);
+$sql = "SELECT email FROM user where name='$department' ";
+$result = mysqli_query($con, $sql);
+$row = mysqli_fetch_array($result);
+$mail_to = $row['email'];
+
+
+$var = '
 	    <script src="assets/js/core/jquery.min.js"></script>
 
 	    <script type="text/javascript">
@@ -39,7 +39,7 @@ $it=mysqli_insert_id($con);
       $.ajax({              
                 url:"cancel_complain_ajax.php",
                 type:"POST",
-                data:"id='.$it.'&mail_to='.$mail_to.'",
+                data:"id=' . $it . '&mail_to=' . $mail_to . '",
                 cache:false,
 
               
@@ -53,19 +53,13 @@ $it=mysqli_insert_id($con);
             </script>';
 
 
+echo $var;
 
 
+$sql9 = "DELETE FROM complain WHERE id='$cl'";
+mysqli_query($con, $sql9);
 
 
-            echo $var;
+// header("Location: index.php");
 
-
-    $sql9 = "DELETE FROM complain WHERE id='$cl'";
-    mysqli_query($con,$sql9);
-
-   
-
-
-  // header("Location: index.php");
-
- ?>
+?>
