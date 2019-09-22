@@ -1,12 +1,11 @@
-<?php 
+<?php
 include("config/config.php");
 
-if(isset($_GET['excel'])){
+if (isset($_GET['excel'])) {
 
-$dep = $_GET["radio"];
-$start=$_GET["first"];
-$second=$_GET['second'];
-
+    $dep = $_GET["radio"];
+    $start = $_GET["first"];
+    $second = $_GET['second'];
 
 
 //$dep="Carpenter"; 
@@ -14,19 +13,19 @@ $second=$_GET['second'];
 //$second="2019-08-30";
 
 
-if($dep=="All"){
+    if ($dep == "All") {
 
 
- $query= mysqli_query($con, "SELECT * from complain");
-  
- $html = "";
-  $pending= 0;
-  $resolved = 0;
-  $progress = 0;
-  $total_cost = 0;
-  $total_complain = 0;
+        $query = mysqli_query($con, "SELECT * from complain");
 
-  $html .= '
+        $html = "";
+        $pending = 0;
+        $resolved = 0;
+        $progress = 0;
+        $total_cost = 0;
+        $total_complain = 0;
+
+        $html .= '
 
   <html xmlns:x="urn:schemas-microsoft-com:office:excel">
   <head>
@@ -61,80 +60,76 @@ if($dep=="All"){
                       </tr>
                     </thead>';
 
- while ($row = mysqli_fetch_array($query)) {
-  $date = $row['complaindate'];
-  $date = explode(" ",$date);
- // $start = strtotime($start);
-  //$second = strtotime($second);
-  
-  $check = $date[0];
-    //echo $date[0]."   ";
-  
-   if( $start<=$check && $check<=$second){
-       // echo "olll";
-      $html .= '<tr>
-                      <td>'.$row['id'].'</td>
-                      
-                      
-                      <td>'.$row['description'].'</td>
+        while ($row = mysqli_fetch_array($query)) {
+            $date = $row['complaindate'];
+            $date = explode(" ", $date);
+            // $start = strtotime($start);
+            //$second = strtotime($second);
 
-                       <td>'.$row['Departmentname'].'</td>
+            $check = $date[0];
+            //echo $date[0]."   ";
+
+            if ($start <= $check && $check <= $second) {
+                // echo "olll";
+                $html .= '<tr>
+                      <td>' . $row['id'] . '</td>
                       
                       
-                      <td>'.$row['complaindate'].'</td>
+                      <td>' . $row['description'] . '</td>
+
+                       <td>' . $row['Departmentname'] . '</td>
                       
                       
-                      <td>'.$row['status'].'</td>
+                      <td>' . $row['complaindate'] . '</td>
+                      
+                      
+                      <td>' . $row['status'] . '</td>
                       
                 
                        
-                        <td>'.$row['complainantmail'].'</td>
-                        <td>'.$row['cost'].'</td>
+                        <td>' . $row['complainantmail'] . '</td>
+                        <td>' . $row['cost'] . '</td>
                       </tr>
                       ';
-        switch ($row['status']) {
-          case 'Pending':
-            $pending += 1;
-            break;
-          case 'In-Progress':
-            $progress += 1 ;
-            break;
-          case 'Resolved':
-            $resolved += 1;
-            break;
+                switch ($row['status']) {
+                    case 'Pending':
+                        $pending += 1;
+                        break;
+                    case 'In-Progress':
+                        $progress += 1;
+                        break;
+                    case 'Resolved':
+                        $resolved += 1;
+                        break;
+                }
+
+                $total_cost += $row['cost'];
+                $total_complain += 1;
+
+            }
+
+
+            //$html.=$row['complaindate']."<br>";
+
+
         }
-
-        $total_cost += $row['cost'];
-        $total_complain += 1;
-       
-  }
-    
-
-    //$html.=$row['complaindate']."<br>";
+        $html .= '</table></body>';
+        header('Content-Type: application/xls');
+        header('Content-Disposition: attachment; filename=download.xls');
+        echo $html;
 
 
+    } else {
+        $query = mysqli_query($con, "SELECT * from complain where Departmentname='$dep'");
 
+        $html = "";
+        $pending = 0;
+        $resolved = 0;
+        $progress = 0;
+        $total_cost = 0;
+        $total_complain = 0;
 
-
-    
-}
- $html .= '</table></body>';
-header('Content-Type: application/xls');
-header('Content-Disposition: attachment; filename=download.xls');
-  echo $html;
-
-
-}else{
-     $query= mysqli_query($con, "SELECT * from complain where Departmentname='$dep'");
-  
- $html = "";
-  $pending= 0;
-  $resolved = 0;
-  $progress = 0;
-  $total_cost = 0;
-  $total_complain = 0;
-
-  $html .= '
+        $html .= '
 
   <html xmlns:x="urn:schemas-microsoft-com:office:excel">
   <head>
@@ -168,75 +163,67 @@ header('Content-Disposition: attachment; filename=download.xls');
                       </tr>
                     </thead>';
 
- while ($row = mysqli_fetch_array($query)) {
-  $date = $row['complaindate'];
-  $date = explode(" ",$date);
- // $start = strtotime($start);
-  //$second = strtotime($second);
-  
-  $check = $date[0];
-    //echo $date[0]."   ";
-  
-   if( $start<=$check && $check<=$second){
-       // echo "olll";
-      $html .= '<tr>
-                      <td>'.$row['id'].'</td>
+        while ($row = mysqli_fetch_array($query)) {
+            $date = $row['complaindate'];
+            $date = explode(" ", $date);
+            // $start = strtotime($start);
+            //$second = strtotime($second);
+
+            $check = $date[0];
+            //echo $date[0]."   ";
+
+            if ($start <= $check && $check <= $second) {
+                // echo "olll";
+                $html .= '<tr>
+                      <td>' . $row['id'] . '</td>
                       
                       
-                      <td>'.$row['description'].'</td>
+                      <td>' . $row['description'] . '</td>
                       
                       
-                      <td>'.$row['complaindate'].'</td>
+                      <td>' . $row['complaindate'] . '</td>
                       
                       
-                      <td>'.$row['status'].'</td>
+                      <td>' . $row['status'] . '</td>
                       
                 
                        
-                        <td>'.$row['complainantmail'].'</td>
-                        <td>'.$row['cost'].'</td>
+                        <td>' . $row['complainantmail'] . '</td>
+                        <td>' . $row['cost'] . '</td>
                       </tr>
                       ';
-        switch ($row['status']) {
-          case 'Pending':
-            $pending += 1;
-            break;
-          case 'In-Progress':
-            $progress += 1 ;
-            break;
-          case 'Resolved':
-            $resolved += 1;
-            break;
+                switch ($row['status']) {
+                    case 'Pending':
+                        $pending += 1;
+                        break;
+                    case 'In-Progress':
+                        $progress += 1;
+                        break;
+                    case 'Resolved':
+                        $resolved += 1;
+                        break;
+                }
+
+                $total_cost += $row['cost'];
+                $total_complain += 1;
+
+            }
+
+
+            //$html.=$row['complaindate']."<br>";
+
+
         }
 
-        $total_cost += $row['cost'];
-        $total_complain += 1;
-       
-  }
-    
 
-    //$html.=$row['complaindate']."<br>";
-
-
-
-
-
-    
-}
-
-
-    $html .= '</table></body>';
-header('Content-Type: application/xls');
-header('Content-Disposition: attachment; filename=download.xls');
-  echo $html;
-}
-
-
-
+        $html .= '</table></body>';
+        header('Content-Type: application/xls');
+        header('Content-Disposition: attachment; filename=download.xls');
+        echo $html;
+    }
 
 
 }
 
 
-
- ?>
+?>

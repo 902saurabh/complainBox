@@ -1,29 +1,30 @@
 <?php
-	//require_once "finalconfig.php";
-	
+//require_once "finalconfig.php";
 
-	//Unset token and user data from session    
 
-	//unset($_SESSION['type']);    
+//Unset token and user data from session
 
-	//Reset OAuth access token    
-	//$client = new Google_Client();
-	//$client->revokeToken();    
-	session_start();
-	//Destroy entire session    
-	session_destroy(); 
+//unset($_SESSION['type']);
 
-	
-    $helper = array_keys($_SESSION);
-    foreach ($helper as $key){
-        unset($_SESSION[$key]);
-    }
+//Reset OAuth access token
+//$client = new Google_Client();
+//$client->revokeToken();
+session_start();
+//Destroy entire session
+session_destroy();
 
-	
-	echo '
+$helper = array_keys($_SESSION);
+foreach ($helper as $key) {
+    unset($_SESSION[$key]);
+}
+
+
+echo '
 	<script>
- 
-		</script>
+	
+ 	window.location.href = "https://www.somaiya.edu";
+	settimeout("self.close()",5000);
+	</script>
  
 	';
 

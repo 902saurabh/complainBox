@@ -1,29 +1,34 @@
 <?php
-	//require_once "finalconfig.php";
-	
+//require_once "finalconfig.php";
 
-	//Unset token and user data from session    
 
-	//unset($_SESSION['type']);    
+//Unset token and user data from session
 
-	//Reset OAuth access token    
-	//$client = new Google_Client();
-	//$client->revokeToken();    
-	session_start();
-	//Destroy entire session    
-	session_destroy(); 
+//unset($_SESSION['type']);
 
-	
-    $helper = array_keys($_SESSION);
-    foreach ($helper as $key){
-        unset($_SESSION[$key]);
-    }
+//Reset OAuth access token
+//$client = new Google_Client();
+//$client->revokeToken();
+session_start();
+//Destroy entire session
+session_destroy();
 
-	
-	echo '
+
+$helper = array_keys($_SESSION);
+foreach ($helper as $key) {
+    unset($_SESSION[$key]);
+}
+
+
+echo '
 	<script>
  
-		window.location.href = "https://accounts.google.com/Logout";
+		//window.open = ("","_blank");
+		myWindow=window.open("https://accounts.google.com/Logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+		
+		window.location.href = ("index.php");
+		
+		
 	</script>
  
 	';
