@@ -1,35 +1,38 @@
 <?php
-
-use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 // Load Composer's autoloader
 require 'vendor/autoload.php';
 
 
+
 include("config/config.php");
 
 
-$id = $_POST['id'];
-$query = mysqli_query($con, "SELECT * FROM complain WHERE id='$id'");
-$row = mysqli_fetch_array($query);
+  $id = $_POST['id'];
+  //$complain_id=$_POST['complainid'];
+  $query = mysqli_query($con,"SELECT * FROM cancelcomplain WHERE id='$id'");
+  $row   = mysqli_fetch_array($query);
+
 $body = $row['description'];
-$file_path = $row['complainimg'];
+$file_path=$row['complainimg'];
 $mail_to = $_POST['mail_to'];
 $department = $row['Departmentname'];
-$sender = $row['complainant'];
-$sender_mail = $row['complainantmail'];
-$building = $row['building'];
-$location = $row['location'];
+$sender     = $row['complainant'];
+$sender_mail=$row['complainantmail'];
+$building   = $row['building'];
+$location   = $row['location'];
+$complain_id= $row['complain_id'];
 
 
-$msg = "<strong>department:</strong> " . $department . "<br>
-<strong>Building:</strong> " . $building . "<br>
-<strong>Location:</strong> " . $location . "<br>
-<strong>Description:</strong> " . $body . "<br>
-<strong>Sender Name:</strong> " . $sender . "<br>
-<strong>Sender Email:</strong> " . $sender_mail . "<br><br>
-<strong>COMPAIN HAS BEEN CANCELLED</strong>";
+$msg = "<strong>Complain ID:</strong> ".$complain_id."<br>
+<strong>Department:</strong> ".$department."<br>
+<strong>Building:</strong> ".$building."<br>
+<strong>Location:</strong> ".$location."<br>
+<strong>Description:</strong> ".$body."<br>
+<strong>Sender Name:</strong> ".$sender."<br>
+<strong>Sender Email:</strong> ".$sender_mail;
 //$department= $_POST['department'];
 //$location = $_POST['location'];
 //$building = $_POST['building'];
@@ -38,7 +41,7 @@ $msg = "<strong>department:</strong> " . $department . "<br>
 //echo '<script>  swal("Your complain successfully submitted"); </script>';
 
 //echo '"<script>".$body.'"
-//      </script>"';
+  //      </script>"';
 
 //"body='.$body.'&attachment='.$file_path.'&deptmail='.$dptmail.'&department='.$department.'&location='.$location.'&building="+build,
 
@@ -52,20 +55,21 @@ try {
     //Server settings
     $mail->SMTPDebug = 1;                                       // Enable verbose debug output
     $mail->isSMTP();                                            // Set mailer to use SMTP
-    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-    $mail->SMTPAuth = true;                                   // Enable SMTP authentication
-    $mail->Username = 'saurabhkumar.t@somaiya.edu';                     // SMTP username
-    $mail->Password = 'saurabh@807';                               // SMTP password
+    $mail->Host       = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+    $mail->Username   = 'saurabhkumar.t@somaiya.edu';                     // SMTP username
+    $mail->Password   = 'saurabh@807';                               // SMTP password
     $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-    $mail->Port = 587;                                    // TCP port to connect to
+    $mail->Port       = 587;                                    // TCP port to connect to
 
     //Recipients
     $mail->setFrom('saurabhkumar.t@somaiya.edu');
-    $mail->addAddress("9833saurabhtiwari@gmail.com");
+     $mail->addAddress("9833saurabhtiwari@gmail.com");
     $mail->addAddress($mail_to);     // Add a recipient
-
+   
     // Attachments
-    $mail->addAttachment($file_path);         // Add attachments
+	if(!empty($file_path)){
+    		$mail->addAttachment($file_path);}         // Add attachments
     //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
     // Content
@@ -73,7 +77,7 @@ try {
     //$var='Test';//$_POST['body'];
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = 'Cancelled Complain';
-    $mail->Body = $msg;
+    $mail->Body    = $msg;
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();

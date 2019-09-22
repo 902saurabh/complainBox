@@ -1,67 +1,66 @@
 <?php
 include("header.php");
-if (isset($_GET['department'])) {
-    $department = $_GET['department'];
-
-    $_SESSION["department"] = $department;
-}
+    if(isset($_GET['department'])){
+    $department=$_GET['department'];
+    
+    $_SESSION["department"]=$department;
+    }
 ?>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="assets/css/upload.css" rel="stylesheet" type="text/css"/>
-    <!-- add styles -->
-    <!-- add scripts -->
+	<link href="assets/css/upload.css" rel="stylesheet" type="text/css" />
+	<!-- add styles -->
+<!-- add scripts -->
 
 
-    <title></title>
+	<title></title>
 </head>
 <body>
-<div class="bbody">
+	<div class="bbody">
     <!-- upload form -->
-    <form id="upload_form" enctype="multipart/form-data" method="post" action="upload.php"
-          onsubmit="return checkForm()">
+    <form id="upload_form" enctype="multipart/form-data" method="post" action="upload.php" onsubmit="return checkForm()">
         <!-- hidden crop params -->
-        <input type="hidden" id="x1" name="x1"/>
-        <input type="hidden" id="y1" name="y1"/>
-        <input type="hidden" id="x2" name="x2"/>
-        <input type="hidden" id="y2" name="y2"/>
+        <input type="hidden" id="x1" name="x1" />
+        <input type="hidden" id="y1" name="y1" />
+        <input type="hidden" id="x2" name="x2" />
+        <input type="hidden" id="y2" name="y2" />
         <h2>Step1: Please select image file</h2>
-        <div><input type="file" name="image_file" id="image_file" onchange="fileSelectHandler()"/></div>
+        <div><input type="file" name="image_file" id="image_file" onchange="fileSelectHandler()" /></div>
         <div class="error"></div>
         <div class="step2">
             <h2>Step2: Please select a crop region</h2>
-            <img id="preview"/>
+            <img id="preview" />
             <div class="info">
-                <label>File size</label> <input type="text" id="filesize" name="filesize"/>
-                <label>Type</label> <input type="text" id="filetype" name="filetype"/>
-                <label>Image dimension</label> <input type="text" id="filedim" name="filedim"/>
-                <label>W</label> <input type="text" id="w" name="w"/>
-                <label>H</label> <input type="text" id="h" name="h"/>
+                <label>File size</label> <input type="text" id="filesize" name="filesize" />
+                <label>Type</label> <input type="text" id="filetype" name="filetype" />
+                <label>Image dimension</label> <input type="text" id="filedim" name="filedim" />
+                <label>W</label> <input type="text" id="w" name="w" />
+                <label>H</label> <input type="text" id="h" name="h" />
             </div>
-            <input type="submit" name="sub_img" value="Upload"/>
+            <input type="submit" name="sub_img" value="Upload" />
         </div>
     </form>
 </div>
 
-<?php
+<?php 
 
 
-function uploadImageFile()
-{ // Note: GD library is required for this function
+
+function uploadImageFile() { // Note: GD library is required for this function
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $iWidth = $iHeight = 200; // desired image result dimensions
         $iJpgQuality = 90;
         if ($_FILES) {
             // if no errors and size less than 250kb
-            if (!$_FILES['image_file']['error'] && $_FILES['image_file']['size'] < 250 * 1024) {
+            if (! $_FILES['image_file']['error'] && $_FILES['image_file']['size'] < 250 * 1024) {
                 if (is_uploaded_file($_FILES['image_file']['tmp_name'])) {
                     // new unique filename
-                    $uploaddir = 'assets/img/';
-                    // $file_temp_name = '_original.'.md5(time()).'n'.$type;
-                    $sTempFileName = $uploaddir . md5(time() . rand());
+                    $uploaddir ='assets/img/';
+                   // $file_temp_name = '_original.'.md5(time()).'n'.$type;
+                    $sTempFileName =$uploaddir.md5(time().rand());
                     // move uploaded file into cache folder
                     move_uploaded_file($_FILES['image_file']['tmp_name'], $sTempFileName);
                     // change file permission to 644
@@ -73,7 +72,7 @@ function uploadImageFile()
                             return;
                         }
                         // check for image type
-                        switch ($aSize[2]) {
+                        switch($aSize[2]) {
                             case IMAGETYPE_JPEG:
                                 $sExt = '.jpg';
                                 // create a new image from file
@@ -89,7 +88,7 @@ function uploadImageFile()
                                 return;
                         }
                         // create a new true color image
-                        $vDstImg = @imagecreatetruecolor($iWidth, $iHeight);
+                        $vDstImg = @imagecreatetruecolor( $iWidth, $iHeight );
                         // copy and resize part of an image with resampling
                         imagecopyresampled($vDstImg, $vImg, 0, 0, (int)$_POST['x1'], (int)$_POST['y1'], $iWidth, $iHeight, (int)$_POST['w'], (int)$_POST['h']);
                         // define a result image filename
@@ -104,19 +103,18 @@ function uploadImageFile()
         }
     }
 }
-
 $sImage = uploadImageFile();
-if (isset($_POST['sub_img'])) {
+	if(isset($_POST['sub_img'])){
 
-    //$query=mysqli_query($con,"UPDATE  set profile_pic='$sImage' where username='$userLoggedIn'");
-    // insert into complain (description,complainimg,Departmentname,status,complainant,complainantmail)
-    mysqli_query($con, "INSERT INTO complain (complainantmail,status,complainimg) values('$email','Pending','$sImage')");
-    $id = mysqli_insert_id($con);
-    $department = $_SESSION["department"];
-    //echo $department."vvv";
-    header("Location:complain.php?department=" . $department . "&set=true&id=$id");
-}
-?>
+	//$query=mysqli_query($con,"UPDATE  set profile_pic='$sImage' where username='$userLoggedIn'");
+   // insert into complain (description,complainimg,Departmentname,status,complainant,complainantmail)
+    mysqli_query($con,"INSERT INTO complain (complainantmail,status,complainimg) values('$email','Pending','$sImage')");
+    $id=mysqli_insert_id($con);
+    $department=$_SESSION["department"];
+	  //echo $department."vvv";
+     header("Location:complain.php?department=".$department."&set=true&id=$id");
+	}
+ ?>
 
 </body>
 </html>
