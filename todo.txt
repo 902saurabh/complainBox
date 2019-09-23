@@ -1,0 +1,9 @@
+TODO:
+
+1. Anyone can complain i.e dept. Manager, general manager/admin -- admin pending
+2. Anyone can cancel the complain i.e dept. Manager, general manager/admin --admin pending
+3. Everyone will have my complain detail tab in navigation -- admin pending
+4. Attachment will be saved in /complain_doc/year/month/ as we have discussed
+5. One mail may have multiple dept. That is Networking, Laptop, Wifi connection may have one email id
+6. If one dept. Have two or more email id then the mail notification of conplain will be sent to all dept. Heads
+7. Logout page redirect.. as we discussed
