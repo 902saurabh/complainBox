@@ -424,6 +424,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
               <div class="card card-stats">
                 <div class="card-header ">';
 
+
                                         echo '		</br>
 		
                   <p class="card-category text-center">Pending complain</p>

@@ -406,8 +406,12 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                   <p class="card-category text-center">Total complain</p>
                   
                   <h3 class="card-title text-center" name="' . $row["dname"] . '">' . mysqli_num_rows($result1) . '</h3>									  
-				</br>
 				
+				<div class="card-footer">
+                  <div class="stats">
+                   <a class="text-center" href="./statuscomplain.php?status=&department=' . $row["dname"] . '">View Details</a>
+                  </div>
+                </div>
 				</div>
               </div>
             </div>';
@@ -421,8 +425,11 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                   <p class="card-category text-center">Pending complain</p>
                   
                   <h3 class="card-title text-center">' . $pendingcomp . '</h3>									  
-				</br>
-				
+				<div class="card-footer">
+                  <div class="stats">
+                   <a href="./statuscomplain.php?status=Pending&department=' . $row["dname"] . '">View Details</a>
+                  </div>
+                </div>
 				</div>
               </div>
             </div>';
@@ -437,8 +444,11 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                   <p class="card-category text-center">In Progress complain</p>
                   
                   <h3 class="card-title text-center">' . $inprogresscomp . '</h3>									  
-				</br>
-				
+				<div class="card-footer">
+                  <div class="stats">
+                   <a href="./statuscomplain.php?status=In-Progress&department=' . $row["dname"] . '">View Details</a>
+                  </div>
+                </div>
 				</div>
               </div>
             </div>';
@@ -452,8 +462,11 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                   <p class="card-category text-center">Solved complain</p>
                   
                   <h3 class="card-title text-center">' . $solvedcomp . '</h3>									  
-				</br>
-				
+				<div class="card-footer">
+                  <div class="stats">
+                   <a href="./statuscomplain.php?status=Solved&department=' . $row["dname"] . '">View Details</a>
+                  </div>
+                </div>
 				</div>
               </div>
             </div>';

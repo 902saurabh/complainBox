@@ -326,7 +326,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
             $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
             $result1 = mysqli_query($con, $sqlt);
             while ($row1 = mysqli_fetch_array($result1)) {
-                $sql = "SELECT * FROM complain WHERE Departmentname like '%" . $row1['name'] . "%'";
+                $sql = "SELECT * FROM complain WHERE Departmentname like '%" . $row1['name'] . "%'  ORDER BY id DESC";
                 $result = mysqli_query($con, $sql);
                 while ($row = mysqli_fetch_array($result)) {
                     //Creates a loop to dipslay all complain
