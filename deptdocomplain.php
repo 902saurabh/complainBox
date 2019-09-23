@@ -19,6 +19,7 @@ $totpendingcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHE
 $totsolvedcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE  (status='Resolved' OR status='Resolved#')  AND complainantmail='" . $email . "'"));
 
 $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#') AND complainantmail='" . $email . "'"));
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

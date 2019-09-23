@@ -3,19 +3,56 @@
 include("checkuser.php");
 //dashboard of department
 //$mysqli = new mysqli("localhost", "root", "", "complainbox");
-$sql = "SELECT name FROM user WHERE email like '%" . $_SESSION["email"] . "%'";
-$res = $res_u = mysqli_query($con, $sql);
-$row = $res->fetch_assoc();
-$uname = $row["name"];//set name to department name instead of gmail account name
-$_SESSION["name"] = $uname;
 
-$totcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE Departmentname like'%" . $uname . "%'"));
 
-$totpendingcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='Pending' OR status='Pending#' ) AND Departmentname like'%" . $uname . "%'"));
+$uname = $_SESSION["name"];
+$totcomp = 0;//mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE Departmentname like'%" . $uname . "%'"));
 
-$totsolvedcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE  (status='Resolved' OR status='Resolved#' ) AND Departmentname like'%" . $uname . "%'"));
+$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+$result1 = mysqli_query($con, $sqlt);
+while ($row1 = mysqli_fetch_array($result1)) {
+    $sql = "SELECT * FROM complain WHERE Departmentname like '%" . $row1['name'] . "%'";
+    $result = mysqli_query($con, $sql);
+    while ($row = mysqli_fetch_array($result)) {
+        $totcomp += 1;
+    }
+}
 
-$totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#' ) AND Departmentname like'%" . $uname . "%'"));
+$totpendingcomp = 0; //mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='Pending' OR status='Pending#' ) AND Departmentname like'%" . $uname . "%'"));
+
+$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+$result1 = mysqli_query($con, $sqlt);
+while ($row1 = mysqli_fetch_array($result1)) {
+    $sql = "SELECT * FROM complain WHERE (status='Pending' OR status='Pending#' ) AND Departmentname like '%" . $row1['name'] . "%'";
+    $result = mysqli_query($con, $sql);
+    while ($row = mysqli_fetch_array($result)) {
+        $totpendingcomp += 1;
+    }
+}
+
+
+$totsolvedcomp = 0; //mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE  (status='Resolved' OR status='Resolved#' ) AND Departmentname like'%" . $uname . "%'"));
+$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+$result1 = mysqli_query($con, $sqlt);
+while ($row1 = mysqli_fetch_array($result1)) {
+    $sql = "SELECT * FROM complain WHERE (status='Resolved' OR status='Resolved#' ) AND Departmentname like '%" . $row1['name'] . "%'";
+    $result = mysqli_query($con, $sql);
+    while ($row = mysqli_fetch_array($result)) {
+        $totsolvedcomp += 1;
+    }
+}
+
+$totinprogresscomp = 0; //mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#' ) AND Departmentname like'%" . $uname . "%'"));
+$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+$result1 = mysqli_query($con, $sqlt);
+while ($row1 = mysqli_fetch_array($result1)) {
+    $sql = "SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#' ) AND Departmentname like '%" . $row1['name'] . "%'";
+    $result = mysqli_query($con, $sql);
+    while ($row = mysqli_fetch_array($result)) {
+        $totinprogresscomp += 1;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

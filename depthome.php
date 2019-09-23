@@ -9,19 +9,66 @@ require 'vendor/autoload.php';
 
 //dashboard of department
 //$mysqli = new mysqli("localhost", "root", "", "complainbox");
-$sql = "SELECT name FROM user WHERE email like '%" . $_SESSION["email"] . "%'";
-$res = $res_u = mysqli_query($con, $sql);
-$row = $res->fetch_assoc();
-$uname = $row["name"];//set name to department name instead of gmail account name
-$_SESSION["name"] = $uname;
+$uname = $_SESSION["name"];
+/*
+$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+$result1 = mysqli_query($con, $sqlt);
 
-$totcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE Departmentname like'%" . $uname . "%'"));
+while ($row1 = mysqli_fetch_array($result1)) {
+    if (mysqli_num_rows(mysqli_query($con, $sqlt)) > 1) {
+        $uname = $uname . $row1["name"] . ',';//set name to department name instead of gmail account name
+        $_SESSION["name"] = $uname;
+    } else {
+        $uname = $row1["name"] . ',';//set name to department name instead of gmail account name
+        $_SESSION["name"] = $uname;
+    }
+}*/
+$totcomp = 0;//mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE Departmentname like'%" . $uname . "%'"));
 
-$totpendingcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='Pending' OR status='Pending#' ) AND Departmentname like'%" . $uname . "%'"));
+$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+$result1 = mysqli_query($con, $sqlt);
+while ($row1 = mysqli_fetch_array($result1)) {
+    $sql = "SELECT * FROM complain WHERE Departmentname like '%" . $row1['name'] . "%'";
+    $result = mysqli_query($con, $sql);
+    while ($row = mysqli_fetch_array($result)) {
+        $totcomp += 1;
+    }
+}
 
-$totsolvedcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE  (status='Resolved' OR status='Resolved#' ) AND Departmentname like'%" . $uname . "%'"));
+$totpendingcomp = 0; //mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='Pending' OR status='Pending#' ) AND Departmentname like'%" . $uname . "%'"));
 
-$totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#' ) AND Departmentname like'%" . $uname . "%'"));
+$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+$result1 = mysqli_query($con, $sqlt);
+while ($row1 = mysqli_fetch_array($result1)) {
+    $sql = "SELECT * FROM complain WHERE (status='Pending' OR status='Pending#' ) AND Departmentname like '%" . $row1['name'] . "%'";
+    $result = mysqli_query($con, $sql);
+    while ($row = mysqli_fetch_array($result)) {
+        $totpendingcomp += 1;
+    }
+}
+
+
+$totsolvedcomp = 0; //mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE  (status='Resolved' OR status='Resolved#' ) AND Departmentname like'%" . $uname . "%'"));
+$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+$result1 = mysqli_query($con, $sqlt);
+while ($row1 = mysqli_fetch_array($result1)) {
+    $sql = "SELECT * FROM complain WHERE (status='Resolved' OR status='Resolved#' ) AND Departmentname like '%" . $row1['name'] . "%'";
+    $result = mysqli_query($con, $sql);
+    while ($row = mysqli_fetch_array($result)) {
+        $totsolvedcomp += 1;
+    }
+}
+
+$totinprogresscomp = 0; //mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#' ) AND Departmentname like'%" . $uname . "%'"));
+$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+$result1 = mysqli_query($con, $sqlt);
+while ($row1 = mysqli_fetch_array($result1)) {
+    $sql = "SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#' ) AND Departmentname like '%" . $row1['name'] . "%'";
+    $result = mysqli_query($con, $sql);
+    while ($row = mysqli_fetch_array($result)) {
+        $totinprogresscomp += 1;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +118,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">    <?php echo $_SESSION['name']; ?></h5>
+                            <h5 class="card-title">    <?php echo $uname; ?></h5>
 
                         </div>
                 </li>
@@ -272,39 +319,42 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                           Action
                         </th>
                       </thead>
-                      <tbody>';
+                      <tbody>
+                     ';
 
 
-            $sql = "SELECT * FROM complain WHERE Departmentname In
-						(SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%')";
-            $result = mysqli_query($con, $sql);
-            while ($row = mysqli_fetch_array($result)) {
-                //Creates a loop to dipslay all complain
-                echo "<tr><td>" . $row['id'] . "</td>";
-                echo "<td>" . $row['Departmentname'] . "</td>";
-                if (strlen($row['description']) > 50) {
-                    echo "<td >" . substr($row['description'], 0, 50) . " ...</td>";
-                } else {
-                    $tmpd = $row['description'];
-                    $tmplen = 54 - strlen($row['description']);
+            $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+            $result1 = mysqli_query($con, $sqlt);
+            while ($row1 = mysqli_fetch_array($result1)) {
+                $sql = "SELECT * FROM complain WHERE Departmentname like '%" . $row1['name'] . "%'";
+                $result = mysqli_query($con, $sql);
+                while ($row = mysqli_fetch_array($result)) {
+                    //Creates a loop to dipslay all complain
+                    echo " <tr><td>" . $row['id'] . "</td>";
+                    echo "<td>" . $row['Departmentname'] . "</td>";
+                    if (strlen($row['description']) > 50) {
+                        echo "<td >" . substr($row['description'], 0, 50) . " ...</td>";
+                    } else {
+                        $tmpd = $row['description'];
+                        $tmplen = 54 - strlen($row['description']);
 
-                    echo "<td >" . $tmpd . str_repeat('&nbsp;', $tmplen);
-                    "</td>";
+                        echo "<td >" . $tmpd . str_repeat('&nbsp;', $tmplen);
+                        "</td>";
+                    }
+
+                    echo "<td>" . $row['complaindate'] . "</td>";
+                    echo "<td class='";
+                    if ($row['status'] == 'Pending' || $row['status'] == 'Pending#') {
+                        echo 'text-danger';
+                    } else if ($row['status'] == 'In-Progress' || $row['status'] == 'In-Progress#') {
+                        echo 'text-warning';
+                    } else if ($row['status'] == 'Resolved' || $row['status'] == 'Resolved#') {
+                        echo 'text-success';
+                    }
+                    echo "'  style='    font-weight: 500;'>" . $row['status'] . "</td>";
+                    echo '<td><button type="button" class="btn btn-primary" name="' . $row['id'] . '" onclick="takeAction(event)">Take Action</button></td></tr>';
                 }
-
-                echo "<td>" . $row['complaindate'] . "</td>";
-                echo "<td class='";
-                if ($row['status'] == 'Pending' || $row['status'] == 'Pending#') {
-                    echo 'text-danger';
-                } else if ($row['status'] == 'In-Progress' || $row['status'] == 'In-Progress#') {
-                    echo 'text-warning';
-                } else if ($row['status'] == 'Resolved' || $row['status'] == 'Resolved#') {
-                    echo 'text-success';
-                }
-                echo "'  style='    font-weight: 500;'>" . $row['status'] . "</td>";
-                echo '<td><button type="button" class="btn btn-primary" name="' . $row['id'] . '" onclick="takeAction(event)">Take Action</button></td></tr>';
             }
-
             echo '</tbody>
                     </table>
                   </div>
