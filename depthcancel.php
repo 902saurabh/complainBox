@@ -96,6 +96,12 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="./deptmycomplain.php">
+                        <i class="material-icons">content_paste</i>
+                        <p>My Complains</p>
+                    </a>
+                </li>
 
                 <li class="nav-item ">
                     <a class="nav-link" href="./deptpass.php">
@@ -450,14 +456,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                     });
                 });
             });
-        </script>
 
 
-        </script>
-
-        <
-        script;
-        type = "text/javascript" >
             function viewDetails() {
 
                 var ip = event.target.name;
@@ -467,3 +467,4 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             }
 
         </script>
+

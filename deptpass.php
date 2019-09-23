@@ -104,12 +104,20 @@ if ($row['usertype'] != 'Department') {
                         <p>Do Complain</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./deptmycomplain.php">
+                        <i class="material-icons">content_paste</i>
+                        <p>My Complains</p>
+                    </a>
+                </li>
                 <li class="nav-item active ">
                     <a class="nav-link" href="./deptpass.php">
                         <i class="material-icons">person</i>
                         <p>My Profile</p>
                     </a>
                 </li>
+
+
                 <li class="nav-item ">
                     <a class="nav-link" href="./logout.php">
                         <i class="material-icons">arrow_back</i>

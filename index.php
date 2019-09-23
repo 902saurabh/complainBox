@@ -131,21 +131,20 @@ if (isset($_SESSION['type'])) {
                                         </div>
                                     </div>
                                     <div class="card-body">
-
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="material-icons">perm_identity</i>
-                    </span>
+                                                <span class="input-group-text">
+                                                  <i class="material-icons">perm_identity</i>
+                                                </span>
                                             </div>
                                             <input type="text" class="form-control" name="username"
                                                    placeholder="Username..." required="true">
                                         </div>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="material-icons">lock_outline</i>
-                    </span>
+                                                <span class="input-group-text">
+                                                  <i class="material-icons">lock_outline</i>
+                                                </span>
                                             </div>
                                             <input type="password" class="form-control" name="password"
                                                    placeholder="Password..." required="true">
@@ -155,8 +154,10 @@ if (isset($_SESSION['type'])) {
                                     </div>
 
                                     <div class="footer text-center">
-                                        <button type="submit" class="btn btn-primary btn-link btn-wd btn-lg">Login
+                                        <button type="submit" class="btn btn-primary">Login
                                         </button>
+                                        <br>
+                                        <br>
                                         <!--
                                         <a href="./forgotpassword.php" class="btn btn-primary btn-link btn-wd btn-lg">Forgot Password?</a>
                                         -->

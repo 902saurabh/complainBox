@@ -95,6 +95,12 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                         <p>Do Complain</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./deptmycomplain.php">
+                        <i class="material-icons">content_paste</i>
+                        <p>My Complains</p>
+                    </a>
+                </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="./deptpass.php">
                         <i class="material-icons">person</i>

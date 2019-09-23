@@ -275,7 +275,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                       <tbody>';
 
 
-            $sql = "SELECT * FROM complain WHERE Departmentname like'%" . $_SESSION['name'] . "%' ORDER BY id DESC";
+            $sql = "SELECT * FROM complain WHERE Departmentname In
+						(SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%')";
             $result = mysqli_query($con, $sql);
             while ($row = mysqli_fetch_array($result)) {
                 //Creates a loop to dipslay all complain

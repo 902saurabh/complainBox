@@ -21,8 +21,9 @@ foreach ($helper as $key) {
 
 
 echo '
-	<script>
- 
+	    <script>    
+        	window.location.href = "index.php";
+	
 		</script>
  
 	';

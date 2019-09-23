@@ -159,7 +159,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                   </h3>
                 </div>
                 <div class="card-footer">
-                  <div class="stats"><a href="./usercomplain.php?status=">View Details</a>
+                  <div class="stats"><a href="./deptviewowncomp.php?status=">View Details</a>
 
                   </div>
                 </div>
@@ -176,7 +176,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                   <h3 class="card-title">' . $totpendingcomp . '</h3>
                 </div>
                 <div class="card-footer">
-                  <div class="stats"><a href="./usercomplain.php?status=Pending">View Details</a>
+                  <div class="stats"><a href="./deptviewowncomp.php?status=Pending">View Details</a>
                   </div>
                 </div>
               </div>
@@ -192,7 +192,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-				  <a href="./usercomplain.php?status=In-Progress">View Details</a>
+				  <a href="./deptviewowncomp.php?status=In-Progress">View Details</a>
                   </div>
                 </div>
               </div>
@@ -208,7 +208,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                   <h3 class="card-title">' . $totsolvedcomp . '</h3>
                 </div>
                 <div class="card-footer">
-                  <div class="stats"><a href="./usercomplain.php?status=Solved">View Details</a>
+                  <div class="stats"><a href="./deptviewowncomp.php?status=Solved">View Details</a>
                   </div>
                 </div>
               </div>
@@ -1125,7 +1125,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             var id = event.target.name;
 
             document.cookie = "cancelID=" + id;
-            window.open("usercomplain.php", "_self");
+            window.open("deptviewowncomp.php", "_self");
         }
 
 
