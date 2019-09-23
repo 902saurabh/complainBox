@@ -243,8 +243,52 @@ if (isset($_GET['date_submit'])) {
 
             $dp = $row['Departmentname'];
             $single = mysqli_query($con, "SELECT * from complain WHERE Departmentname='$dp'");
+            $pend = "SELECT count(status) as e,status FROM `complain` where status='Pending' 				group by status";
+            $res = "SELECT count(status) as e,status FROM `complain` where status='Resolved' 				group by status";
+            $inp = "SELECT count(status) as e,status FROM `complain` where status='In-Progress' 				group by status";
+
+
+            $count_sum = "select count(Departmentname) as dp , sum(cost) as c from complain where 		Departmentname like '%".$dp."%'";
+
+
+            $pend = mysqli_query($con,$pend);
+            $res = mysqli_query($con,$res);
+            $inp = mysqli_query($con,$inp);
+            $count_sum = mysqli_query($con,$count_sum);
+
+            //$test = mysqli_query($con,$query77);
+            $row5 = mysqli_fetch_array($pend);
+            $row6 = mysqli_fetch_array($res);
+            $row7 = mysqli_fetch_array($inp);
+
+            $row8 = mysqli_fetch_array($count_sum)
+
 
             $html .= '<h3>Department:' . $dp . ' </h3>
+			
+			<table class="table" align="center">
+			  <thead class="thead-dark">
+			    <tr>
+			      <th scope="col">Total Complains</th>
+			      <th scope="col">Pending</th>
+			      <th scope="col">In-Progress</th>
+			      <th scope="col">Resolved</th>
+			      <th scope="col">Total Cost</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <th scope="row">' . $row8['dp'] . '</th>
+			      <td>' . $row5['e'] . '</td>
+			      <td>' . $row6['e'] . '</td>
+			      <td>' . $row7['e'] . '</td>
+			      <td>' . $row8['c'] . '</td>
+			    </tr>
+			    </tbody>
+			  </table>
+
+
+		
 
 
                     <table class="table">
@@ -350,7 +394,69 @@ if (isset($_GET['date_submit'])) {
         $query = mysqli_query($con, "SELECT * from complain WHERE Departmentname='$dep'");
 
 
+
+        $pend = "SELECT count(status) as e,status FROM `complain` where status='Pending' 				group by status";
+        $res = "SELECT count(status) as e,status FROM `complain` where status='Resolved' 				group by status";
+        $inp = "SELECT count(status) as e,status FROM `complain` where status='In-Progress' 				group by status";
+
+
+        $count_sum = "select count(Departmentname) as dp , sum(cost) as c from complain where 		Departmentname like '%".$dep."%'";
+
+
+        $pend = mysqli_query($con,$pend);
+        $res = mysqli_query($con,$res);
+        $inp = mysqli_query($con,$inp);
+        $count_sum = mysqli_query($con,$count_sum);
+
+        //$test = mysqli_query($con,$query77);
+        $row5 = mysqli_fetch_array($pend);
+        $row6 = mysqli_fetch_array($res);
+        $row7 = mysqli_fetch_array($inp);
+
+        $row8 = mysqli_fetch_array($count_sum)
+
+
+            $html .= '<table class="table" align="center">
+			  <thead class="thead-dark">
+			    <tr>
+			      <th scope="col">Total Complains</th>
+			      <th scope="col">Pending</th>
+			      <th scope="col">In-Progress</th>
+			      <th scope="col">Resolved</th>
+			      <th scope="col">Total Cost</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <th scope="row">' . $row8['dp'] . '</th>
+			      <td>' . $row5['e'] . '</td>
+			      <td>' . $row6['e'] . '</td>
+			      <td>' . $row7['e'] . '</td>
+			      <td>' . $row8['c'] . '</td>
+			    </tr>
+			    </tbody>
+			  </table>';
+
+
+
+
+
+
+
+
+
+
         $html .= '<h3>Department:' . $dep . ' </h3>
+
+
+
+
+	
+
+
+
+
+
     
                <table class="table departmentTable">
                     <thead class="thead-dark">
@@ -443,13 +549,12 @@ if (isset($_GET['date_submit'])) {
 
     //echo $row['id']."<br>";
     //$html="xfnblkndf";
-    $mpdf = new Mpdf();
     $dname = date("d-m-Y H:i:s");
     $download = "complain(" . $dname . ").pdf";
-
+    $mpdf = new Mpdf();
     $currentTime = date("d-m-Y H:i:s");
     $mpdf->SetFooter($currentTime);
-    //$mpdf->SetFooter('Document Title');
+//$mpdf->SetFooter('Document Title');
     $mpdf->WriteHTML($html);
     $pdf = $mpdf->Output('', 'S');
     $mpdf->Output($download, 'D');
@@ -620,22 +725,6 @@ function sendEmail($email, $pdf)
                         <p>Cancel complains</p>
                     </a>
                 </li>
-
-                <li class="nav-item ">
-                    <a class="nav-link" href="./admindocomp.php">
-                        <i class="material-icons">content_paste</i>
-                        <p>Do Complain</p>
-                    </a>
-                </li>
-
-
-                <li class="nav-item ">
-                    <a class="nav-link" href="./adminmycomplain.php">
-                        <i class="material-icons">content_paste</i>
-                        <p>My Complains</p>
-                    </a>
-                </li>
-
                 <li class="nav-item ">
                     <a class="nav-link" href="./logout.php">
                         <i class="material-icons">arrow_back</i>
@@ -1027,7 +1116,15 @@ if (isset($_POST['reg_complain'])) {
             $('#expense').hide();
             $("#start").show();
         }
+        /* $.ajax({
+           type: "POST",
+           url: "status_update.php",
+           data:"status="+val+"&id=<?php //echo $_GET['id']?>"
+    }).done(function(){
+      window.open("depthome.php","_self");
+    });
 
+*/
 
     });
 

@@ -22,10 +22,10 @@ foreach ($helper as $key) {
 
 echo '
 	<script>
- 		//myWindow=window.open("https://accounts.google.com/Logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
+ 	myWindow=window.open("https://accounts.google.com/Logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
 	//	window.location.href=( "https://accounts.google.com/Logout", "_blank");
-	//	window.location.href = ("index.php");
-		window.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://lms-kjsce.somaiya.edu/complainbox";
+	window.location.href = ("index.php");
+		//window.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://lms-kjsce.somaiya.edu/complainbox";
 
 	</script>
  

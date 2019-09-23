@@ -131,6 +131,22 @@ if ($row['usertype'] != 'admin') {
                         <p>Cancel complains</p>
                     </a>
                 </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./admindocomp.php">
+                        <i class="material-icons">content_paste</i>
+                        <p>Do Complain</p>
+                    </a>
+                </li>
+
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./adminmycomplain.php">
+                        <i class="material-icons">content_paste</i>
+                        <p>My Complains</p>
+                    </a>
+                </li>
+
                 <li class="nav-item ">
                     <a class="nav-link" href="./logout.php">
                         <i class="material-icons">arrow_back</i>

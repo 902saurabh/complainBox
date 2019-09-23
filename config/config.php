@@ -1,19 +1,15 @@
 <?php
-$filerootpath='/var/complainbox_doc/';
+$filerootpath = '/var/complainbox_doc/';
 ob_start();        // output buffer start 
 session_start();  //session start
 
 date_default_timezone_set('Asia/Kolkata');
 
-$con=mysqli_connect("localhost","root","","complainbox");
+$con = mysqli_connect("localhost", "root", "Kjsce@1234", "complainbox");
 
-if(mysqli_connect_errno()){
-	echo "failed to connect" . mysqli_connect_errno;
+if (mysqli_connect_errno()) {
+    echo "failed to connect" . mysqli_connect_errno;
 }
-
-	
-
-
 
 
 ?>

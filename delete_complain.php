@@ -45,8 +45,8 @@ $var = '
               
             }).done(function(data){
                 console.log(data);
-               // window.location.href = "";
-                history.back();
+               window.location.href = "index.php";
+                
             }).fail(function() { 
                 alert( "Something went wrong" );
             });
