@@ -157,22 +157,10 @@ while ($row1 = mysqli_fetch_array($result1)) {
                         <p>My Complains</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./deptchat.php?user=Carpentry">
-                        <i class="material-icons">content_paste</i>
-                        <p>Chat</p>
-                    </a>
-                </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="./deptpass.php">
                         <i class="material-icons">person</i>
                         <p>My Profile</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="./deptreport.php">
-                        <i class="material-icons">person</i>
-                        <p>Report</p>
                     </a>
                 </li>
                 <li class="nav-item ">
@@ -338,7 +326,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
             $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
             $result1 = mysqli_query($con, $sqlt);
             while ($row1 = mysqli_fetch_array($result1)) {
-                $sql = "SELECT * FROM complain WHERE Departmentname like '%" . $row1['name'] . "%'";
+                $sql = "SELECT * FROM complain WHERE Departmentname like '%" . $row1['name'] . "%'  ORDER BY id DESC";
                 $result = mysqli_query($con, $sql);
                 while ($row = mysqli_fetch_array($result)) {
                     //Creates a loop to dipslay all complain

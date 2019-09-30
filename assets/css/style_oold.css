@@ -228,37 +228,3 @@ button{
     font-size:20px;
     padding:0px 0px 0px 0px;
   }
-
-
-.messages{
-  border: 1px solid #000;
-  border-radius: 5px;
-  padding: 5px 10px;
-  display: inline-block;
-  
-}
-.messages#blue{
-  background-color: #3498db;
-  border-color: #2980b9;
-  float: right;
-  margin-bottom: 5px;
-}
-
-.messages#green{
-  background-color: #2ecc71;
-  border-color: #27ae60;
-  float: left;
-  margin-bottom: 5px;
-}
-
-#message_submit{
-  height: 41px;
-  width: 120px;
-
-  border: none;
-  background-color: #20aae5;
-  color: #156588;
-  border-radius: 5px;
-  font-family: 'Bellota-BoldItalic' , sans-serif;
-  text-shadow: #73bee2 0.5px 0.5px 0px; 
-}
