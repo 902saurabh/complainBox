@@ -49,7 +49,8 @@ if (isset($_SESSION['type'])) {
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h1 class="title">One Step Solution</h1>
+                <h1 class="title">COMPLAIN BOX</h1>
+                <h1 class="title"> One Step Solution</h1>
                 <h4>A portal for all your complaints, Focus on complaining about the problem you have, rather than
                     staying with the issue.</h4>
                 <br>
@@ -165,7 +166,7 @@ if (isset($_SESSION['type'])) {
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <center>
-                                                    <div id="my-signin1" data-onsuccess="onSignIn"></div>
+                                                    <div id="my-signin1" onclick="ClickLogin()" data-onsuccess="onSignIn"></div>
                                                 </center>
                                             </div>
                                         </div>
@@ -202,7 +203,17 @@ if (isset($_SESSION['type'])) {
         <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
         <script>
 
+        	var clicked=false;
+        	function ClickLogin()
+		{
+			clicked=true;
+		}
+
             function onSuccess(googleUser) {
+				
+				$('#my-signin1 div div span span:last').text("Sign In");
+				if(clicked){
+					$('#my-signin1 div div span span:last').text("Signed In");
                 var profile = googleUser.getBasicProfile();
                 console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
                 console.log('Name: ' + profile.getName());
@@ -247,6 +258,7 @@ if (isset($_SESSION['type'])) {
                     });
                 }
             }
+        }
 
             function onFailure(error) {
                 console.log(error);
@@ -254,7 +266,7 @@ if (isset($_SESSION['type'])) {
             }
 
             function renderButton() {
-
+	
                 gapi.signin2.render('my-signin1', {
                     'scope': 'profile email',
                     'width': 240,
