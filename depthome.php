@@ -400,6 +400,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
             $cmail = $fetch['complainantmail'];
             $dtym = $fetch['complaindate'];
             $cstatus = $fetch['status'];
+            $usercontactnum = $fetch['contactnum'];
 
             if (empty($upload_img)) {
                 $upload = "";
@@ -560,7 +561,29 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 </div>
               </div>
 
-                </div>' . $upload . '
+                </div>
+                
+                  <div class="col-lg-4 col-md-6 col-sm-6">
+
+                <div class="card card-stats">
+                <br>
+                <div class="card-header card-header-warning card-header-icon">
+                  
+                  <p class="card-category text-left text-primary">Contact Number :</p>
+                  
+                </div>
+                <div class="card-footer" style="margin-top: 0px;">
+                  <div class="stats" style="word-break: break-word">
+                    <h4 class="card-title" style="font-weight:400">' . $usercontactnum . '
+                   
+                  </h4>
+                  </div>
+                </div>
+              </div>
+
+                </div>
+                
+                ' . $upload . '
 
   </div>
 

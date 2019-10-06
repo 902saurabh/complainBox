@@ -280,7 +280,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                                 <ul class="dropdown-menu" style="cursor:pointer;"
                                                     aria-labelledby="dropdownMenuLink" name="ul" required>
 
-                                                    <li class="dropdown-item" id="item2" value="k" href="#">ARYABHATTA ENGINEERING BUILDING(A)
+                                                    <li class="dropdown-item" id="item2" value="k" href="#">ARYABHATTA
+                                                        ENGINEERING BUILDING(A)
                                                     </li>
                                                     <li class="dropdown-item" id="item3" href="#">BHASKARACHARYA(B)</li>
                                                 </ul>
@@ -372,7 +373,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                                 $("#file_test").show();
                                             } else {
                                                 $("#file-upload-filename").css("color", "red");
-                                                infoArea.textContent = "*Following file format is not 							supported!";
+                                                infoArea.textContent = "*Following file format is not supported!";
                                                 $("#file_test").hide();
                                             }
 
@@ -380,6 +381,21 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
 
                                     </script>
+
+
+                                    <div class="form-group" style="margin-top: 25px;">
+                                        <label for="exampleFormControlInput1"
+                                               style="margin-bottom: 5px; color: #9128ac">Contact Number:</label>
+                                        <?php
+                                        $row = mysqli_fetch_array(mysqli_query($con, "SELECT contactnum FROM user WHERE email='" . $email . "'"));
+                                        $conta = $row['contactnum'];
+
+                                        echo '<input type="number" class="form-control" id="contactnumber"
+                                               name="contactnumber" placeholder="Eg. 9833085347"
+                                               value="' . $conta . '"
+                                               required>';
+                                        ?>
+                                    </div>
 
 
                                     <input type="submit"
@@ -468,7 +484,9 @@ if (isset($_POST['com_submit'])) {
       */
 
     $complain_body = $_POST['complain_body'];
+    $contactnumber = $_POST['contactnumber'];
 
+    // echo $contactnumber;
     if ($complain_body != '') {
         $body = mysqli_real_escape_string($con, $complain_body);
         $location = mysqli_real_escape_string($con, $location);
@@ -571,9 +589,9 @@ if (isset($_POST['com_submit'])) {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
   border-top: 16px solid blue;
-  border-right: 16px solid green;
-  border-bottom: 16px solid red;
-  border-left: 16px solid pink;
+  border-right: 16px solid blue;
+  border-bottom: 16px solid blue;
+  border-left: 16px solid blue;
   
   width: 120px;
   height: 120px;
@@ -626,7 +644,17 @@ document.getElementById("completebody").style.display = "none";
 
 
 ';
-            mysqli_query($con, "INSERT into complain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate) values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime')");
+
+
+            //UPDATE `user` SET `contactnum` = '9833' WHERE `user`.`id` = 32;
+            $sql78 = "UPDATE user SET contactnum = '$contactnumber' WHERE   email='" . $email . "'";
+            //echo $sql78;
+            mysqli_query($con, $sql78);
+
+            $sql79 = "INSERT into complain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate,contactnum) 
+                    values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime','$contactnumber')";
+            //   echo $sql79;
+            mysqli_query($con, $sql79);
 
             $id = mysqli_insert_id($con);
 

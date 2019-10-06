@@ -414,7 +414,19 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
 
                                     </script>
+                                    <div class="form-group" style="margin-top: 25px;">
+                                        <label for="exampleFormControlInput1"
+                                               style="margin-bottom: 5px; color: #9128ac">Contact Number:</label>
+                                        <?php
+                                        $row = mysqli_fetch_array(mysqli_query($con, "SELECT contactnum FROM user WHERE email like'%" . $email . "%'"));
+                                        $conta = $row['contactnum'];
 
+                                        echo '<input type="number" class="form-control" id="contactnumber"
+                                               name="contactnumber" placeholder="Eg. 9833085347"
+                                               value="' . $conta . '"
+                                               required>';
+                                        ?>
+                                    </div>
 
                                     <input type="submit"
                                            id="file_test"
@@ -494,7 +506,7 @@ if (isset($_POST['com_submit'])) {
     </script>';*/
     $location = $_POST['location'];
     $building = $_POST['buildingOption'];
-
+    $contactnumber = $_POST['contactnumber'];
 
     $complain_body = $_POST['complain_body'];
 
@@ -600,9 +612,9 @@ if (isset($_POST['com_submit'])) {
   border: 16px solid #f3f3f3;
   border-radius: 50%;
   border-top: 16px solid blue;
-  border-right: 16px solid green;
-  border-bottom: 16px solid red;
-  border-left: 16px solid pink;
+  border-right: 16px solid blue;
+  border-bottom: 16px solid blue;
+  border-left: 16px solid blue;
   
   width: 120px;
   height: 120px;
@@ -655,8 +667,15 @@ document.getElementById("completebody").style.display = "none";
 
 
 ';
-            mysqli_query($con, "INSERT into complain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate) values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime')");
+            //UPDATE `user` SET `contactnum` = '9833' WHERE `user`.`id` = 32;
+            $sql78 = "UPDATE user SET contactnum = '$contactnumber' WHERE   email like '%" . $email . "%'";
+            //echo $sql78;
+            mysqli_query($con, $sql78);
 
+            $sql79 = "INSERT into complain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate,contactnum) 
+                    values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime','$contactnumber')";
+            //   echo $sql79;
+            mysqli_query($con, $sql79);
             $id = mysqli_insert_id($con);
 
 
