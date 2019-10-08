@@ -337,9 +337,24 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
             $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
             $result1 = mysqli_query($con, $sqlt);
+			$deptnamearr = array();
             while ($row1 = mysqli_fetch_array($result1)) {
-                $sql = "SELECT * FROM complain WHERE Departmentname like '%" . $row1['name'] . "%'";
+			 $deptnamearr[]=$row1['name'] ;
+			}
+			
+			
+			
+						//SELECT * FROM complain WHERE Departmentname='Carpentry' OR Departmentname='Networking' ORDER BY id DESC
+			 $sql="SELECT * FROM complain WHERE Departmentname like '%".$deptnamearr[0]."%' ";
+			$arrlength = count($deptnamearr);
+
+			for($x = 1; $x < $arrlength; $x++) {
+					$sql = $sql. "OR Departmentname like '%".$deptnamearr[$x]."%'  ";
+				}
+			
+			$sql = $sql. "ORDER BY id DESC";
                 $result = mysqli_query($con, $sql);
+				echo '<script>alert('.$sql.')</script>';
                 while ($row = mysqli_fetch_array($result)) {
                     //Creates a loop to dipslay all complain
                     echo " <tr><td>" . $row['id'] . "</td>";
@@ -366,7 +381,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                     echo "'  style='    font-weight: 500;'>" . $row['status'] . "</td>";
                     echo '<td><button type="button" class="btn btn-primary" name="' . $row['id'] . '" onclick="takeAction(event)">Take Action</button></td></tr>';
                 }
-            }
+           // }//end outer while
             echo '</tbody>
                     </table>
                   </div>
@@ -629,7 +644,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
 
             echo '
-                    <form action="" method="POST">
+                    <form action="" enctype="multipart/form-data" method="POST">
                                      				                     
               
                       
@@ -645,7 +660,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
               <div class="row">
 
 
-              <div class="col-lg-4 col-md-6 col-sm-6">
+              <div class="col-lg-6 col-md-6 col-sm-6">
 
                 <div class="card card-stats">
                 <br>
@@ -676,7 +691,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 </div>
 
 
-                <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
 
                 <div class="card card-stats" id="start">
                 <br>
@@ -689,7 +704,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                   <div class="stats">
                   <div class="form-group">
                      
-                       <input type="number"  name="timer" class="form-control" style="" value=0>
+                       <input type="number"  name="timer" class="form-control" style="" value=0 required>
                     </div>
                    
                    
@@ -712,7 +727,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                   <div class="stats">
                   <div class="form-group">
                      
-                       <input type="number" name="cost" class="form-control"  value=0>
+                       <input type="number" name="cost" class="form-control"  value=0 required>
                     </div>
                    
                    
@@ -724,7 +739,9 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
 
                 </div>
-                  <div class="col-lg-4 col-md-6 col-sm-6">
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
 
                 <div class="card card-stats">
                 <br>
@@ -745,58 +762,35 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
                 </div>
 
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+
+                <div class="card card-stats" id="start">
+                <br>
+                <div class="card-header card-header-warning card-header-icon">
+                  
+                  <p class="card-category text-left text-primary">Add Quotation: </p>
+                  
+                </div>
+                <div class="card-footer" style="margin-top:0px;">
+                  <div class="stats">
+                  
+                        
+                       <input type="file"  name="upload" id="upload">
+                  
+                   
+                   
+                  </h4>
+                  </div>
+                </div>
+              </div>
+			   
+                </div>
+
 </div>
 
     <input type="submit" name="reg_complain" class="btn btn-primary btn-block" value="Update Status">
 
-									<!--			<div class="row">
-
-                      <div class="col-md-12 col-sd-12">
-                          <div class="dropdown" >
-                      <a class="btn btn-primary btn-block dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        SELECT STATUS
-                      </a>
-					  
-                      <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenuLink" >
-                        <li class="dropdown-item" id="item1" name="pending" href="#">Pending</li>
-                        <li class="dropdown-item" id="item2" name="inprogress" href="#">In-Progress</li>
-                        <li class="dropdown-item" id="item3" name="resolved" href="#">Resolved</li>
-                      </ul>
-                    </div>
-                    </div>
-					</div>
-					
-					<br/>
-						<div class="row">
-					  <div class="col-md-12 col-sd-12">
-                 
-						<h6><u><b>Enter number of dasy required to solve problem</b></u></h6>
-                      <input type="number" id="start" name="timer" style="display:none;">
-
-                              </div>
-                     </div>		
-
-					 
-					 <br/>
-
-							  
-					<div class="row">
-					<div class="col-md-4 col-sd-12">
-					
-					<a href="./depthome.php" class="btn btn-primary btn-block">GO BACK</a>
-					</div>
-					
-					<div class="col-md-4 col-sd-12">
-					
-					<input type="submit" name="reg_complain" class="btn btn-primary btn-block" value="Update Status">
-					</div>
-					<div class="col-md-4 col-sd-12">
-					
-					
-					<input type="submit" class="btn btn-primary btn-block"  name="forward_admin"  value="Forward to Admin">
-					</div>
-					</div>-->
-
+								
                     </form>';
 
 
@@ -821,7 +815,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
         }
 
 
-        if (isset($_POST['reg_complain'])) {
+        if (isset($_POST['reg_complain'])) {												   
 
             if (isset($_COOKIE['status'])) {
                 $status = $_COOKIE['status'];
@@ -832,9 +826,21 @@ while ($row1 = mysqli_fetch_array($result1)) {
             $timer = $_POST['timer'];
             $cost = $_POST['cost'];
 
+            if($status=="Resolved"){
+              //$query8 = mysqli_query($con,"SELECT * FROM complain where id='$id'");
+              //row8 = mysqli_fetch_array($query8);
+              /*if($row8['solved_by']=="NULL"){
+                $query8 = mysqli_query($con,"INSERT into complain(solved_by) values('') where id =")
+              }*/
+              $solved_by = $uname;
+               $query = mysqli_query($con, "UPDATE complain SET solved_by='$uname' WHERE id='$id'");
+              
+            }						
 //$sql7="UPDATE complain SET status='".$status."' , time_constraint=".$timer." ,cost=".$cost." WHERE id=".$id.";";
 //echo $sql7;
-            $query = mysqli_query($con, "UPDATE complain SET status='$status' , time_constraint='$timer' , cost='$cost' WHERE id='$id'");
+		if($status!='' && (isset($_POST['cost']) || isset($_POST['timer']))){
+            $query = mysqli_query($con, "UPDATE complain SET status='$status' , 		time_constraint='$timer' , cost='$cost' WHERE id='$id'");}										 
+											 
 
             if ($_COOKIE['status'] == "Resolved") {
 
@@ -1230,7 +1236,6 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
     if (isset($_POST['forward_admin'])) {
 
-
         $remark = $_POST['remark'];
         $remark = mysqli_real_escape_string($con, $remark);
         $sql7 = "INSERT INTO admincomplain (`ogid`, `remark`) values ($id,'" . $remark . "')";
@@ -1240,6 +1245,87 @@ while ($row1 = mysqli_fetch_array($result1)) {
         $query = mysqli_query($con, "SELECT email from user WHERE usertype='admin'");
         $row = mysqli_fetch_array($query);
         $mail_to = $row['email'];
+
+		//////// Quoatatio////////////////
+
+
+		$uploadOk = 1;
+                $tmpFilePath = $_FILES['upload']['tmp_name'];//[$i];
+                
+echo "<script>alert('tmp  ".$tmpFilePath."');</script>";
+                $file_path = '';
+
+				//Make sure we have a filepath
+					if ($tmpFilePath != "") {
+
+					    if ($_FILES["upload"]["size"] < 25000000) {
+						//save the filename
+						$shortname = $_FILES['upload']['name'];
+
+						//save the url and the file
+						$filePath = "$filerootpath" . date('d-m-Y-H-i-s') . '-' . $_FILES['upload']['name'];
+						//$filePath = date('d-m-Y-H-i-s') . '-' . $_FILES['upload']['name'];
+
+						$imageFileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+
+
+					if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "pdf"){
+
+					    //echo $imageFileType;
+					    //Upload the file into the temp dir
+					    //  if(move_uploaded_file($tmpFilePath, $filePath)) {
+echo "<script>alert('tmpFilePath   ".$tmpFilePath."');</script>";
+					
+if(					move_uploaded_file($tmpFilePath, $filePath))
+	echo "<script>alert('Nachoo   ');</script>";
+else
+						
+	echo "<script>alert('Nahi hua phir se debug kr   ');</script>";
+echo "<script>alert('file   ".$filePath."');</script>";
+					    //$files[] = $shortname;
+					    $file_path = $filePath;
+					    //insert into db 
+					    //use $shortname for the filename
+					    //use $filePath for the relative url to the file
+					} else {
+					    $uploadOk = 0;
+					    $msg = '<script>alert("Sorry, File format is not supported.")</script>';
+					    echo $msg;
+					    //  header("Location: complain.php?department=$department");
+					}
+					//}
+				    } else {
+					$uploadOk = 0;
+					$msg = '<script>alert("Sorry, your file should not be more than 25MB.")</script>';
+					echo $msg;
+					// header("Location: complain.php?department=$department");
+				    }
+
+
+				}
+
+
+				  if ($uploadOk == 1) {
+
+				   $query = mysqli_query($con, "UPDATE complain SET quotation='$file_path' WHERE id='$id'");
+
+				  }
+
+
+
+
+
+
+
+
+		/////quaotaion end here/////////////
+
+
+
+
+
+
+
 
         echo '<script>
                 
@@ -1260,7 +1346,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
             });
 
             </script>';
-        header("Location: depthome.php");
+      //  header("Location: depthome.php");
     }
 
 
@@ -1269,7 +1355,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
     <script>
 
-        $("li").click(function () {
+        $(".dropdown-item").click(function () {
 
             var val = $(this).text();
             $("#dropdownMenuLink").text($(this).text());

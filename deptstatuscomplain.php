@@ -291,8 +291,24 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
             $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
             $result1 = mysqli_query($con, $sqlt);
+            $deptnamearr = array();
             while ($row1 = mysqli_fetch_array($result1)) {
-                $sql = "SELECT * FROM complain WHERE Departmentname like '%" . $row1['name'] . "%' AND status like '%" . $_GET['status'] . "%' ORDER BY id DESC";
+			 $deptnamearr[]=$row1['name'] ;
+			}
+			
+			
+			
+						//SELECT * FROM complain WHERE Departmentname='Carpentry' OR Departmentname='Networking' ORDER BY id DESC
+			 $sql="SELECT * FROM complain WHERE 
+			( Departmentname like '%".$deptnamearr[0]."%' AND status like '%".$_GET['status']."%' ) ";
+			$arrlength = count($deptnamearr);
+
+			for($x = 1; $x < $arrlength; $x++) {
+					$sql = $sql. "OR ( Departmentname like '%".$deptnamearr[$x]."%' AND status like '%".$_GET['status']."%' )  ";
+				}
+			
+			$sql = $sql. " ORDER BY id DESC";
+                
                 $result = mysqli_query($con, $sql);
                 while ($row = mysqli_fetch_array($result)) {
                     //Creates a loop to dipslay all complain
@@ -323,7 +339,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                     echo '<td><button type="button" class="btn btn-primary" name="' . $row['id'] . '" onclick="takeAction(event)">Take Action</button></td>';
 
                 }
-            }
+            
 
             echo '</tbody>
                     </table>

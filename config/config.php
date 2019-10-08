@@ -1,5 +1,5 @@
 <?php
-$filerootpath = '/var/complainbox_doc/';
+$filerootpath = 'upload/';
 ob_start();        // output buffer start 
 session_start();  //session start
 

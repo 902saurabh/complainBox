@@ -179,7 +179,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             $cname = $fetch['complainant'];
             $cmail = $fetch['complainantmail'];
             $dtym = $fetch['complaindate'];
-            $cstatus = $fetch['status'];
+            $cstatus = $fetch['status'];									  
+	    $quotation = $fetch['quotation'];	  
         }
         if (empty($upload_img)) {
             $upload = "";
@@ -201,7 +202,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 </div>
                 <div class="card-footer" style="margin-top:0px;">
                   <div class="stats">
-                    <a class="btn btn-primary"  target="_blank" href="' . $upload_img . '">View Document</a>
+                    <a class="btn btn-primary"  target="_blank" href="file:///' . $upload_img . '">View Document</a>
                    
                   </h4>
                   </div>
@@ -210,6 +211,42 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                 </div>';
         }
+
+
+	if (empty($quotation)) {
+            $view_quotation = "";
+        } else {
+
+            /*$upload="
+            <div class='form-group'>
+            <a class='btn btn-primary' target='_blank' href='" .$upload_img."'>View Quotation:</a>
+            </div>";*/
+
+            $view_quotation = '<div class="row">
+	<div class="col-lg-4 col-md-6 col-sm-6">
+
+                <div class="card card-stats">
+                <br>
+                <div class="card-header card-header-warning card-header-icon">
+                  
+                  <p class="card-category text-left text-primary">Uploaded Quotation :</p>
+                  
+                </div>
+                <div class="card-footer" style="margin-top:0px;">
+                  <div class="stats">
+                    <a class="btn btn-primary"  target="_blank" href="' . $quotation . '">View Document</a>
+                   
+                  </h4>
+                  </div>
+                </div>
+              </div>
+
+                </div></div>';
+        }
+
+
+
+
 
 
         ?>
@@ -621,6 +658,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                                     </div>
 
+				<?php echo $view_quotation;?>		 
                                     <!--
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="card card-stats">

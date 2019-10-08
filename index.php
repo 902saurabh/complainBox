@@ -54,9 +54,14 @@ if (isset($_SESSION['type'])) {
                 <h4>A portal for all your complaints, Focus on complaining about the problem you have, rather than
                     staying with the issue.</h4>
                 <br>
-                <a href="#login" class="btn btn-danger btn-raised btn-lg">
-                    Click Here to Login
-                </a>
+              <h4 ><b>Login in with Somaiya Mail</b></h4>
+				  <div class="row">
+                                            <div class="col-md-12">
+                                            
+                                                    <div id="my-signin1" onclick="ClickLogin()" data-onsuccess="onSignIn"></div>
+                                              
+                                            </div>
+                                        </div>
             </div>
         </div>
     </div>
@@ -118,7 +123,7 @@ if (isset($_SESSION['type'])) {
                 </div>
             </div>
 
-            <div class="page-header header-filter"
+  <!--          <div class="page-header header-filter"
                  style="background-image: url('assets/img/cam.jpg'); background-size: cover; background-position: top center;">
                 <div class="container">
                     <div class="row" id="login">
@@ -159,9 +164,7 @@ if (isset($_SESSION['type'])) {
                                         </button>
                                         <br>
                                         <br>
-                                        <!--
-                                        <a href="./forgotpassword.php" class="btn btn-primary btn-link btn-wd btn-lg">Forgot Password?</a>
-                                        -->
+                                     
                                         <p><b>Login Using Somaiya Mail</b></p>
                                         <div class="row">
                                             <div class="col-md-12">
@@ -171,7 +174,6 @@ if (isset($_SESSION['type'])) {
                                             </div>
                                         </div>
 
-                                        <!--<a href="./help.php" class="btn btn-primary btn-link btn-wd btn-lg">Can't Sign In?</a>-->
                                     </div>
 
                             </div>
@@ -181,7 +183,7 @@ if (isset($_SESSION['type'])) {
                 </div>
             </div>
         </div>
-
+-->
 
         <?php
         include("footer.php");
@@ -211,7 +213,7 @@ if (isset($_SESSION['type'])) {
 
             function onSuccess(googleUser) {
 				
-				$('#my-signin1 div div span span:last').text("Sign In");
+				$('#my-signin1 div div span span:last').text("Sign in");
 				if(clicked){
 					$('#my-signin1 div div span span:last').text("Signed In");
                 var profile = googleUser.getBasicProfile();
