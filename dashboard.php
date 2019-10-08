@@ -373,7 +373,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                                 $("#file_test").show();
                                             } else {
                                                 $("#file-upload-filename").css("color", "red");
-                                                infoArea.textContent = "*Following file format is not supported!";
+                                                infoArea.textContent = "*Following file format is not supported! (only images or pdf)";
                                                 $("#file_test").hide();
                                             }
 

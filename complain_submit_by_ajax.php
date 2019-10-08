@@ -23,14 +23,39 @@ $sender_mail = $row['complainantmail'];
 $building = $row['building'];
 $location = $row['location'];
 
+$user_query=mysqli_query($con,"SELECT name FROM user where email='$mail_by'");
+$row5 = mysqli_fetch_array($user_query);
 
-$msg = "<strong>Complain ID:</strong> " . $id . "<br>
-<strong>Department:</strong> " . $department . "<br>
+$msg = "<strong>Dear " . $row5['name'] . ",</strong><br>
+Thank you, Your complain is registered.<br> Your complain details are<br>
+<strong>Complain ID: </strong>".$id."<br> 
+<strong>Area of Working:</strong> " . $department . "<br>
 <strong>Building:</strong> " . $building . "<br>
 <strong>Location:</strong> " . $location . "<br>
-<strong>Description:</strong> " . $body;
+<strong>Description:</strong> " . $body."<br><br>
+<hr>
+<strong>Note:</strong><br>
+<font color='blue'>This is an automated system generated mail.</font><br>
+<font color='red'>Do not reply to this email.</font>
+";
 
 
+
+
+/*
+Dear (name of user),
+Thank you, Your complain is registered. Your complain details are 
+Complain ID:
+Area of Working:
+Building/Area:
+Location:
+Description:
+__________
+Note:
+This is an automated system generated mail.
+Do not reply to this email.
+
+*/
 //$department= $_POST['department'];
 //$location = $_POST['location'];
 //$building = $_POST['building'];
@@ -79,7 +104,7 @@ try {
 
 
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'New Complain';
+    $mail->Subject = 'Complain Registered Successfully';
     $mail->Body = $msg;
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 

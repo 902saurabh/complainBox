@@ -77,14 +77,14 @@ if ($row['usertype'] != 'Department') {
                 </li>
 
 
-                <li class="nav-item  ">
+                <li class="nav-item">
                     <a class="nav-link" href="./depthome.php">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
                 </li>
 
-                <li class="nav-item ">
+                <li class="nav-item">
                     <a class="nav-link" href="./deptstatuscomplain.php?status=">
                         <i class="material-icons">content_paste</i>
                         <p>View Complain</p>
@@ -98,7 +98,7 @@ if ($row['usertype'] != 'Department') {
                     </a>
                 </li>
 
-                <li class="nav-item ">
+                <li class="nav-item">
                     <a class="nav-link" href="./deptdocomplain.php">
                         <i class="material-icons">content_paste</i>
                         <p>Do Complain</p>
@@ -110,14 +110,24 @@ if ($row['usertype'] != 'Department') {
                         <p>My Complains</p>
                     </a>
                 </li>
-                <li class="nav-item active ">
+                <li class="nav-item">
+                    <a class="nav-link" href="./deptchat.php?user=Carpentry">
+                        <i class="material-icons">content_paste</i>
+                        <p>Chat</p>
+                    </a>
+                </li>
+                <li class="nav-item active">
                     <a class="nav-link" href="./deptpass.php">
                         <i class="material-icons">person</i>
                         <p>My Profile</p>
                     </a>
                 </li>
-
-
+                <li class="nav-item ">
+                    <a class="nav-link" href="./deptreport.php">
+                        <i class="material-icons">person</i>
+                        <p>Report</p>
+                    </a>
+                </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="./logout.php">
                         <i class="material-icons">arrow_back</i>

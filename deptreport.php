@@ -18,10 +18,13 @@ require 'vendor/autoload.php';
 //dashboard of department
 //$mysqli = new mysqli("localhost", "root", "", "complainbox");
 $uname = $_SESSION["name"];
-/*
-$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+
+$sqlt = "SELECT name from user WHERE email like '%" .$_SESSION['email']. "%'";
 $result1 = mysqli_query($con, $sqlt);
 
+$row5 =mysqli_fetch_array($result1);
+$vname=$row5['name'];
+/*
 while ($row1 = mysqli_fetch_array($result1)) {
     if (mysqli_num_rows(mysqli_query($con, $sqlt)) > 1) {
         $uname = $uname . $row1["name"] . ',';//set name to department name instead of gmail account name
@@ -30,7 +33,9 @@ while ($row1 = mysqli_fetch_array($result1)) {
         $uname = $row1["name"] . ',';//set name to department name instead of gmail account name
         $_SESSION["name"] = $uname;
     }
-}*/
+}
+$uname = $_SESSION["name"];
+*/
 
 ?>
 <!DOCTYPE html>
@@ -201,7 +206,7 @@ if (isset($_GET['date_submit'])) {
         $total_complain = 0;
 
 
-        $dep = $uname;
+        $dep = $vname;
         //echo $_POST['radio'];
         $query = mysqli_query($con, "SELECT * from complain WHERE Departmentname='$dep'");
 
@@ -512,7 +517,7 @@ function sendEmail($email, $pdf)
 
 
                                     <div style="margin: 25px 0 25px 10px">
-                                        <h4><strong>Department:<?php echo $uname; ?></strong></h4>
+                                        <h4><strong>Department:<?php echo $vname; ?></strong></h4>
                                         <?php
                                         ?>
 
@@ -537,7 +542,7 @@ function sendEmail($email, $pdf)
                                         </div>
                                         <div class="row" style="margin-top: 10px;">
                                             <div class="col">
-                                                <input type="hidden" name="radio" value="<?php echo $uname; ?>">
+                                                <input type="hidden" name="radio" value="<?php echo $vname; ?>">
                                                 <input type="submit" class="btn btn-primary btn-block"
                                                        name="date_submit" value="Export to PDF">
                                             </div>

@@ -223,7 +223,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             </div>";*/
 
             $view_quotation = '<div class="row">
-	<div class="col-lg-4 col-md-6 col-sm-6">
+	<div class="col-lg-6 col-md-6 col-sm-6">
 
                 <div class="card card-stats">
                 <br>
@@ -686,7 +686,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 -->
 
 
-                                    <input type="submit" name="reg_complain" class="btn btn-primary " value="Update">
+                                    <input type="submit" name="reg_complain" class="btn btn-primary "  style="float: right;" value="Update">
 
 
                                     <!--      <div class="row">

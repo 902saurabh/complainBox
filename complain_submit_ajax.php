@@ -26,15 +26,23 @@ $sender = $row['complainant'];
 $sender_mail = $row['complainantmail'];
 $building = $row['building'];
 $location = $row['location'];
+$contact  = $row['contactnum'];
 
-
-$msg = "<strong>Complain ID:</strong> " . $id . "<br>
-<strong>Department:</strong> " . $department . "<br>
+$msg = "Dear Sir,<br>
+<b>New complain been registered for ".$department." area of work</b><br>
+Complain details are,<br>
+<strong>Complain ID:</strong> " . $id . "<br>
 <strong>Building:</strong> " . $building . "<br>
 <strong>Location:</strong> " . $location . "<br>
 <strong>Description:</strong> " . $body . "<br>
 <strong>Sender Name:</strong> " . $sender . "<br>
-<strong>Sender Email:</strong> " . $sender_mail;
+<strong>Sender Email:</strong> " . $sender_mail."<br>
+<strong>Contact Number:</strong>".$contact."<br><br><br>
+<hr>
+<strong>Note:</strong><br>
+<font color='blue'>This is an automated system generated mail.</font><br>
+<font color='red'>Do not reply to this email.</font>
+";
 //$department= $_POST['department'];
 //$location = $_POST['location'];
 //$building = $_POST['building'];

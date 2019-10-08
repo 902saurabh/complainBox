@@ -228,6 +228,9 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                         <th>
                           Status
                         </th>
+                        <th>
+                          
+                        </th>
 						 <th>
                          Cancel 
                         </th>
@@ -278,19 +281,23 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 $minutes += $since_start->i;
 //secho $minutes.' minutes';
 
-                if ($minutes <= 5) {
+                echo '<form action="delete_complain.php" method="POST">';
+                echo '<td><input type="hidden" style="width:1px" name="cancel_id" id="cancel_button" value="'.$row['id'].'"></td>';
+                if ($minutes <= 100) {
 
                     /*echo '<td>
                     <from action="delete_complain.php?id='.$row['id'].'" method="POST">
                     <input type="submit" class="btn btn-danger" id="cancel_button" name="'.$row['id'].'" value="Cancel">
                     </form></td>';*/
+                    
 
-                    echo '<td><a type="button" class="btn btn-danger" name="' . $row['id'] . '" href="delete_complain.php?id=' . $row['id'] . '" onClick="return confirm(' . "'are you sure you want to cancel the complain?'" . ');">Cancel</a></td>';
+                    echo '<td><input type="submit" class="btn btn-danger" onClick="return confirm(' . "'are you sure you want to cancel the complain?'" . ');" value="Cancel"></td>';
                 } else {
 
-                    echo '<td><button type="button" class="btn btn-danger" id="cancel_button" disabled>Cancel</button></td>';
+                    echo '<td><button type="button" class="btn btn-danger" name="cancel_id" id="cancel_button" disabled>Cancel</button></td>';
 
                 }
+                echo "</form>";
             }
 
             echo '</tbody>
@@ -495,23 +502,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                  
 				  
 				 <!--
-          <form action="" enctype="multipart/form-data" method="POST">
-          <input type="hidden" id="cid" value="' . $id . '"  >
-					<div class="form-group" id="building_input" style="">
-                      <h6><u><b>Current Status</b></u></h6>
-					  <input type="text" class="form-control " value="' . $cstatus . '"  disabled>
-					  
-                    </div>    
-                    <div class="form-group" id="building_input" style="">
-                      <h6><u><b>Building</b></u></h6>
-					  <input type="text" class="form-control " value="' . $building . '" id="Building" disabled>
-                    </div>    
-                    <div class="form-group" >
-                      <h6><u><b>location</b></u></h6>
-					  <input type="text" class="form-control"  value="' . $location . '" id="location"  disabled>
-                    </div>
-
-                    -->
+         
 
                      <div class="form-group">
                       

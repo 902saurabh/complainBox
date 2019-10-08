@@ -64,23 +64,56 @@ $uname = $_SESSION["name"];
                 </li>
 
 
-                <li class="nav-item active ">
-                    <a class="nav-link" href="./admindashboard.php">
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="./depthome.php">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="./allcomplain.php">
+                    <a class="nav-link" href="./deptstatuscomplain.php?status=">
                         <i class="material-icons">content_paste</i>
-                        <p>View All Complain</p>
+                        <p>View Complain</p>
+                    </a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./depthcancel.php">
+                        <i class="material-icons">clear</i>
+                        <p>Cancel Complains</p>
+                    </a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./deptdocomplain.php">
+                        <i class="material-icons">content_paste</i>
+                        <p>Do Complain</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./deptmycomplain.php">
+                        <i class="material-icons">content_paste</i>
+                        <p>My Complains</p>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="./deptchat.php?user=Carpentry">
+                        <i class="material-icons">content_paste</i>
+                        <p>Chat</p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="./adddepartment.php">
-                        <i class="material-icons">group_add</i>
-                        <p>Add department</p>
+                    <a class="nav-link" href="./deptpass.php">
+                        <i class="material-icons">person</i>
+                        <p>My Profile</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="./deptreport.php">
+                        <i class="material-icons">person</i>
+                        <p>Report</p>
                     </a>
                 </li>
                 <li class="nav-item ">

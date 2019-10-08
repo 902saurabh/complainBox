@@ -106,7 +106,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 </li>
 
 
-                <li class="nav-item  ">
+                <li class="nav-item">
                     <a class="nav-link" href="./depthome.php">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
@@ -114,7 +114,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link">
+                    <a class="nav-link" href="./deptstatuscomplain.php?status=">
                         <i class="material-icons">content_paste</i>
                         <p>View Complain</p>
                     </a>
@@ -126,6 +126,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                         <p>Cancel Complains</p>
                     </a>
                 </li>
+
                 <li class="nav-item ">
                     <a class="nav-link" href="./deptdocomplain.php">
                         <i class="material-icons">content_paste</i>
@@ -138,10 +139,22 @@ while ($row1 = mysqli_fetch_array($result1)) {
                         <p>My Complains</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./deptchat.php?user=Carpentry">
+                        <i class="material-icons">content_paste</i>
+                        <p>Chat</p>
+                    </a>
+                </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="./deptpass.php">
                         <i class="material-icons">person</i>
                         <p>My Profile</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="./deptreport.php">
+                        <i class="material-icons">person</i>
+                        <p>Report</p>
                     </a>
                 </li>
                 <li class="nav-item ">
@@ -277,7 +290,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                   <table class="table table-hover">
                     <thead class="text-primary">
                         <th>ID</th>               
-                        <th>Department</th>               
+                        <th>Area of Work</th>               
 						<th>Detail</th>
 						<th>Date Time</th>                        
 						<th>Status</th>                    

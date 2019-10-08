@@ -314,7 +314,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                         </th>
 						
                         <th>
-                          Dept
+                          Area Of Work
                         </th>
 						<th>
                           Detail
@@ -704,7 +704,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                   <div class="stats">
                   <div class="form-group">
                      
-                       <input type="number"  name="timer" class="form-control" style="" value=0 required>
+                       <input type="number"  name="timer"  id="timer_update" class="form-control" style="" value=0 required>
                     </div>
                    
                    
@@ -727,7 +727,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                   <div class="stats">
                   <div class="form-group">
                      
-                       <input type="number" name="cost" class="form-control"  value=0 required>
+                       <input type="number" name="cost" id="cost_update" class="form-control"  value=0 required>
                     </div>
                    
                    
@@ -739,8 +739,10 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
 
                 </div>
+                <input type="submit" name="reg_complain" id="status_change" class="btn btn-primary btn-block" value="Update Status" style="margin: 10px 25px 10px 25px">
                 </div>
-                <div class="row">
+
+                <div class="row" style="margin-top:30px">
                   <div class="col-lg-6 col-md-6 col-sm-6">
 
                 <div class="card card-stats">
@@ -754,7 +756,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 <div class="card-footer" style="margin-top: 0px;">
                   <div class="stats" style="word-break: break-word">
 					
-                     <input type="submit" class="btn btn-primary btn-block"  id="forwardComplain" name="forward_admin"  value="Forward Admin" onClick="return confirm(' . "'Are you sure you want to forward the complain?'" . ');" disabled>
+                    
                   
                   </div>
                 </div>
@@ -768,7 +770,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 <br>
                 <div class="card-header card-header-warning card-header-icon">
                   
-                  <p class="card-category text-left text-primary">Add Quotation: </p>
+                  <p class="card-category text-left text-primary">Add Quotation:(Optional) </p>
                   
                 </div>
                 <div class="card-footer" style="margin-top:0px;">
@@ -785,10 +787,11 @@ while ($row1 = mysqli_fetch_array($result1)) {
               </div>
 			   
                 </div>
+                 <input type="submit" class="btn btn-primary btn-block"  id="forwardComplain" name="forward_admin"  value="Forward Admin" onClick="return confirm(' . "'Are you sure you want to forward the complain?'" . ');" style="margin: 10px 25px 10px 25px" disabled>
 
 </div>
 
-    <input type="submit" name="reg_complain" class="btn btn-primary btn-block" value="Update Status">
+  
 
 								
                     </form>';
@@ -1390,8 +1393,23 @@ echo "<script>alert('file   ".$filePath."');</script>";
 
     <script type="text/javascript">
 
+     /* $("input[name='number']").on("change", function(){
+
+        var t=$("#timer_update").val();
+        var c=$("#cost_update").val();
+        var u=$("#dropdownMenuLink").val();
+
+        if((u=='Resolved' || u=='In-Progress') && (t>0 || c>0)){
+            document.getElementById('status_change').disabled = false;
+        }else{
+          document.getElementById('status_change').disabled = true;
+
+        }
+
+      }*/
 
         function stoppedTyping() {
+
             var t = document.getElementById('complainRemark');
             if (t.value.length > 0) {
                 document.getElementById('forwardComplain').disabled = false;
