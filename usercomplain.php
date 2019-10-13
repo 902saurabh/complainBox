@@ -229,8 +229,11 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                           Status
                         </th>
                         <th>
-                          
+                          Details
                         </th>
+                        <th>
+                        
+                           </th>       
 						 <th>
                          Cancel 
                         </th>
@@ -271,25 +274,58 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 }
 
                 echo "</td>";
-                $start_date = new DateTime($row['complaindate']);
-                $new = date("Y-m-d H:i:s");
-                $since_start = $start_date->diff(new DateTime($new));
+                echo '
+                <form action="usercomplaindetail.php" method="post">
+                <td>
+                <input type="hidden" style="width:1px" name="id"  value="' . $row['id'] . '">
+                <button type="submit" class="btn btn-primary" name="' . $row['id'] . '">View Details
+                </button>
+                </td>
+                </form>
+                ';
+                /*
+                                $tmptime = strtotime($row['complaindate']);
+                                $start_date = new DateTime($tmptime);
+                                $new = date("d-M-Y h:i:A");
+                                //   $new = date("Y-m-d H:i:s");
+                                $since_start = $start_date->diff(new DateTime($new));
 
 
-                $minutes = $since_start->days * 24 * 60;
-                $minutes += $since_start->h * 60;
-                $minutes += $since_start->i;
-//secho $minutes.' minutes';
+                                $minutes = $since_start->days * 24 * 60;
+                                $minutes += $since_start->h * 60;
+                                $minutes += $since_start->i;
+                               */
+                $date1 = strtotime($row['complaindate']);
+                $new = date("d-M-Y H:i");
+                $date2 = strtotime($new);
 
+
+                $diff = abs($date2 - $date1);
+                $years = floor($diff / (365 * 60 * 60 * 24));
+
+                $months = floor(($diff - $years * 365 * 60 * 60 * 24)
+                    / (30 * 60 * 60 * 24));
+
+
+                $days = floor(($diff - $years * 365 * 60 * 60 * 24 -
+                        $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+                $hours = floor(($diff - $years * 365 * 60 * 60 * 24
+                        - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24)
+                    / (60 * 60));
+                $minutes = floor(($diff - $years * 365 * 60 * 60 * 24
+                        - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24
+                        - $hours * 60 * 60) / 60);
+                //echo $minutes;
                 echo '<form action="delete_complain.php" method="POST">';
-                echo '<td><input type="hidden" style="width:1px" name="cancel_id" id="cancel_button" value="'.$row['id'].'"></td>';
-                if ($minutes <= 100) {
+                echo '<td><input type="hidden" style="width:1px" name="cancel_id" id="cancel_button" value="' . $row['id'] . '"></td>';
+                if ($minutes <= 15) {
 
                     /*echo '<td>
                     <from action="delete_complain.php?id='.$row['id'].'" method="POST">
                     <input type="submit" class="btn btn-danger" id="cancel_button" name="'.$row['id'].'" value="Cancel">
                     </form></td>';*/
-                    
+
 
                     echo '<td><input type="submit" class="btn btn-danger" onClick="return confirm(' . "'are you sure you want to cancel the complain?'" . ');" value="Cancel"></td>';
                 } else {
@@ -812,27 +848,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
 
     <script>
-        /*  $("li").click(function(){
-            alert("j");
-            var val=$(this).text();
-            $("#dropdownMenuLink").text("STATUS: "+$(this).text());
-            $.ajax(function(){
-              type:"POST",
-              url:"status_update.php",
-              data:"status="+val+"&id=<?php //echo $_GET['id']?>"
-    }).done(function(){
-      window.open("depthome.php?id="+<?php //echo $_GET['id']?>,"_self");
-    });
-
-
-
-    });
-  */
-
-    </script>
-
-
-    <script>
 
         function doSomething(a) {
             var x = document.getElementById("testing");
@@ -1134,15 +1149,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 $('#expense').hide();
                 $("#start").show();
             }
-            /* $.ajax({
-               type: "POST",
-               url: "status_update.php",
-               data:"status="+val+"&id=<?php //echo $_GET['id']?>"
-    }).done(function(){
-      window.open("depthome.php","_self");
-    });
 
-*/
 
         });
 

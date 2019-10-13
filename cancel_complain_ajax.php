@@ -65,7 +65,14 @@ try {
     //Recipients
     $mail->setFrom('saurabhkumar.t@somaiya.edu');
     $mail->addAddress("9833saurabhtiwari@gmail.com");
-    $mail->addAddress($mail_to);     // Add a recipient
+
+    $mails = explode(",", $mail_to);
+    $len = 0;
+    while ($len != sizeof($mails)) {
+
+        $mail->addAddress($mails[$len]);// Add a recipient
+        $len = $len + 1;
+    }
 
     // Attachments
     if (!empty($file_path)) {
