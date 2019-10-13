@@ -1,6 +1,8 @@
 <?php
 $filerootpath = 'upload/';
-ob_start();        // output buffer start 
+$usermailid = "kjsce.complainbox@gmail.com";
+$usermailpass = "Kjsce@1234";
+ob_start();        // output buffer start
 session_start();  //session start
 
 date_default_timezone_set('Asia/Kolkata');

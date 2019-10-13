@@ -23,23 +23,21 @@ $sender_mail = $row['complainantmail'];
 $building = $row['building'];
 $location = $row['location'];
 
-$user_query=mysqli_query($con,"SELECT name FROM user where email='$mail_by'");
+$user_query = mysqli_query($con, "SELECT name FROM user where email='$mail_by'");
 $row5 = mysqli_fetch_array($user_query);
 
 $msg = "<strong>Dear " . $row5['name'] . ",</strong><br>
 Thank you, Your complain is registered.<br> Your complain details are<br>
-<strong>Complain ID: </strong>".$id."<br> 
+<strong>Complain ID: </strong>" . $id . "<br> 
 <strong>Area of Working:</strong> " . $department . "<br>
 <strong>Building:</strong> " . $building . "<br>
 <strong>Location:</strong> " . $location . "<br>
-<strong>Description:</strong> " . $body."<br><br>
+<strong>Description:</strong> " . $body . "<br><br>
 <hr>
 <strong>Note:</strong><br>
 <font color='blue'>This is an automated system generated mail.</font><br>
 <font color='red'>Do not reply to this email.</font>
 ";
-
-
 
 
 /*
@@ -80,13 +78,13 @@ try {
     $mail->isSMTP();                                            // Set mailer to use SMTP
     $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
     $mail->SMTPAuth = true;                                   // Enable SMTP authentication
-    $mail->Username = 'saurabhkumar.t@somaiya.edu';                     // SMTP username
-    $mail->Password = 'saurabh@807';                               // SMTP password
+    $mail->Username = $usermailid;                     // SMTP username
+    $mail->Password = $usermailpass;                               // SMTP password
     $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also 
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('saurabhkumar.t@somaiya.edu');
+    $mail->setFrom($usermailid);
     $mail->addAddress("9833saurabhtiwari@gmail.com");
     $mail->addAddress($mail_by);     // Add a recipient
 
@@ -104,7 +102,7 @@ try {
 
 
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Complain Registered Successfully';
+    $mail->Subject = 'Complain Registered Successfully with id  ' . $id;
     $mail->Body = $msg;
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 

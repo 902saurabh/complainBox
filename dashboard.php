@@ -697,7 +697,7 @@ document.getElementById("completebody").style.display = "none";
  document.getElementById("loader").style.display = "none";
   document.getElementById("completebody").style.display = "block";
 				alert("Your complain successfully submitted");
-                window.location.href = "dashboard.php";
+               // window.location.href = "dashboard.php";
 
             }).fail(function() { 
                 alert( "something went wrong!" );
