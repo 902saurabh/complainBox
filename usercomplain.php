@@ -317,6 +317,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                         - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24
                         - $hours * 60 * 60) / 60);
                 //echo $minutes;
+                $minutes = $minutes + ($hours * 60) + ($days * 24 * 60) + ($months * 30 * 24 * 60) + ($years * 365 * 60);
+
                 echo '<form action="delete_complain.php" method="POST">';
                 echo '<td><input type="hidden" style="width:1px" name="cancel_id" id="cancel_button" value="' . $row['id'] . '"></td>';
                 if ($minutes <= 15) {

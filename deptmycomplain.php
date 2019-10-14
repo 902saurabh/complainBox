@@ -171,8 +171,88 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
         echo '
 			<div class="content" id="complainDetail">
         <div class="container-fluid">
+			
 				
-              <div class="card">
+<div class="row">
+		  <div class="col-md-12">
+              <div class="card card-plain">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title mt-0"><b>Complain Status</b></h4>
+                </div>
+                </div>
+                </div>
+</div>            
+			<br/>
+		         <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-danger card-header-icon">
+                  <div class="card-icon">
+                    <i class="material-icons">format_list_bulleted</i>
+                  </div>
+                  <p class="card-category">Complains</p>
+                  <h3 class="card-title">' . $totcomp . '
+                  </h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats"><a href="./deptmycomplain.php?status=">View Details</a>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-warning card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-clock-o"></i>
+
+                  </div>
+                  <p class="card-category">Pending</p>
+                  <h3 class="card-title">' . $totpendingcomp . '</h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats"><a href="./deptmycomplain.php?status=Pending">View Details</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-info card-header-icon">
+                  <div class="card-icon">
+				  <i class="fa fa-refresh"></i>
+                  </div>
+                  <p class="card-category">In Progress</p>
+                  <h3 class="card-title">' . $totinprogresscomp . '</h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats">
+				  <a href="./deptmycomplain.php?status=In-Progress">View Details</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header card-header-success card-header-icon">
+                  <div class="card-icon">
+					<i class="fa fa-check-square-o"></i>
+
+                  </div>
+                  <p class="card-category">Solved</p>
+                  <h3 class="card-title">' . $totsolvedcomp . '</h3>
+                </div>
+                <div class="card-footer">
+                  <div class="stats"><a href="./deptmycomplain.php?status=Solved">View Details</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+                        <br/>																
+          <div class="row">
+                        <div class="card">
                 <div class="card-header card-header-primary" style="margin:0;">
                   <h4 class="card-title "> Complains</h4>
                   <p class="card-category">  </p>
@@ -182,25 +262,44 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
         echo '   <div class="card-body table-responsive">
                   <table class="table table-hover">
                     <thead class="text-primary">
-                        <th>ID</th>               
-                        <th>Department</th>               
-						<th>Detail</th>
-						<th>Date Time</th>
-            <th>Status</th> 
-            <th>Cancel</th>                       
+                 <th>
+                          ID
+                        </th>
+                        <th>
+                          Detail
+                        </th>
+                       
+                        <th>
+                          Date Time
+                        </th>
+                        <th>
+                          Status
+                        </th>
+                        <th>
+                          Details
+                        </th>
+                        <th>
+                        
+                           </th>       
+						 <th>
+                         Cancel 
+                        </th>
+						
+						                    
 						               
 					<!--	<th>Complainant</th>  
 						<th>Mail</th>-->
 					
                     </thead> <tbody>';
 
-        #$sql = "SELECT * FROM cancelcomplain WHERE Departmentname like '%".$_SESSION['name']."%' ORDER BY id DESC";
-        $sql = "SELECT * FROM complain WHERE complainantmail='" . $_SESSION['email'] . "' ORDER BY id DESC";
+        //$sql = "SELECT * FROM cancelcomplain WHERE Departmentname like '%".$_SESSION['name']."%' ORDER BY id DESC";
+        //$sql = "SELECT * FROM complain WHERE complainantmail='" . $_SESSION['email'] . "' ORDER BY id DESC";
+        $sql = "SELECT * FROM complain WHERE  status like '%" . $_GET['status'] . "%' AND complainantmail='" . $_SESSION['email'] . "' ORDER BY id DESC";
+
         $result = mysqli_query($con, $sql);
         while ($row = mysqli_fetch_array($result)) {
             //Creates a loop to dipslay all complain
             echo "<tr><td>" . $row['id'] . "</td>";
-            echo "<td>" . $row['Departmentname'] . "</td>";
             if (strlen($row['description']) > 50) {
                 echo "<td >" . substr($row['description'], 0, 50) . " ...</td>";
             } else {
@@ -210,8 +309,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 echo "<td >" . $tmpd . str_repeat('&nbsp;', $tmplen);
                 "</td>";
             }
-            echo "<td>" . $row['complaindate'] . "</td>";
 
+            echo "<td>" . $row['complaindate'] . "</td>";
             echo "<td class='";
             if ($row['status'] == 'Pending' || $row['status'] == 'Pending#') {
                 echo 'text-danger';
@@ -226,18 +325,52 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             }
 
             echo "</td>";
+            echo '
+                <form action="deptcomplaindetail.php" method="post">
+                <td>
+                <input type="hidden" style="width:1px" name="id"  value="' . $row['id'] . '">
+                <button type="submit" class="btn btn-primary" name="' . $row['id'] . '">View Details
+                </button>
+                </td>
+                </form>
+                ';
+            /*
+                            $tmptime = strtotime($row['complaindate']);
+                            $start_date = new DateTime($tmptime);
+                            $new = date("d-M-Y h:i:A");
+                            //   $new = date("Y-m-d H:i:s");
+                            $since_start = $start_date->diff(new DateTime($new));
 
 
-            $start_date = new DateTime($row['complaindate']);
-            $new = date("Y-m-d H:i:s");
-            $since_start = $start_date->diff(new DateTime($new));
+                            $minutes = $since_start->days * 24 * 60;
+                            $minutes += $since_start->h * 60;
+                            $minutes += $since_start->i;
+                           */
+            $date1 = strtotime($row['complaindate']);
+            $new = date("d-M-Y H:i");
+            $date2 = strtotime($new);
 
 
-            $minutes = $since_start->days * 24 * 60;
-            $minutes += $since_start->h * 60;
-            $minutes += $since_start->i;
-//secho $minutes.' minutes';
+            $diff = abs($date2 - $date1);
+            $years = floor($diff / (365 * 60 * 60 * 24));
 
+            $months = floor(($diff - $years * 365 * 60 * 60 * 24)
+                / (30 * 60 * 60 * 24));
+
+
+            $days = floor(($diff - $years * 365 * 60 * 60 * 24 -
+                    $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+            $hours = floor(($diff - $years * 365 * 60 * 60 * 24
+                    - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24)
+                / (60 * 60));
+            $minutes = floor(($diff - $years * 365 * 60 * 60 * 24
+                    - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24
+                    - $hours * 60 * 60) / 60);
+            $minutes = $minutes + ($hours * 60) + ($days * 24 * 60) + ($months * 30 * 24 * 60) + ($years * 365 * 60);
+
+            echo '<form action="delete_complain.php" method="POST">';
+            echo '<td><input type="hidden" style="width:1px" name="cancel_id" id="cancel_button" value="' . $row['id'] . '"></td>';
             if ($minutes <= 15) {
 
                 /*echo '<td>
@@ -245,18 +378,14 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 <input type="submit" class="btn btn-danger" id="cancel_button" name="'.$row['id'].'" value="Cancel">
                 </form></td>';*/
 
-                echo '<td><a type="button" class="btn btn-danger" name="' . $row['id'] . '" href="delete_complain.php?id=' . $row['id'] . '" onClick="return confirm(' . "'are you sure you want to cancel the complain?'" . ');">Cancel</a></td>';
+
+                echo '<td><input type="submit" class="btn btn-danger" onClick="return confirm(' . "'are you sure you want to cancel the complain?'" . ');" value="Cancel"></td>';
             } else {
 
-                echo '<td><button type="button" class="btn btn-danger" id="cancel_button" disabled>Cancel</button></td>';
+                echo '<td><button type="button" class="btn btn-danger" name="cancel_id" id="cancel_button" disabled>Cancel</button></td>';
 
             }
-
-
-            //echo "<td>".$row['complainant']."</td>";
-            //echo "<td>".$row['complainantmail']."</td>";
-            //	echo '<td><button type="button" class="btn btn-primary" name="'.$row['id'].'" onclick="takeAction(event)">Take Action</button></td>';
-
+            echo "</form>";
         }
 
 

@@ -241,7 +241,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                     <div class="col-md-12">
                         <div class="card card-plain">
                             <div class="card-header card-header-primary">
-                                <h4 class="card-title mt-0"><b>Select Department to complain</b></h4>
+                                <h4 class="card-title mt-0"><b>Select Area of Service </b></h4>
                             </div>
                         </div>
                     </div>
@@ -308,13 +308,13 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                     <br/>
 
                                     <div class="row">
-                                        <div class="col">
+                                        <div class="col-lg-6 col-md-12 col-12">
                                             <!--   <label for="dropCompulsion" style="margin-bottom: 5px">Location:</label> -->
                                             <input type="text" class="form-control" id="dropCompulsion"
                                                    placeholder="Choose Building" spellcheck="false"
                                                    name="buildingOption" required/>
                                         </div>
-                                        <div class="col col-lg-3">
+                                        <div class="col-lg-6 col-md-12 col-12">
                                             <div class="dropdown" required>
                                                 <a class="btn btn-primary dropdown-toggle " href="#" role="button"
                                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -323,13 +323,9 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                                                 <ul class="dropdown-menu" style="cursor:pointer;"
                                                     aria-labelledby="dropdownMenuLink" name="ul" required>
-                                                    <li class="dropdown-item" id="item1" value="j" href="#">KJ SOMAIYA
-                                                        SCIENCE AND COMMERCE BUILDING
-                                                    </li>
-                                                    <li class="dropdown-item" id="item2" value="k" href="#">ARYABHATTA
-                                                        ENGINEERING BUILDING
-                                                    </li>
-                                                    <li class="dropdown-item" id="item3" href="#">BHASKARACHARYA</li>
+
+                                                    <li class="dropdown-item" id="item2" href="#">ARYABHATTA(A)</li>
+                                                    <li class="dropdown-item" id="item3" href="#">BHASKARACHARYA(B)</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -490,7 +486,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
         var y = document.getElementById("complain_card");
 
         var dname = event.target.name;
-        y.innerHTML = "Department: " + dname;
+        y.innerHTML = "Service : " + dname;
         window.scrollTo(0, document.querySelector("#complain").scrollHeight);
         //var dname=event.target.name;
         document.cookie = "dname=" + dname;
@@ -606,8 +602,7 @@ if (isset($_POST['com_submit'])) {
 
 
         if ($uploadOk == 1) {
-
-            $datetime = date("Y-m-d H:i:s");
+            $datetime = date("d-M-Y H:i");
             //    $datetime = date('m/d/Y H:i:s ', time());
             echo '
 <style>
@@ -727,7 +722,7 @@ document.getElementById("completebody").style.display = "none";
                 console.log(data);
 document.getElementById("loader").style.display = "none";
   document.getElementById("completebody").style.display = "block";
-				swal("Your complain successfully submitted");								  
+				alert("Your complain successfully submitted");								  
                 window.location.href = "./depthome.php";
 
             }).fail(function() { 
