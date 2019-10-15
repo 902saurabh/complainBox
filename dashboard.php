@@ -569,8 +569,8 @@ if (isset($_POST['com_submit'])) {
 
         if ($uploadOk == 1) {
 
-
-            $datetime = date("d-M-Y H:i");
+		 $datetime = date("Y-m-d H:i:s");
+            //$datetime = date("d-M-Y H:i");
             //    $datetime = date('m/d/Y H:i:s ', time());
             echo '
 <style>
@@ -651,7 +651,7 @@ document.getElementById("completebody").style.display = "none";
 
             $sql79 = "INSERT into complain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate,contactnum) 
                     values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime','$contactnumber')";
-            //   echo $sql79;
+              // echo $sql79;
             mysqli_query($con, $sql79);
 
             $id = mysqli_insert_id($con);
@@ -696,8 +696,8 @@ document.getElementById("completebody").style.display = "none";
                 console.log(data);
  document.getElementById("loader").style.display = "none";
   document.getElementById("completebody").style.display = "block";
-				alert("Your complain successfully submitted");
-               // window.location.href = "dashboard.php";
+				alert("Your complain successfully submitted ");
+                window.location.href = "dashboard.php";
 
             }).fail(function() { 
                 alert( "something went wrong!" );

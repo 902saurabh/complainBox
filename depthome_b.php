@@ -852,7 +852,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                     $mail->Port = 587;                                    // TCP port to connect to
 
                     //Recipients
-                    $mail->setFrom($usermailid);
+                    $mail->setFrom($usermailid,$mailusername);
                     $mail->addAddress("9833saurabhtiwari@gmail.com");
                     $mail->addAddress($mail_to);     // Add a recipient
 

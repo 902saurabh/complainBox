@@ -602,7 +602,7 @@ if (isset($_POST['com_submit'])) {
 
 
         if ($uploadOk == 1) {
-            $datetime = date("d-M-Y H:i");
+             $datetime = date("Y-m-d H:i:s");
             //    $datetime = date('m/d/Y H:i:s ', time());
             echo '
 <style>

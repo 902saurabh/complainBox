@@ -63,7 +63,7 @@ try {
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom($usermailid);
+    $mail->setFrom($usermailid,$mailusername);
     $mail->addAddress("9833saurabhtiwari@gmail.com");
 
     $mails = explode(",", $mail_to);

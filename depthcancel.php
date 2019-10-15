@@ -3,12 +3,9 @@
 include("checkuser.php");
 //dashboard of department
 //$mysqli = new mysqli("localhost", "root", "", "complainbox");
-/*$sql = "SELECT name FROM user WHERE email like '%" . $_SESSION["email"] . "%'";
-$res = $res_u = mysqli_query($con, $sql);
-$row = $res->fetch_assoc();
-$uname = $row["name"];//set name to department name instead of gmail account name
-$_SESSION["name"] = $uname;
-*/
+//set name to department name instead of gmail account name
+//$_SESSION["name"] = $uname;
+
 if (isset($_SESSION['name'])) {
     $name = $_SESSION['name'];
     $email = $_SESSION['email'];
@@ -188,7 +185,23 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 					<th>View</th> 
                     </thead> <tbody>';
 
-        $sql = "SELECT * FROM cancelcomplain WHERE Departmentname like '%" . $_SESSION['name'] . "%' ORDER BY id DESC";
+            $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+            $result1 = mysqli_query($con, $sqlt);
+			$deptnamearr = array();
+            while ($row1 = mysqli_fetch_array($result1)) {
+			 $deptnamearr[]=$row1['name'] ;
+			}
+
+		
+		 $sql="SELECT * FROM cancelcomplain WHERE Departmentname like '%".$deptnamearr[0]."%' ";
+			$arrlength = count($deptnamearr);
+
+			for($x = 1; $x < $arrlength; $x++) {
+					$sql = $sql. "OR Departmentname like '%".$deptnamearr[$x]."%'  ";
+				}
+			
+			$sql = $sql. "ORDER BY id DESC";
+		
         $result = mysqli_query($con, $sql);
         while ($row = mysqli_fetch_array($result)) {
             //Creates a loop to dipslay all complain

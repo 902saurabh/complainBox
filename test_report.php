@@ -591,7 +591,7 @@ function sendEmail($email, $pdf)
         $mail->Port = 587;                                    // TCP port to connect to
 
         //Recipients
-        $mail->setFrom($usermailid);
+        $mail->setFrom($usermailid,$mailusername);
         // $mail->addAddress("9833saurabhtiwari@gmail.com");
         $mail->addAddress($email);     // Add a recipient
 

@@ -283,19 +283,19 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 </td>
                 </form>
                 ';
-                /*
-                                $tmptime = strtotime($row['complaindate']);
-                                $start_date = new DateTime($tmptime);
-                                $new = date("d-M-Y h:i:A");
-                                //   $new = date("Y-m-d H:i:s");
-                                $since_start = $start_date->diff(new DateTime($new));
+                
+                              
+                               
 
 
-                                $minutes = $since_start->days * 24 * 60;
-                                $minutes += $since_start->h * 60;
-                                $minutes += $since_start->i;
-                               */
-                $date1 = strtotime($row['complaindate']);
+ 		$start_date = new DateTime($row['complaindate']);
+                $new = date("Y-m-d H:i:s");
+                $since_start = $start_date->diff(new DateTime($new));
+                $minutes = $since_start->days * 24 * 60;
+                $minutes += $since_start->h * 60;
+                $minutes += $since_start->i;	
+
+               /* $date1 = strtotime($row['complaindate']);
                 $new = date("d-M-Y H:i");
                 $date2 = strtotime($new);
 
@@ -317,7 +317,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                         - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24
                         - $hours * 60 * 60) / 60);
                 //echo $minutes;
-                $minutes = $minutes + ($hours * 60) + ($days * 24 * 60) + ($months * 30 * 24 * 60) + ($years * 365 * 60);
+                $minutes = $minutes + ($hours * 60) + ($days * 24 * 60) + ($months * 30 * 24 * 60) + ($years * 365 * 60);*/
 
                 echo '<form action="delete_complain.php" method="POST">';
                 echo '<td><input type="hidden" style="width:1px" name="cancel_id" id="cancel_button" value="' . $row['id'] . '"></td>';
