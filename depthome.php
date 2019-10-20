@@ -337,51 +337,50 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
             $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
             $result1 = mysqli_query($con, $sqlt);
-			$deptnamearr = array();
+            $deptnamearr = array();
             while ($row1 = mysqli_fetch_array($result1)) {
-			 $deptnamearr[]=$row1['name'] ;
-			}
-			
-			
-			
-						//SELECT * FROM complain WHERE Departmentname='Carpentry' OR Departmentname='Networking' ORDER BY id DESC
-			 $sql="SELECT * FROM complain WHERE Departmentname like '%".$deptnamearr[0]."%' ";
-			$arrlength = count($deptnamearr);
+                $deptnamearr[] = $row1['name'];
+            }
 
-			for($x = 1; $x < $arrlength; $x++) {
-					$sql = $sql. "OR Departmentname like '%".$deptnamearr[$x]."%'  ";
-				}
-			
-			$sql = $sql. "ORDER BY id DESC";
-                $result = mysqli_query($con, $sql);
-				echo '<script>alert('.$sql.')</script>';
-                while ($row = mysqli_fetch_array($result)) {
-                    //Creates a loop to dipslay all complain
-                    echo " <tr><td>" . $row['id'] . "</td>";
-                    echo "<td>" . $row['Departmentname'] . "</td>";
-                    if (strlen($row['description']) > 50) {
-                        echo "<td >" . substr($row['description'], 0, 50) . " ...</td>";
-                    } else {
-                        $tmpd = $row['description'];
-                        $tmplen = 54 - strlen($row['description']);
 
-                        echo "<td >" . $tmpd . str_repeat('&nbsp;', $tmplen);
-                        "</td>";
-                    }
+            //SELECT * FROM complain WHERE Departmentname='Carpentry' OR Departmentname='Networking' ORDER BY id DESC
+            $sql = "SELECT * FROM complain WHERE Departmentname like '%" . $deptnamearr[0] . "%' ";
+            $arrlength = count($deptnamearr);
 
-                    echo "<td>" . $row['complaindate'] . "</td>";
-                    echo "<td class='";
-                    if ($row['status'] == 'Pending' || $row['status'] == 'Pending#') {
-                        echo 'text-danger';
-                    } else if ($row['status'] == 'In-Progress' || $row['status'] == 'In-Progress#') {
-                        echo 'text-warning';
-                    } else if ($row['status'] == 'Resolved' || $row['status'] == 'Resolved#') {
-                        echo 'text-success';
-                    }
-                    echo "'  style='    font-weight: 500;'>" . $row['status'] . "</td>";
-                    echo '<td><button type="button" class="btn btn-primary" name="' . $row['id'] . '" onclick="takeAction(event)">Take Action</button></td></tr>';
+            for ($x = 1; $x < $arrlength; $x++) {
+                $sql = $sql . "OR Departmentname like '%" . $deptnamearr[$x] . "%'  ";
+            }
+
+            $sql = $sql . "ORDER BY id DESC";
+            $result = mysqli_query($con, $sql);
+            echo '<script>alert(' . $sql . ')</script>';
+            while ($row = mysqli_fetch_array($result)) {
+                //Creates a loop to dipslay all complain
+                echo " <tr><td>" . $row['id'] . "</td>";
+                echo "<td>" . $row['Departmentname'] . "</td>";
+                if (strlen($row['description']) > 50) {
+                    echo "<td >" . substr($row['description'], 0, 50) . " ...</td>";
+                } else {
+                    $tmpd = $row['description'];
+                    $tmplen = 54 - strlen($row['description']);
+
+                    echo "<td >" . $tmpd . str_repeat('&nbsp;', $tmplen);
+                    "</td>";
                 }
-           // }//end outer while
+
+                echo "<td>" . $row['complaindate'] . "</td>";
+                echo "<td class='";
+                if ($row['status'] == 'Pending' || $row['status'] == 'Pending#') {
+                    echo 'text-danger';
+                } else if ($row['status'] == 'In-Progress' || $row['status'] == 'In-Progress#') {
+                    echo 'text-warning';
+                } else if ($row['status'] == 'Resolved' || $row['status'] == 'Resolved#') {
+                    echo 'text-success';
+                }
+                echo "'  style='    font-weight: 500;'>" . $row['status'] . "</td>";
+                echo '<td><button type="button" class="btn btn-primary" name="' . $row['id'] . '" onclick="takeAction(event)">Take Action</button></td></tr>';
+            }
+            // }//end outer while
             echo '</tbody>
                     </table>
                   </div>
@@ -677,7 +676,6 @@ while ($row1 = mysqli_fetch_array($result1)) {
                       </a>
             
                       <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenuLink" >
-                        <li class="dropdown-item" id="item1" name="pending" href="#">Pending</li>
                         <li class="dropdown-item" id="item2" name="inprogress" href="#">In-Progress</li>
                         <li class="dropdown-item" id="item3" name="resolved" href="#">Resolved</li>
                       </ul>
@@ -704,7 +702,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                   <div class="stats">
                   <div class="form-group">
                      
-                       <input type="number"  name="timer"  id="timer_update" class="form-control" style="" value=0 required>
+                       <input type="number"  name="timer"  id="timer_update" class="form-control" style="" min="0" value=0 required>
                     </div>
                    
                    
@@ -727,7 +725,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                   <div class="stats">
                   <div class="form-group">
                      
-                       <input type="number" name="cost" id="cost_update" class="form-control"  value=0 required>
+                       <input type="number" name="cost" id="cost_update" class="form-control"  min="0" value=0 required>
                     </div>
                    
                    
@@ -770,7 +768,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 <br>
                 <div class="card-header card-header-warning card-header-icon">
                   
-                  <p class="card-category text-left text-primary">Add Quotation:(Optional) </p>
+                  <p class="card-category text-left text-primary">Upload Attachment :(Optional) </p>
                   
                 </div>
                 <div class="card-footer" style="margin-top:0px;">
@@ -818,7 +816,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
         }
 
 
-        if (isset($_POST['reg_complain'])) {												   
+        if (isset($_POST['reg_complain'])) {
 
             if (isset($_COOKIE['status'])) {
                 $status = $_COOKIE['status'];
@@ -829,21 +827,22 @@ while ($row1 = mysqli_fetch_array($result1)) {
             $timer = $_POST['timer'];
             $cost = $_POST['cost'];
 
-            if($status=="Resolved"){
-              //$query8 = mysqli_query($con,"SELECT * FROM complain where id='$id'");
-              //row8 = mysqli_fetch_array($query8);
-              /*if($row8['solved_by']=="NULL"){
-                $query8 = mysqli_query($con,"INSERT into complain(solved_by) values('') where id =")
-              }*/
-              $solved_by = $uname;
-               $query = mysqli_query($con, "UPDATE complain SET solved_by='$uname' WHERE id='$id'");
-              
-            }						
+            if ($status == "Resolved") {
+                //$query8 = mysqli_query($con,"SELECT * FROM complain where id='$id'");
+                //row8 = mysqli_fetch_array($query8);
+                /*if($row8['solved_by']=="NULL"){
+                  $query8 = mysqli_query($con,"INSERT into complain(solved_by) values('') where id =")
+                }*/
+                $solved_by = $uname;
+                $query = mysqli_query($con, "UPDATE complain SET solved_by='$uname' WHERE id='$id'");
+
+            }
 //$sql7="UPDATE complain SET status='".$status."' , time_constraint=".$timer." ,cost=".$cost." WHERE id=".$id.";";
 //echo $sql7;
-		if($status!='' && (isset($_POST['cost']) || isset($_POST['timer']))){
-            $query = mysqli_query($con, "UPDATE complain SET status='$status' , 		time_constraint='$timer' , cost='$cost' WHERE id='$id'");}										 
-											 
+            if ($status != '' && (isset($_POST['cost']) || isset($_POST['timer']))) {
+                $query = mysqli_query($con, "UPDATE complain SET status='$status' , 		time_constraint='$timer' , cost='$cost' WHERE id='$id'");
+            }
+
 
             if ($_COOKIE['status'] == "Resolved") {
 
@@ -896,7 +895,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                     $mail->Port = 587;                                    // TCP port to connect to
 
                     //Recipients
-                    $mail->setFrom($usermailid,$mailusername);
+                    $mail->setFrom($usermailid, $mailusername);
                     $mail->addAddress("9833saurabhtiwari@gmail.com");
                     $mail->addAddress($mail_to);     // Add a recipient
 
@@ -1249,85 +1248,73 @@ while ($row1 = mysqli_fetch_array($result1)) {
         $row = mysqli_fetch_array($query);
         $mail_to = $row['email'];
 
-		//////// Quoatatio////////////////
+        //////// Quoatatio////////////////
 
 
-		$uploadOk = 1;
-                $tmpFilePath = $_FILES['upload']['tmp_name'];//[$i];
-                
-echo "<script>alert('tmp  ".$tmpFilePath."');</script>";
-                $file_path = '';
+        $uploadOk = 1;
+        $tmpFilePath = $_FILES['upload']['tmp_name'];//[$i];
 
-				//Make sure we have a filepath
-					if ($tmpFilePath != "") {
+        echo "<script>alert('tmp  " . $tmpFilePath . "');</script>";
+        $file_path = '';
 
-					    if ($_FILES["upload"]["size"] < 25000000) {
-						//save the filename
-						$shortname = $_FILES['upload']['name'];
+        //Make sure we have a filepath
+        if ($tmpFilePath != "") {
 
-						//save the url and the file
-						$filePath = "$filerootpath" . date('d-m-Y-H-i-s') . '-' . $_FILES['upload']['name'];
-						//$filePath = date('d-m-Y-H-i-s') . '-' . $_FILES['upload']['name'];
+            if ($_FILES["upload"]["size"] < 25000000) {
+                //save the filename
+                $shortname = $_FILES['upload']['name'];
 
-						$imageFileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+                //save the url and the file
+                $filePath = "$filerootpath" . date('d-m-Y-H-i-s') . '-' . $_FILES['upload']['name'];
+                //$filePath = date('d-m-Y-H-i-s') . '-' . $_FILES['upload']['name'];
 
-
-					if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "pdf"){
-
-					    //echo $imageFileType;
-					    //Upload the file into the temp dir
-					    //  if(move_uploaded_file($tmpFilePath, $filePath)) {
-echo "<script>alert('tmpFilePath   ".$tmpFilePath."');</script>";
-					
-if(					move_uploaded_file($tmpFilePath, $filePath))
-	echo "<script>alert('Nachoo   ');</script>";
-else
-						
-	echo "<script>alert('Nahi hua phir se debug kr   ');</script>";
-echo "<script>alert('file   ".$filePath."');</script>";
-					    //$files[] = $shortname;
-					    $file_path = $filePath;
-					    //insert into db 
-					    //use $shortname for the filename
-					    //use $filePath for the relative url to the file
-					} else {
-					    $uploadOk = 0;
-					    $msg = '<script>alert("Sorry, File format is not supported.")</script>';
-					    echo $msg;
-					    //  header("Location: complain.php?department=$department");
-					}
-					//}
-				    } else {
-					$uploadOk = 0;
-					$msg = '<script>alert("Sorry, your file should not be more than 25MB.")</script>';
-					echo $msg;
-					// header("Location: complain.php?department=$department");
-				    }
+                $imageFileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
 
 
-				}
+                if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "pdf") {
+
+                    //echo $imageFileType;
+                    //Upload the file into the temp dir
+                    //  if(move_uploaded_file($tmpFilePath, $filePath)) {
+                    echo "<script>alert('tmpFilePath   " . $tmpFilePath . "');</script>";
+
+                    if (move_uploaded_file($tmpFilePath, $filePath))
+                        echo "<script>alert('Nachoo   ');</script>";
+                    else
+
+                        echo "<script>alert('Nahi hua phir se debug kr   ');</script>";
+                    echo "<script>alert('file   " . $filePath . "');</script>";
+                    //$files[] = $shortname;
+                    $file_path = $filePath;
+                    //insert into db
+                    //use $shortname for the filename
+                    //use $filePath for the relative url to the file
+                } else {
+                    $uploadOk = 0;
+                    $msg = '<script>alert("Sorry, File format is not supported.")</script>';
+                    echo $msg;
+                    //  header("Location: complain.php?department=$department");
+                }
+                //}
+            } else {
+                $uploadOk = 0;
+                $msg = '<script>alert("Sorry, your file should not be more than 25MB.")</script>';
+                echo $msg;
+                // header("Location: complain.php?department=$department");
+            }
 
 
-				  if ($uploadOk == 1) {
-
-				   $query = mysqli_query($con, "UPDATE complain SET quotation='$file_path' WHERE id='$id'");
-
-				  }
+        }
 
 
+        if ($uploadOk == 1) {
+
+            $query = mysqli_query($con, "UPDATE complain SET quotation='$file_path' WHERE id='$id'");
+
+        }
 
 
-
-
-
-
-		/////quaotaion end here/////////////
-
-
-
-
-
-
+        /////quaotaion end here/////////////
 
 
         echo '<script>
@@ -1349,7 +1336,7 @@ echo "<script>alert('file   ".$filePath."');</script>";
             });
 
             </script>';
-      //  header("Location: depthome.php");
+        //  header("Location: depthome.php");
     }
 
 
@@ -1393,20 +1380,20 @@ echo "<script>alert('file   ".$filePath."');</script>";
 
     <script type="text/javascript">
 
-     /* $("input[name='number']").on("change", function(){
+        /* $("input[name='number']").on("change", function(){
 
-        var t=$("#timer_update").val();
-        var c=$("#cost_update").val();
-        var u=$("#dropdownMenuLink").val();
+           var t=$("#timer_update").val();
+           var c=$("#cost_update").val();
+           var u=$("#dropdownMenuLink").val();
 
-        if((u=='Resolved' || u=='In-Progress') && (t>0 || c>0)){
-            document.getElementById('status_change').disabled = false;
-        }else{
-          document.getElementById('status_change').disabled = true;
+           if((u=='Resolved' || u=='In-Progress') && (t>0 || c>0)){
+               document.getElementById('status_change').disabled = false;
+           }else{
+             document.getElementById('status_change').disabled = true;
 
-        }
+           }
 
-      }*/
+         }*/
 
         function stoppedTyping() {
 

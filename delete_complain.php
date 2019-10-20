@@ -46,7 +46,6 @@ $var = '
               
             }).done(function(data){
                 console.log(data);   
-                alert("Complain cancelled");;
                 window.location.href = "index.php";
                 
             }).fail(function() { 

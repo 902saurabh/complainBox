@@ -1,5 +1,5 @@
 <?php
-$filerootpath = 'upload/';
+$filerootpath = '../upload/';
 $usermailid = "kjsce.complainbox@gmail.com";
 $mailusername = "KJSCE Complain Box";
 $usermailpass = "Kjsce@1234";

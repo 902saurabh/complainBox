@@ -148,7 +148,7 @@ if (isset($_SESSION['name'])) {
                 </div>
                 <div class="card-footer" style="margin-top:0px;">
                   <div class="stats">
-                    <a class="btn btn-primary"  target="_blank" href="' . $upload_img . '">View Document</a>
+                    <a class="btn btn-primary"  target="_blank" href="../' . $upload_img . '">View Document</a>
                    
                   </h4>
                   </div>
@@ -288,6 +288,9 @@ if (isset($_SESSION['name'])) {
                                         </div>
 
                                     </div>
+                                    <?php
+                                    echo $upload;
+                                    ?>
 
                                 </div>
 

@@ -3,11 +3,11 @@
 include("checkuser.php");
 //dashboard of department
 //$mysqli = new mysqli("localhost", "root", "", "complainbox");
-$sql = "SELECT name FROM user WHERE email like '%" . $_SESSION["email"] . "%'";
+/*$sql = "SELECT name FROM user WHERE email like '%" . $_SESSION["email"] . "%'";
 $res = $res_u = mysqli_query($con, $sql);
 $row = $res->fetch_assoc();
 $uname = $row["name"];//set name to department name instead of gmail account name
-$_SESSION["name"] = $uname;
+//$_SESSION["name"] = $uname;
 
 $totcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE Departmentname like'%" . $uname . "%'"));
 
@@ -16,6 +16,7 @@ $totpendingcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHE
 $totsolvedcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE  (status='Resolved' OR status='Resolved#' ) AND Departmentname like'%" . $uname . "%'"));
 
 $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#' ) AND Departmentname like'%" . $uname . "%'"));
+*/
 ?>
 
 <!DOCTYPE html>
