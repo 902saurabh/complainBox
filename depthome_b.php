@@ -853,7 +853,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
                     //Recipients
                     $mail->setFrom($usermailid,$mailusername);
-                    $mail->addAddress("9833saurabhtiwari@gmail.com");
+                    //$mail->addAddress("9833saurabhtiwari@gmail.com");
                     $mail->addAddress($mail_to);     // Add a recipient
 
                     // Attachments

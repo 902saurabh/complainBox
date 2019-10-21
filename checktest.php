@@ -601,7 +601,7 @@ function sendEmail($email, $pdf)
 
         //Recipients
         $mail->setFrom($usermailid,$mailusername);
-        // $mail->addAddress("9833saurabhtiwari@gmail.com");
+        // //$mail->addAddress("9833saurabhtiwari@gmail.com");
         $mail->addAddress($email);     // Add a recipient
 
         // Attachments

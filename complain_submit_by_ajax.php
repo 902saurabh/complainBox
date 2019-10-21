@@ -85,7 +85,7 @@ try {
 
     //Recipients
     $mail->setFrom($usermailid, $mailusername);
-    $mail->addAddress("9833saurabhtiwari@gmail.com");
+    //$mail->addAddress("9833saurabhtiwari@gmail.com");
     $mail->addAddress($mail_by);     // Add a recipient
 
     // Attachments

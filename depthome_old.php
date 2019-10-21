@@ -786,7 +786,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                     //Recipients
                     $mail->setFrom($usermailid,$mailusername);
-                    $mail->addAddress("9833saurabhtiwari@gmail.com");
+                    //$mail->addAddress("9833saurabhtiwari@gmail.com");
                     $mail->addAddress($mail_to);     // Add a recipient
 
                     // Attachments
