@@ -436,7 +436,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 </div>
                 <div class="card-footer" style="margin-top:0px;">
                   <div class="stats">
-                    <a class="btn btn-primary"  target="_blank" href="' . $upload_img . '">View Document</a>
+                    <a class="btn btn-primary"  target="_blank" href="../' . $upload_img . '">View Document</a>
                    
                   </h4>
                   </div>
@@ -459,7 +459,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
       <div class="col-md-8 offset-md-2">
               <div class="card" id="dept_card">
                 <div class="card-header card-header-primary" style="margin:0">
-                  <h4 class="card-title" id="complain_card">Complain Id : ' . $id . '</h4>
+                  <h4 class="card-title" id="complain_card">Complain Id : ' . $id . ' - ' . $cstatus . '</h4>
                   <!--
                   <p class="card-category">Complain By ' . $cname . '</p>
                   <p class="card-category">Mail id : ' . $cmail . '</p>
@@ -702,7 +702,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                   <div class="stats">
                   <div class="form-group">
                      
-                       <input type="number"  name="timer"  id="timer_update" class="form-control" style="" min="0" value=0 required>
+                       <input type="number"  name="timer"  id="timer_update" class="form-control" style="" min="0" value="0" required>
                     </div>
                    
                    
@@ -738,9 +738,9 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
                 </div>
                 <input type="submit" name="reg_complain" id="status_change" class="btn btn-primary btn-block" value="Update Status" style="margin: 10px 25px 10px 25px">
-                </div>
-
-                <div class="row" style="margin-top:30px">
+                </div>';
+            if ($cstatus == 'Pending') {
+                echo '<div class="row" style="margin-top:30px">
                   <div class="col-lg-6 col-md-6 col-sm-6">
 
                 <div class="card card-stats">
@@ -785,7 +785,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
               </div>
 			   
                 </div>
-                 <input type="submit" class="btn btn-primary btn-block"  id="forwardComplain" name="forward_admin"  value="Forward Admin" onClick="return confirm(' . "'Are you sure you want to forward the complain?'" . ');" style="margin: 10px 25px 10px 25px" disabled>
+                 <input type="submit" class="btn btn-primary btn-block"  id="forwardComplain" name="forward_admin"  value="Forward To Admin" onClick="return confirm(' . "'Are you sure you want to forward the complain?'" . ');" style="margin: 10px 25px 10px 25px" disabled>
 
 </div>
 
@@ -793,7 +793,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
 								
                     </form>';
-
+            }
 
             echo '<div class="clearfix"></div>
                  <!-- </form>-->
@@ -908,7 +908,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                     //$var=$_POST['body'];
                     //$var='Test';//$_POST['body'];
                     $mail->isHTML(true);                                  // Set email format to HTML
-                    $mail->Subject = 'Complain Resolved';
+                    $mail->Subject = 'Complain Resolved id ' . $id;
                     $mail->Body = $msg;
                     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
@@ -1240,84 +1240,86 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
         $remark = $_POST['remark'];
         $remark = mysqli_real_escape_string($con, $remark);
-        $sql7 = "INSERT INTO admincomplain (`ogid`, `remark`) values ($id,'" . $remark . "')";
+        $norowcom = mysqli_num_rows(mysqli_query($con, "select * from admincomplain where ogid=" . $id . " ;"));
+        if (!$norowcom > 0) {
+            $sql7 = "INSERT INTO admincomplain (`ogid`, `remark`) values ($id,'" . $remark . "')";
 //echo $sql7;
-        $query = mysqli_query($con, $sql7);
+            $query = mysqli_query($con, $sql7);
 
-        $query = mysqli_query($con, "SELECT email from user WHERE usertype='admin'");
-        $row = mysqli_fetch_array($query);
-        $mail_to = $row['email'];
+            $query = mysqli_query($con, "SELECT email from user WHERE usertype='admin'");
+            $row = mysqli_fetch_array($query);
+            $mail_to = $row['email'];
 
-        //////// Quoatatio////////////////
-
-
-        $uploadOk = 1;
-        $tmpFilePath = $_FILES['upload']['tmp_name'];//[$i];
-
-        echo "<script>alert('tmp  " . $tmpFilePath . "');</script>";
-        $file_path = '';
-
-        //Make sure we have a filepath
-        if ($tmpFilePath != "") {
-
-            if ($_FILES["upload"]["size"] < 25000000) {
-                //save the filename
-                $shortname = $_FILES['upload']['name'];
-
-                //save the url and the file
-                $filePath = "$filerootpath" . date('d-m-Y-H-i-s') . '-' . $_FILES['upload']['name'];
-                //$filePath = date('d-m-Y-H-i-s') . '-' . $_FILES['upload']['name'];
-
-                $imageFileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+            //////// Quoatatio////////////////
 
 
-                if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "pdf") {
+            $uploadOk = 1;
+            $tmpFilePath = $_FILES['upload']['tmp_name'];//[$i];
 
-                    //echo $imageFileType;
-                    //Upload the file into the temp dir
-                    //  if(move_uploaded_file($tmpFilePath, $filePath)) {
-                    echo "<script>alert('tmpFilePath   " . $tmpFilePath . "');</script>";
+            echo "<script>alert('tmp  " . $tmpFilePath . "');</script>";
+            $file_path = '';
 
-                    if (move_uploaded_file($tmpFilePath, $filePath))
-                        echo "<script>alert('Nachoo   ');</script>";
-                    else
+            //Make sure we have a filepath
+            if ($tmpFilePath != "") {
 
-                        echo "<script>alert('Nahi hua phir se debug kr   ');</script>";
-                    echo "<script>alert('file   " . $filePath . "');</script>";
-                    //$files[] = $shortname;
-                    $file_path = $filePath;
-                    //insert into db
-                    //use $shortname for the filename
-                    //use $filePath for the relative url to the file
+                if ($_FILES["upload"]["size"] < 25000000) {
+                    //save the filename
+                    $shortname = $_FILES['upload']['name'];
+
+                    //save the url and the file
+                    $filePath = "$filerootpath" . date('d-m-Y-H-i-s') . '-' . $_FILES['upload']['name'];
+                    //$filePath = date('d-m-Y-H-i-s') . '-' . $_FILES['upload']['name'];
+
+                    $imageFileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+
+
+                    if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "pdf") {
+
+                        //echo $imageFileType;
+                        //Upload the file into the temp dir
+                        //  if(move_uploaded_file($tmpFilePath, $filePath)) {
+                        //echo "<script>alert('tmpFilePath   " . $tmpFilePath . "');</script>";
+
+                        //if (move_uploaded_file($tmpFilePath, $filePath))
+                        // echo "<script>alert('done   ');</script>";
+                        //else
+                        move_uploaded_file($tmpFilePath, $filePath);
+                        //  echo "<script>alert('error ');</script>";
+                        //echo "<script>alert('file   " . $filePath . "');</script>";
+                        //$files[] = $shortname;
+                        $file_path = $filePath;
+                        //insert into db
+                        //use $shortname for the filename
+                        //use $filePath for the relative url to the file
+                    } else {
+                        $uploadOk = 0;
+                        $msg = '<script>alert("Sorry, File format is not supported.")</script>';
+                        echo $msg;
+                        //  header("Location: complain.php?department=$department");
+                    }
+                    //}
                 } else {
                     $uploadOk = 0;
-                    $msg = '<script>alert("Sorry, File format is not supported.")</script>';
+                    $msg = '<script>alert("Sorry, your file should not be more than 25MB.")</script>';
                     echo $msg;
-                    //  header("Location: complain.php?department=$department");
+                    // header("Location: complain.php?department=$department");
                 }
-                //}
-            } else {
-                $uploadOk = 0;
-                $msg = '<script>alert("Sorry, your file should not be more than 25MB.")</script>';
-                echo $msg;
-                // header("Location: complain.php?department=$department");
+
+
             }
 
 
-        }
+            if ($uploadOk == 1) {
+
+                $query = mysqli_query($con, "UPDATE complain SET quotation='$file_path' WHERE id='$id'");
+
+            }
 
 
-        if ($uploadOk == 1) {
-
-            $query = mysqli_query($con, "UPDATE complain SET quotation='$file_path' WHERE id='$id'");
-
-        }
+            /////quaotaion end here/////////////
 
 
-        /////quaotaion end here/////////////
-
-
-        echo '<script>
+            echo '<script>
                 
 		        $.ajax({              
                 url:"complain_submit_ajax.php",
@@ -1336,7 +1338,15 @@ while ($row1 = mysqli_fetch_array($result1)) {
             });
 
             </script>';
-        //  header("Location: depthome.php");
+            //  header("Location: depthome.php");
+        } else {
+
+            echo '<script>alert("Complain already forwarded ");
+                window.location.href = "depthome.php";
+            </script>';
+
+        }
+
     }
 
 

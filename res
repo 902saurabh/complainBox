@@ -35,3 +35,12 @@ useer
 }
 </style>
 //loader style close
+
+
+//get dept name
+$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+            $result1 = mysqli_query($con, $sqlt);
+            $deptnamearr = array();
+            while ($row1 = mysqli_fetch_array($result1)) {
+                $deptnamearr[] = $row1['name'];
+            }

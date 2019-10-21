@@ -167,7 +167,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 				
               <div class="card">
                 <div class="card-header card-header-primary" style="margin:0;">
-                  <h4 class="card-title "> Complains</h4>
+                  <h4 class="card-title "> Following Complains are cancled by user</h4>
                   <p class="card-category">  </p>
                 </div>';
 
@@ -185,27 +185,27 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 					<th>View</th> 
                     </thead> <tbody>';
 
-            $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
-            $result1 = mysqli_query($con, $sqlt);
-			$deptnamearr = array();
-            while ($row1 = mysqli_fetch_array($result1)) {
-			 $deptnamearr[]=$row1['name'] ;
-			}
+        $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+        $result1 = mysqli_query($con, $sqlt);
+        $deptnamearr = array();
+        while ($row1 = mysqli_fetch_array($result1)) {
+            $deptnamearr[] = $row1['name'];
+        }
 
-		
-		 $sql="SELECT * FROM cancelcomplain WHERE Departmentname like '%".$deptnamearr[0]."%' ";
-			$arrlength = count($deptnamearr);
 
-			for($x = 1; $x < $arrlength; $x++) {
-					$sql = $sql. "OR Departmentname like '%".$deptnamearr[$x]."%'  ";
-				}
-			
-			$sql = $sql. "ORDER BY id DESC";
-		
+        $sql = "SELECT * FROM cancelcomplain WHERE Departmentname like '%" . $deptnamearr[0] . "%' ";
+        $arrlength = count($deptnamearr);
+
+        for ($x = 1; $x < $arrlength; $x++) {
+            $sql = $sql . "OR Departmentname like '%" . $deptnamearr[$x] . "%'  ";
+        }
+
+        $sql = $sql . "ORDER BY id DESC";
+
         $result = mysqli_query($con, $sql);
         while ($row = mysqli_fetch_array($result)) {
             //Creates a loop to dipslay all complain
-            echo "<tr><td>" . $row['id'] . "</td>";
+            echo "<tr><td>" . $row['complain_id'] . "</td>";
             echo "<td>" . $row['Departmentname'] . "</td>";
             if (strlen($row['description']) > 50) {
                 echo "<td >" . substr($row['description'], 0, 50) . " ...</td>";

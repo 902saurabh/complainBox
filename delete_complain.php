@@ -20,9 +20,11 @@ $building = $row['building'];
 
 $location = $row['location'];
 $datetime = $row['complaindate'];
+$contactnum = $row['contactnum'];
 
 
-$sq = "INSERT into cancelcomplain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate,complain_id) values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime','$cl')";
+$sq = "INSERT into cancelcomplain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate,complain_id,contactnum)
+ values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime','$cl','$contactnum')";
 //echo $sq;
 mysqli_query($con, $sq);
 $it = mysqli_insert_id($con);

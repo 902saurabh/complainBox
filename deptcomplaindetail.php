@@ -160,6 +160,7 @@ if (isset($_SESSION['name'])) {
             $cmail = $fetch['complainantmail'];
             $dtym = $fetch['complaindate'];
             $cstatus = $fetch['status'];
+            $usercont = $fetch['contactnum'];
 
             if ($cstatus == 'In-Progress' || $cstatus == 'In-Progress#') {
                 $status_remark = "(Time Require: " . $fetch['time_constraint'] . " Days)";
@@ -187,7 +188,7 @@ if (isset($_SESSION['name'])) {
                 </div>
                 <div class="card-footer" style="margin-top:0px;">
                   <div class="stats">
-                    <a class="btn btn-primary"  target="_blank" href="' . $upload_img . '">View Document</a>
+                    <a class="btn btn-primary"  target="_blank" href="../' . $upload_img . '">View Document</a>
                    
                   </h4>
                   </div>
@@ -268,6 +269,31 @@ if (isset($_SESSION['name'])) {
                                             <br>
                                             <div class="card-header card-header-warning card-header-icon">
 
+                                                <p class="card-category text-left text-primary">Contact Number</p>
+
+                                            </div>
+                                            <div class="card-footer" style="margin-top: 0px;">
+                                                <div class="stats" style="word-break: break-word">
+                                                    <h4 class="card-title"
+                                                        style="font-weight:400"><?php echo $usercont; ?>
+
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+
+                                        <div class="card card-stats">
+                                            <br>
+                                            <div class="card-header card-header-warning card-header-icon">
+
                                                 <p class="card-category text-left text-primary">Date Time :</p>
 
                                             </div>
@@ -281,10 +307,6 @@ if (isset($_SESSION['name'])) {
                                         </div>
 
                                     </div>
-                                </div>
-
-
-                                <div class="row">
 
                                     <div class="col-lg-4 col-md-6 col-sm-6">
 
@@ -327,6 +349,9 @@ if (isset($_SESSION['name'])) {
                                         </div>
 
                                     </div>
+                                    <?php
+                                    echo $upload;
+                                    ?>
 
                                 </div>
 

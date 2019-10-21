@@ -167,6 +167,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             $cmail = $fetch['complainantmail'];
             $dtym = $fetch['complaindate'];
             $cstatus = $fetch['status'];
+            $usercontactnum = $fetch['contactnum'];
+            $ogid = $fetch['complain_id'];
 
             if ($cstatus == 'In-Progress' || $cstatus == 'In-Progress#') {
                 $status_remark = "(Time Require: " . $fetch['time_constraint'] . " Days)";
@@ -218,7 +220,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                     <div class="col-md-8 offset-md-2">
                         <div class="card" id="dept_card">
                             <div class="card-header card-header-primary" style="margin:0;">
-                                <h4 class="card-title" id="complain_card">Complain Id : <?php echo $id; ?></h4>
+                                <h4 class="card-title" id="complain_card">Complain Id : <?php echo $ogid; ?></h4>
                                 <!--
                                 <p class="card-category">Complain By '.$cname.'</p>
                                 <p class="card-category">Mail id : '.$cmail.'</p>
@@ -336,7 +338,26 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                         </div>
 
                                     </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
 
+                                        <div class="card card-stats">
+                                            <br>
+                                            <div class="card-header card-header-warning card-header-icon">
+
+                                                <p class="card-category text-left text-primary">Contact Number :</p>
+
+                                            </div>
+                                            <div class="card-footer" style="margin-top: 0px;">
+                                                <div class="stats" style="word-break: break-word">
+                                                    <h4 class="card-title"
+                                                        style="font-weight:400">
+                                                        <?php echo $usercontactnum ?>
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php echo $upload ?>
                                 </div>
 
 
@@ -368,11 +389,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
     padding: 10px;cursor: auto; " disabled><?php
                                         echo $description;
                                         ?></textarea>
-
-                                    <p class="btn btn-primary" name="'.$row['id'].'" onclick="viewDetails()"
-                                       style="float:right; cursor:auto">
-                                        Status: <?php echo $cstatus . " " . $status_remark;
-                                        ?></p>
 
 
                                 </div>

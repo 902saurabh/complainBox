@@ -306,53 +306,54 @@ while ($row1 = mysqli_fetch_array($result1)) {
             $result1 = mysqli_query($con, $sqlt);
             $deptnamearr = array();
             while ($row1 = mysqli_fetch_array($result1)) {
-			 $deptnamearr[]=$row1['name'] ;
-			}
-			
-			
-			
-						//SELECT * FROM complain WHERE Departmentname='Carpentry' OR Departmentname='Networking' ORDER BY id DESC
-			 $sql="SELECT * FROM complain WHERE 
-			( Departmentname like '%".$deptnamearr[0]."%' AND status like '%".$_GET['status']."%' ) ";
-			$arrlength = count($deptnamearr);
+                $deptnamearr[] = $row1['name'];
+            }
 
-			for($x = 1; $x < $arrlength; $x++) {
-					$sql = $sql. "OR ( Departmentname like '%".$deptnamearr[$x]."%' AND status like '%".$_GET['status']."%' )  ";
-				}
-			
-			$sql = $sql. " ORDER BY id DESC";
-                
-                $result = mysqli_query($con, $sql);
-                while ($row = mysqli_fetch_array($result)) {
-                    //Creates a loop to dipslay all complain
-                    echo "<tr><td>" . $row['id'] . "</td>";
-                    echo "<td>" . $row['Departmentname'] . "</td>";
-                    if (strlen($row['description']) > 50) {
-                        echo "<td >" . substr($row['description'], 0, 50) . " ...</td>";
-                    } else {
-                        $tmpd = $row['description'];
-                        $tmplen = 54 - strlen($row['description']);
 
-                        echo "<td >" . $tmpd . str_repeat('&nbsp;', $tmplen);
-                        "</td>";
-                    }
-                    echo "<td>" . $row['complaindate'] . "</td>";
+            //SELECT * FROM complain WHERE Departmentname='Carpentry' OR Departmentname='Networking' ORDER BY id DESC
+            $sql = "SELECT * FROM complain WHERE 
+			( Departmentname like '%" . $deptnamearr[0] . "%' AND status like '%" . $_GET['status'] . "%' ) ";
+            $arrlength = count($deptnamearr);
 
-                    echo "<td class='";
-                    if ($row['status'] == 'Pending' || $row['status'] == 'Pending#') {
-                        echo 'text-danger';
-                    } else if ($row['status'] == 'In-Progress' || $row['status'] == 'In-Progress#') {
-                        echo 'text-warning';
-                    } else if ($row['status'] == 'Resolved' || $row['status'] == 'Resolved#') {
-                        echo 'text-success';
-                    }
-                    echo "'  style='    font-weight: 500;'>" . $row['status'] . "</td>";
-                    //echo "<td>".$row['complainant']."</td>";
-                    //echo "<td>".$row['complainantmail']."</td>";
-                    echo '<td><button type="button" class="btn btn-primary" name="' . $row['id'] . '" onclick="takeAction(event)">Take Action</button></td>';
+            for ($x = 1; $x < $arrlength; $x++) {
+                $sql = $sql . "OR ( Departmentname like '%" . $deptnamearr[$x] . "%' AND status like '%" . $_GET['status'] . "%' )  ";
+            }
+            if ($_GET['status'] != 'Pending') {
+                $sql = $sql . " ORDER BY id DESC";
+            } else {
+                $sql = $sql . "ORDER BY id ";
+            }
+            $result = mysqli_query($con, $sql);
+            while ($row = mysqli_fetch_array($result)) {
+                //Creates a loop to dipslay all complain
+                echo "<tr><td>" . $row['id'] . "</td>";
+                echo "<td>" . $row['Departmentname'] . "</td>";
+                if (strlen($row['description']) > 50) {
+                    echo "<td >" . substr($row['description'], 0, 50) . " ...</td>";
+                } else {
+                    $tmpd = $row['description'];
+                    $tmplen = 54 - strlen($row['description']);
 
+                    echo "<td >" . $tmpd . str_repeat('&nbsp;', $tmplen);
+                    "</td>";
                 }
-            
+                echo "<td>" . $row['complaindate'] . "</td>";
+
+                echo "<td class='";
+                if ($row['status'] == 'Pending' || $row['status'] == 'Pending#') {
+                    echo 'text-danger';
+                } else if ($row['status'] == 'In-Progress' || $row['status'] == 'In-Progress#') {
+                    echo 'text-warning';
+                } else if ($row['status'] == 'Resolved' || $row['status'] == 'Resolved#') {
+                    echo 'text-success';
+                }
+                echo "'  style='    font-weight: 500;'>" . $row['status'] . "</td>";
+                //echo "<td>".$row['complainant']."</td>";
+                //echo "<td>".$row['complainantmail']."</td>";
+                echo '<td><button type="button" class="btn btn-primary" name="' . $row['id'] . '" onclick="takeAction(event)">Take Action</button></td>';
+
+            }
+
 
             echo '</tbody>
                     </table>

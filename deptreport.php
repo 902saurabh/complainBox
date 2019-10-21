@@ -12,18 +12,15 @@ use PHPMailer\PHPMailer\PHPMailer;
 require 'vendor/autoload.php';
 
 
-
-
-
 //dashboard of department
 //$mysqli = new mysqli("localhost", "root", "", "complainbox");
 $uname = $_SESSION["name"];
 
-$sqlt = "SELECT name from user WHERE email like '%" .$_SESSION['email']. "%'";
+$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
 $result1 = mysqli_query($con, $sqlt);
 
-$row5 =mysqli_fetch_array($result1);
-$vname=$row5['name'];
+$row5 = mysqli_fetch_array($result1);
+$vname = $row5['name'];
 /*
 while ($row1 = mysqli_fetch_array($result1)) {
     if (mysqli_num_rows(mysqli_query($con, $sqlt)) > 1) {
@@ -60,7 +57,7 @@ $uname = $_SESSION["name"];
 </head>
 
 
-<?php 
+<?php
 
 $html = "";
 
@@ -199,19 +196,19 @@ if (isset($_GET['date_submit'])) {
           ';
 
 
-        $pending = 0;
-        $resolved = 0;
-        $progress = 0;
-        $total_cost = 0;
-        $total_complain = 0;
+    $pending = 0;
+    $resolved = 0;
+    $progress = 0;
+    $total_cost = 0;
+    $total_complain = 0;
 
 
-        $dep = $vname;
-        //echo $_POST['radio'];
-        $query = mysqli_query($con, "SELECT * from complain WHERE Departmentname='$dep'");
+    $dep = $vname;
+    //echo $_POST['radio'];
+    $query = mysqli_query($con, "SELECT * from complain WHERE Departmentname='$dep'");
 
 
-        $html .= '<h3>Department:' . $dep . ' </h3>
+    $html .= '<h3>Department:' . $dep . ' </h3>
     
                <table class="table departmentTable">
                     <thead class="thead-dark">
@@ -224,17 +221,17 @@ if (isset($_GET['date_submit'])) {
                         <th scope="col">Cost</th>
                       </tr>
                     </thead>';
-                    while ($row = mysqli_fetch_array($query)) {
-            $date = $row['complaindate'];
-            $date = explode(" ", $date);
-            $start = strtotime($_GET['first']);
-            $second = strtotime($_GET['second']);
+    while ($row = mysqli_fetch_array($query)) {
+        $date = $row['complaindate'];
+        $date = explode(" ", $date);
+        $start = strtotime($_GET['first']);
+        $second = strtotime($_GET['second']);
 
-            $check = strtotime($date[0]);
+        $check = strtotime($date[0]);
 
-            if ($start <= $check && $check <= $second) {
+        if ($start <= $check && $check <= $second) {
 
-                $html .= '<tr>
+            $html .= '<tr>
                       <td>' . $row['id'] . '</td>
                       
                       
@@ -252,29 +249,29 @@ if (isset($_GET['date_submit'])) {
                         <td>' . $row['cost'] . '</td>
                       </tr>
                       ';
-                switch ($row['status']) {
-                    case 'Pending':
-                        $pending += 1;
-                        break;
-                    case 'In-Progress':
-                        $progress += 1;
-                        break;
-                    case 'Resolved':
-                        $resolved += 1;
-                        break;
-                }
-
-                $total_cost += $row['cost'];
-                $total_complain += 1;
-
+            switch ($row['status']) {
+                case 'Pending':
+                    $pending += 1;
+                    break;
+                case 'In-Progress':
+                    $progress += 1;
+                    break;
+                case 'Resolved':
+                    $resolved += 1;
+                    break;
             }
 
-
-            //$html.=$row['complaindate']."<br>";
-
+            $total_cost += $row['cost'];
+            $total_complain += 1;
 
         }
-         $html .= '</table><br>
+
+
+        //$html.=$row['complaindate']."<br>";
+
+
+    }
+    $html .= '</table><br>
     <table class="table" align="center">
   <thead class="thead-dark">
     <tr>
@@ -308,15 +305,14 @@ if (isset($_GET['date_submit'])) {
     $pdf = $mpdf->Output('', 'S');
     $mpdf->Output();
 
-     if ($_GET['complain_send_to'] != '')
+    if ($_GET['complain_send_to'] != '')
         sendEmail($_GET['complain_send_to'], $pdf);
-    }
+}
 
-   
 
- ?>
+?>
 
- <?php
+<?php
 
 function sendEmail($email, $pdf)
 {
@@ -334,7 +330,7 @@ function sendEmail($email, $pdf)
         $mail->Port = 587;                                    // TCP port to connect to
 
         //Recipients
-        $mail->setFrom($usermailid,$mailusername);
+        $mail->setFrom($usermailid, $mailusername);
         // $mail->addAddress("9833saurabhtiwari@gmail.com");
         $mail->addAddress($email);     // Add a recipient
 
@@ -360,10 +356,6 @@ function sendEmail($email, $pdf)
 }
 
 ?>
-
-
-
-
 
 
 <body class="">
@@ -478,7 +470,7 @@ function sendEmail($email, $pdf)
             </div>
         </nav>
 
-         <div class="content">
+        <div class="content">
             <div class="container-fluid">
 
                 <div class="row">
@@ -528,6 +520,19 @@ function sendEmail($email, $pdf)
                                          <option value="2">Networking</option>
                                          <option value="3">Test</option>
                                        </select>-->
+
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div class="col">
+                                                <input type="hidden" name="radio" value="<?php echo $vname; ?>">
+                                                <input type="submit" class="btn btn-primary btn-block"
+                                                       name="date_submit" value="Export to PDF">
+                                            </div>
+                                            <div class="col">
+                                                <input type="submit" class="btn btn-primary btn-block" name="excel"
+                                                       value="Export to Excel" formaction="complain_report_ajax.php">
+                                            </div>
+                                        </div>
+
                                         <h4 for="send_to" style="margin-top: 20px; font-size:18px"><strong>Send Report
                                                 To:</strong></h4>
                                         <div class="row">
@@ -538,17 +543,6 @@ function sendEmail($email, $pdf)
                                             <div class="col-md-4 col-sd-12 col-ld-4">
                                                 <input type="submit" class="btn btn-primary btn-block"
                                                        name="date_submit" value="Send Mail">
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-top: 10px;">
-                                            <div class="col">
-                                                <input type="hidden" name="radio" value="<?php echo $vname; ?>">
-                                                <input type="submit" class="btn btn-primary btn-block"
-                                                       name="date_submit" value="Export to PDF">
-                                            </div>
-                                            <div class="col">
-                                                <input type="submit" class="btn btn-primary btn-block" name="excel"
-                                                       value="Export to Excel" formaction="complain_report_ajax.php">
                                             </div>
                                         </div>
                         </form>
@@ -565,59 +559,59 @@ function sendEmail($email, $pdf)
 
 </div>
 
-    <script src="assets/js/core/jquery.min.js"></script>
-    <script src="assets/js/core/popper.min.js"></script>
-    <script src="assets/js/core/bootstrap-material-design.min.js"></script>
-    <script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-    <!-- Plugin for the momentJs  -->
-    <script src="assets/js/plugins/moment.min.js"></script>
-    <!--  Plugin for Sweet Alert -->
-    <script src="assets/js/plugins/sweetalert2.js"></script>
-    <!-- Forms Validations Plugin -->
-    <script src="assets/js/plugins/jquery.validate.min.js"></script>
-    <!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-    <script src="assets/js/plugins/jquery.bootstrap-wizard.js"></script>
-    <!--    Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-    <script src="assets/js/plugins/bootstrap-selectpicker.js"></script>
-    <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-    <script src="assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
-    <!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
-    <script src="assets/js/plugins/jquery.dataTables.min.js"></script>
-    <!--    Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
-    <script src="assets/js/plugins/bootstrap-tagsinput.js"></script>
-    <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-    <script src="assets/js/plugins/jasny-bootstrap.min.js"></script>
-    <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
-    <script src="assets/js/plugins/fullcalendar.min.js"></script>
-    <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
-    <script src="assets/js/plugins/jquery-jvectormap.js"></script>
-    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-    <script src="assets/js/plugins/nouislider.min.js"></script>
-    <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
-    <!-- Library for adding dinamically elements -->
-    <script src="assets/js/plugins/arrive.min.js"></script>
-    <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-    <!-- Chartist JS -->
-    <script src="assets/js/plugins/chartist.min.js"></script>
-    <!--  Notifications Plugin    -->
-    <script src="assets/js/plugins/bootstrap-notify.js"></script>
-    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
-    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-    <script src="assets/demo/demo.js"></script>
+<script src="assets/js/core/jquery.min.js"></script>
+<script src="assets/js/core/popper.min.js"></script>
+<script src="assets/js/core/bootstrap-material-design.min.js"></script>
+<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!-- Plugin for the momentJs  -->
+<script src="assets/js/plugins/moment.min.js"></script>
+<!--  Plugin for Sweet Alert -->
+<script src="assets/js/plugins/sweetalert2.js"></script>
+<!-- Forms Validations Plugin -->
+<script src="assets/js/plugins/jquery.validate.min.js"></script>
+<!-- Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+<script src="assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+<!--    Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+<script src="assets/js/plugins/bootstrap-selectpicker.js"></script>
+<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+<script src="assets/js/plugins/bootstrap-datetimepicker.min.js"></script>
+<!--  DataTables.net Plugin, full documentation here: https://datatables.net/  -->
+<script src="assets/js/plugins/jquery.dataTables.min.js"></script>
+<!--    Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+<script src="assets/js/plugins/bootstrap-tagsinput.js"></script>
+<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+<script src="assets/js/plugins/jasny-bootstrap.min.js"></script>
+<!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+<script src="assets/js/plugins/fullcalendar.min.js"></script>
+<!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+<script src="assets/js/plugins/jquery-jvectormap.js"></script>
+<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+<script src="assets/js/plugins/nouislider.min.js"></script>
+<!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support SweetAlert -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+<!-- Library for adding dinamically elements -->
+<script src="assets/js/plugins/arrive.min.js"></script>
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Chartist JS -->
+<script src="assets/js/plugins/chartist.min.js"></script>
+<!--  Notifications Plugin    -->
+<script src="assets/js/plugins/bootstrap-notify.js"></script>
+<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script src="assets/demo/demo.js"></script>
 
 
-    <script>
-        /*  $("li").click(function(){
-            alert("j");
-            var val=$(this).text();
-            $("#dropdownMenuLink").text("STATUS: "+$(this).text());
-            $.ajax(function(){
-              type:"POST",
-              url:"status_update.php",
-              data:"status="+val+"&id=<?php //echo $_GET['id']?>"
+<script>
+    /*  $("li").click(function(){
+        alert("j");
+        var val=$(this).text();
+        $("#dropdownMenuLink").text("STATUS: "+$(this).text());
+        $.ajax(function(){
+          type:"POST",
+          url:"status_update.php",
+          data:"status="+val+"&id=<?php //echo $_GET['id']?>"
     }).done(function(){
       window.open("depthome.php?id="+<?php //echo $_GET['id']?>,"_self");
     });
@@ -627,191 +621,191 @@ function sendEmail($email, $pdf)
     });
   */
 
-    </script>
+</script>
 
 
-    <script>
+<script>
 
-        function doSomething(a) {
-            var x = document.getElementById("testing");
-            var y = document.getElementById("test");
-            //if (x.style.display === "none") {
-            y.innerHTML = a;
-            //x.style.display = "block";
-            console.log(a);
-            // alert('Form submitted!'+a);
-            return false;
-        }
+    function doSomething(a) {
+        var x = document.getElementById("testing");
+        var y = document.getElementById("test");
+        //if (x.style.display === "none") {
+        y.innerHTML = a;
+        //x.style.display = "block";
+        console.log(a);
+        // alert('Form submitted!'+a);
+        return false;
+    }
 
-        $(document).ready(function () {
-            $().ready(function () {
-                $sidebar = $('.sidebar');
+    $(document).ready(function () {
+        $().ready(function () {
+            $sidebar = $('.sidebar');
 
-                $sidebar_img_container = $sidebar.find('.sidebar-background');
+            $sidebar_img_container = $sidebar.find('.sidebar-background');
 
-                $full_page = $('.full-page');
+            $full_page = $('.full-page');
 
-                $sidebar_responsive = $('body > .navbar-collapse');
+            $sidebar_responsive = $('body > .navbar-collapse');
 
-                window_width = $(window).width();
+            window_width = $(window).width();
 
-                fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+            fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
-                if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
-                    if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
-                        $('.fixed-plugin .dropdown').addClass('open');
-                    }
-
+            if (window_width > 767 && fixed_plugin_open == 'Dashboard') {
+                if ($('.fixed-plugin .dropdown').hasClass('show-dropdown')) {
+                    $('.fixed-plugin .dropdown').addClass('open');
                 }
 
-                $('.fixed-plugin a').click(function (event) {
-                    // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
-                    if ($(this).hasClass('switch-trigger')) {
-                        if (event.stopPropagation) {
-                            event.stopPropagation();
-                        } else if (window.event) {
-                            window.event.cancelBubble = true;
-                        }
+            }
+
+            $('.fixed-plugin a').click(function (event) {
+                // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+                if ($(this).hasClass('switch-trigger')) {
+                    if (event.stopPropagation) {
+                        event.stopPropagation();
+                    } else if (window.event) {
+                        window.event.cancelBubble = true;
                     }
-                });
+                }
+            });
 
-                $('.fixed-plugin .active-color span').click(function () {
-                    $full_page_background = $('.full-page-background');
+            $('.fixed-plugin .active-color span').click(function () {
+                $full_page_background = $('.full-page-background');
 
-                    $(this).siblings().removeClass('active');
-                    $(this).addClass('active');
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
 
-                    var new_color = $(this).data('color');
+                var new_color = $(this).data('color');
 
-                    if ($sidebar.length != 0) {
-                        $sidebar.attr('data-color', new_color);
-                    }
+                if ($sidebar.length != 0) {
+                    $sidebar.attr('data-color', new_color);
+                }
 
-                    if ($full_page.length != 0) {
-                        $full_page.attr('filter-color', new_color);
-                    }
+                if ($full_page.length != 0) {
+                    $full_page.attr('filter-color', new_color);
+                }
 
-                    if ($sidebar_responsive.length != 0) {
-                        $sidebar_responsive.attr('data-color', new_color);
-                    }
-                });
+                if ($sidebar_responsive.length != 0) {
+                    $sidebar_responsive.attr('data-color', new_color);
+                }
+            });
 
-                $('.fixed-plugin .background-color .badge').click(function () {
-                    $(this).siblings().removeClass('active');
-                    $(this).addClass('active');
+            $('.fixed-plugin .background-color .badge').click(function () {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
 
-                    var new_color = $(this).data('background-color');
+                var new_color = $(this).data('background-color');
 
-                    if ($sidebar.length != 0) {
-                        $sidebar.attr('data-background-color', new_color);
-                    }
-                });
+                if ($sidebar.length != 0) {
+                    $sidebar.attr('data-background-color', new_color);
+                }
+            });
 
-                $('.fixed-plugin .img-holder').click(function () {
-                    $full_page_background = $('.full-page-background');
+            $('.fixed-plugin .img-holder').click(function () {
+                $full_page_background = $('.full-page-background');
 
-                    $(this).parent('li').siblings().removeClass('active');
-                    $(this).parent('li').addClass('active');
+                $(this).parent('li').siblings().removeClass('active');
+                $(this).parent('li').addClass('active');
 
 
-                    var new_image = $(this).find("img").attr('src');
+                var new_image = $(this).find("img").attr('src');
 
-                    if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                        $sidebar_img_container.fadeOut('fast', function () {
-                            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-                            $sidebar_img_container.fadeIn('fast');
-                        });
-                    }
-
-                    if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                        var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-                        $full_page_background.fadeOut('fast', function () {
-                            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-                            $full_page_background.fadeIn('fast');
-                        });
-                    }
-
-                    if ($('.switch-sidebar-image input:checked').length == 0) {
-                        var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
-                        var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
+                if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                    $sidebar_img_container.fadeOut('fast', function () {
                         $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                        $sidebar_img_container.fadeIn('fast');
+                    });
+                }
+
+                if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
+                    var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                    $full_page_background.fadeOut('fast', function () {
                         $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                        $full_page_background.fadeIn('fast');
+                    });
+                }
+
+                if ($('.switch-sidebar-image input:checked').length == 0) {
+                    var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
+                    var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
+
+                    $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
+                    $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
+                }
+
+                if ($sidebar_responsive.length != 0) {
+                    $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
+                }
+            });
+
+            $('.switch-sidebar-image input').change(function () {
+                $full_page_background = $('.full-page-background');
+
+                $input = $(this);
+
+                if ($input.is(':checked')) {
+                    if ($sidebar_img_container.length != 0) {
+                        $sidebar_img_container.fadeIn('fast');
+                        $sidebar.attr('data-image', '#');
                     }
 
-                    if ($sidebar_responsive.length != 0) {
-                        $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
-                    }
-                });
-
-                $('.switch-sidebar-image input').change(function () {
-                    $full_page_background = $('.full-page-background');
-
-                    $input = $(this);
-
-                    if ($input.is(':checked')) {
-                        if ($sidebar_img_container.length != 0) {
-                            $sidebar_img_container.fadeIn('fast');
-                            $sidebar.attr('data-image', '#');
-                        }
-
-                        if ($full_page_background.length != 0) {
-                            $full_page_background.fadeIn('fast');
-                            $full_page.attr('data-image', '#');
-                        }
-
-                        background_image = true;
-                    } else {
-                        if ($sidebar_img_container.length != 0) {
-                            $sidebar.removeAttr('data-image');
-                            $sidebar_img_container.fadeOut('fast');
-                        }
-
-                        if ($full_page_background.length != 0) {
-                            $full_page.removeAttr('data-image', '#');
-                            $full_page_background.fadeOut('fast');
-                        }
-
-                        background_image = false;
-                    }
-                });
-
-                $('.switch-sidebar-mini input').change(function () {
-                    $body = $('body');
-
-                    $input = $(this);
-
-                    if (md.misc.sidebar_mini_active == true) {
-                        $('body').removeClass('sidebar-mini');
-                        md.misc.sidebar_mini_active = false;
-
-                        $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
-
-                    } else {
-
-                        $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
-
-                        setTimeout(function () {
-                            $('body').addClass('sidebar-mini');
-
-                            md.misc.sidebar_mini_active = true;
-                        }, 300);
+                    if ($full_page_background.length != 0) {
+                        $full_page_background.fadeIn('fast');
+                        $full_page.attr('data-image', '#');
                     }
 
-                    // we simulate the window Resize so the charts will get updated in realtime.
-                    var simulateWindowResize = setInterval(function () {
-                        window.dispatchEvent(new Event('resize'));
-                    }, 180);
+                    background_image = true;
+                } else {
+                    if ($sidebar_img_container.length != 0) {
+                        $sidebar.removeAttr('data-image');
+                        $sidebar_img_container.fadeOut('fast');
+                    }
 
-                    // we stop the simulation of Window Resize after the animations are completed
+                    if ($full_page_background.length != 0) {
+                        $full_page.removeAttr('data-image', '#');
+                        $full_page_background.fadeOut('fast');
+                    }
+
+                    background_image = false;
+                }
+            });
+
+            $('.switch-sidebar-mini input').change(function () {
+                $body = $('body');
+
+                $input = $(this);
+
+                if (md.misc.sidebar_mini_active == true) {
+                    $('body').removeClass('sidebar-mini');
+                    md.misc.sidebar_mini_active = false;
+
+                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
+
+                } else {
+
+                    $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
+
                     setTimeout(function () {
-                        clearInterval(simulateWindowResize);
-                    }, 1000);
+                        $('body').addClass('sidebar-mini');
 
-                });
+                        md.misc.sidebar_mini_active = true;
+                    }, 300);
+                }
+
+                // we simulate the window Resize so the charts will get updated in realtime.
+                var simulateWindowResize = setInterval(function () {
+                    window.dispatchEvent(new Event('resize'));
+                }, 180);
+
+                // we stop the simulation of Window Resize after the animations are completed
+                setTimeout(function () {
+                    clearInterval(simulateWindowResize);
+                }, 1000);
+
             });
         });
-    </script>
+    });
+</script>
 </body>
 </html>

@@ -18,7 +18,7 @@ if (isset($_SESSION['name'])) {
     header("Location: index.php");
     exit();
 }
-//dashboard of normal user
+
 $totcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE complainantmail='" . $email . "'"));
 
 $totpendingcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='Pending' OR status='Pending#') AND complainantmail='" . $email . "'"));
@@ -161,9 +161,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
             </div>
         </nav>
-
-
-        <!----end nav bar-->
+        <!-- End Navbar -->
 
 
         <?php
@@ -254,7 +252,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
           <div class="row">
                         <div class="card">
                 <div class="card-header card-header-primary" style="margin:0;">
-                  <h4 class="card-title "> Complains</h4>
+                  <h4 class="card-title ">' . $_GET['status'] . ' Complains</h4>
                   <p class="card-category">  </p>
                 </div>';
 
@@ -292,8 +290,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 					
                     </thead> <tbody>';
 
-        //$sql = "SELECT * FROM cancelcomplain WHERE Departmentname like '%".$_SESSION['name']."%' ORDER BY id DESC";
-        //$sql = "SELECT * FROM complain WHERE complainantmail='" . $_SESSION['email'] . "' ORDER BY id DESC";
         $sql = "SELECT * FROM complain WHERE  status like '%" . $_GET['status'] . "%' AND complainantmail='" . $_SESSION['email'] . "' ORDER BY id DESC";
 
         $result = mysqli_query($con, $sql);
@@ -346,35 +342,35 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                             $minutes += $since_start->h * 60;
                             $minutes += $since_start->i;
                            */
-		  $start_date = new DateTime($row['complaindate']);
-		    $new = date("Y-m-d H:i:s");
-		    $since_start = $start_date->diff(new DateTime($new));
-		    $minutes = $since_start->days * 24 * 60;
-		    $minutes += $since_start->h * 60;
-		    $minutes += $since_start->i;
+            $start_date = new DateTime($row['complaindate']);
+            $new = date("Y-m-d H:i:s");
+            $since_start = $start_date->diff(new DateTime($new));
+            $minutes = $since_start->days * 24 * 60;
+            $minutes += $since_start->h * 60;
+            $minutes += $since_start->i;
 
-           /* $date1 = strtotime($row['complaindate']);
-            $new = date("d-M-Y H:i");
-            $date2 = strtotime($new);
-
-
-            $diff = abs($date2 - $date1);
-            $years = floor($diff / (365 * 60 * 60 * 24));
-
-            $months = floor(($diff - $years * 365 * 60 * 60 * 24)
-                / (30 * 60 * 60 * 24));
+            /* $date1 = strtotime($row['complaindate']);
+             $new = date("d-M-Y H:i");
+             $date2 = strtotime($new);
 
 
-            $days = floor(($diff - $years * 365 * 60 * 60 * 24 -
-                    $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+             $diff = abs($date2 - $date1);
+             $years = floor($diff / (365 * 60 * 60 * 24));
 
-            $hours = floor(($diff - $years * 365 * 60 * 60 * 24
-                    - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24)
-                / (60 * 60));
-            $minutes = floor(($diff - $years * 365 * 60 * 60 * 24
-                    - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24
-                    - $hours * 60 * 60) / 60);
-            $minutes = $minutes + ($hours * 60) + ($days * 24 * 60) + ($months * 30 * 24 * 60) + ($years * 365 * 60);*/
+             $months = floor(($diff - $years * 365 * 60 * 60 * 24)
+                 / (30 * 60 * 60 * 24));
+
+
+             $days = floor(($diff - $years * 365 * 60 * 60 * 24 -
+                     $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+             $hours = floor(($diff - $years * 365 * 60 * 60 * 24
+                     - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24)
+                 / (60 * 60));
+             $minutes = floor(($diff - $years * 365 * 60 * 60 * 24
+                     - $months * 30 * 60 * 60 * 24 - $days * 60 * 60 * 24
+                     - $hours * 60 * 60) / 60);
+             $minutes = $minutes + ($hours * 60) + ($days * 24 * 60) + ($months * 30 * 24 * 60) + ($years * 365 * 60);*/
 
             echo '<form action="delete_complain.php" method="POST">';
             echo '<td><input type="hidden" style="width:1px" name="cancel_id" id="cancel_button" value="' . $row['id'] . '"></td>';
