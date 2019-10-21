@@ -44,3 +44,4 @@ $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
             while ($row1 = mysqli_fetch_array($result1)) {
                 $deptnamearr[] = $row1['name'];
             }
+

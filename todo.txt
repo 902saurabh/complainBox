@@ -1,10 +1,43 @@
 TODO:
+Department Files:
+depthome.php
 
-1. Anyone can complain i.e dept. Manager, general manager/admin -- admin pending
-2. Anyone can cancel the complain i.e dept. Manager, general manager/admin --admin pending
-3. Everyone will have my complain detail tab in navigation -- admin pending
-4. Attachment will be saved in /complain_doc/year/month/ as we have discussed
-5. One mail may have multiple dept. That is Networking, Laptop, Wifi connection may have one email id
-DONE:
-6. If one dept. Have two or more email id then the mail notification of conplain will be sent to all dept. Heads
-7. Logout page redirect.. as we discussed
+                <li class="nav-item active " href="./depthome.php">
+                    <a class="nav-link">
+                        <i class="material-icons">dashboard</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./deptstatuscomplain.php?status=">
+                        <i class="material-icons">list_alt</i>
+                        <p>View Complains</p>
+                    </a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./depthcancel.php">
+                        <i class="material-icons">cancel_presentation</i>
+                        <p>Cancel Complains</p>
+                    </a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./deptdocomplain.php">
+                        <i class="material-icons">post_add</i>
+                        <p>Do Complain</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="./deptmycomplain.php">
+                        <i class="material-icons">view_list</i>
+                        <p>My Complains</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="./deptreport.php">
+                        <i class="material-icons">content_paste</i>
+                        <p>Report</p>
+                    </a>
+                </li>

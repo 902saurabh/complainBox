@@ -124,8 +124,8 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 </li>
 
 
-                <li class="nav-item active ">
-                    <a class="nav-link">
+                <li class="nav-item active">
+                    <a class="nav-link" href="./depthome.php">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
@@ -133,45 +133,33 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
                 <li class="nav-item ">
                     <a class="nav-link" href="./deptstatuscomplain.php?status=">
-                        <i class="material-icons">content_paste</i>
-                        <p>View Complain</p>
+                        <i class="material-icons">list_alt</i>
+                        <p>View Complains</p>
                     </a>
                 </li>
 
                 <li class="nav-item ">
                     <a class="nav-link" href="./depthcancel.php">
-                        <i class="material-icons">clear</i>
+                        <i class="material-icons">cancel_presentation</i>
                         <p>Cancel Complains</p>
                     </a>
                 </li>
 
                 <li class="nav-item ">
                     <a class="nav-link" href="./deptdocomplain.php">
-                        <i class="material-icons">content_paste</i>
+                        <i class="material-icons">post_add</i>
                         <p>Do Complain</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./deptmycomplain.php">
-                        <i class="material-icons">content_paste</i>
+                    <a class="nav-link" href="./deptmycomplain.php?status=">
+                        <i class="material-icons">view_list</i>
                         <p>My Complains</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./deptchat.php?user=Carpentry">
-                        <i class="material-icons">content_paste</i>
-                        <p>Chat</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="./deptpass.php">
-                        <i class="material-icons">person</i>
-                        <p>My Profile</p>
                     </a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="./deptreport.php">
-                        <i class="material-icons">person</i>
+                        <i class="material-icons">content_paste</i>
                         <p>Report</p>
                     </a>
                 </li>
@@ -1008,9 +996,9 @@ while ($row1 = mysqli_fetch_array($result1)) {
             $.ajax(function(){
               type:"POST",
               url:"status_update.php",
-              data:"status="+val+"&id=<?php //echo $_GET['id']?>"
+              data:"status="+val+"&id=
     }).done(function(){
-      window.open("depthome.php?id="+<?php //echo $_GET['id']?>,"_self");
+      window.open("depthome.php?id="+,"_self");
     });
 
 
@@ -1375,7 +1363,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
             /* $.ajax({
                type: "POST",
                url: "status_update.php",
-               data:"status="+val+"&id=<?php //echo $_GET['id']?>"
+               data:"status="+val+"&id=
     }).done(function(){
       window.open("depthome.php","_self");
     });

@@ -27,10 +27,10 @@
         <div class="copyright float-right">
             &copy;
             <script>
-                document.write(new Date().getFullYear() + " KJSCE, All Rights Reserved.");
+                document.write(new Date().getFullYear() + " KJSCE SDC & LMS, All Rights Reserved.");
             </script>
-            Made by
-            <a href="https://kjsce.somaiya.edu/kjsce" target="_blank">KJSCE Somaiya</a>.
+            Develop by
+            <a href="https://kjsce.somaiya.edu/kjsce" target="_blank">KJSCE SDC</a>.
         </div>
     </div>
 </footer>
