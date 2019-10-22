@@ -284,8 +284,80 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
 
 
-	<br/>																
-          <div class="row">
+	<br/>';
+
+            $checkcomp = mysqli_num_rows(mysqli_query($con, "SELECT * from complain where Departmentname='Emergency' AND status!='Resolved'"));
+            if ($checkcomp > 0) {
+                echo '  <div class="row">
+		    <div class="col-lg-12 col-md-12">
+              <div class="card">
+                <div class="card-header card-header-danger">
+                  <h4 class="card-title">Attention Required</h4>
+                  <p class="card-category">Urgent Complains</p>
+                </div>
+                <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                    <thead class="text-danger">
+					<th>
+					                        ID
+                        </th>
+						
+						<th>
+                          Detail
+                        </th>
+                       
+                        <th>
+                          Date Time
+                        </th>
+                        <th>
+                          Status
+                        </th>
+						
+						<th>
+                          Action
+                        </th>
+                      </thead>
+                      <tbody>';
+                $sql = "SELECT * from complain where Departmentname='Emergency'  AND status != 'Resolved'";
+                $result = mysqli_query($con, $sql);
+                while ($row = mysqli_fetch_array($result)) {
+                    //Creates a loop to dipslay all complain
+                    echo " <tr><td>" . $row['id'] . "</td>";
+                    if (strlen($row['description']) > 50) {
+                        echo "<td >" . substr($row['description'], 0, 50) . " ...</td>";
+                    } else {
+                        $tmpd = $row['description'];
+                        $tmplen = 54 - strlen($row['description']);
+
+                        echo "<td >" . $tmpd . str_repeat('&nbsp;', $tmplen);
+                        "</td>";
+                    }
+
+                    echo "<td>" . $row['complaindate'] . "</td>";
+                    echo "<td class='";
+                    if ($row['status'] == 'Pending' || $row['status'] == 'Pending#') {
+                        echo 'text-danger';
+                    } else if ($row['status'] == 'In-Progress' || $row['status'] == 'In-Progress#') {
+                        echo 'text-warning';
+                    } else if ($row['status'] == 'Resolved' || $row['status'] == 'Resolved#') {
+                        echo 'text-success';
+                    }
+                    echo "'  style='    font-weight: 500;'>" . $row['status'] . "</td>";
+                    echo '<td><button type="button" class="btn btn-primary" name="' . $row['id'] . '" onclick="takeAction(event)">Take Action</button></td></tr>';
+                }
+                echo '            </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+		  </div>
+		 
+		  
+		  <br/>';
+
+
+            }//if close
+            echo '<div class="row">
 			
 				<div class="col-md-12">
               <div class="card">
@@ -341,7 +413,6 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
             $sql = $sql . "ORDER BY id DESC";
             $result = mysqli_query($con, $sql);
-            echo '<script>alert(' . $sql . ')</script>';
             while ($row = mysqli_fetch_array($result)) {
                 //Creates a loop to dipslay all complain
                 echo " <tr><td>" . $row['id'] . "</td>";

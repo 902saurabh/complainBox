@@ -219,7 +219,9 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                     //display all department
                     while ($row = mysqli_fetch_array($result)) {
                         $dptname = $row['dname'];
-
+                        if ($row['dname'] == 'Emergency') {
+                            continue;
+                        }
                         echo '     <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <div class="card-header ">';
@@ -236,6 +238,25 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
               </div>
             </div>';
                     }
+
+                    $sql = "SELECT * FROM department WHERE dname='Emergency'";
+                    $result = mysqli_query($con, $sql);
+                    $row = mysqli_fetch_array($result);
+                    echo '     <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                <div class="card-header "style="background: #f44336;">';
+
+                    echo "<form method='POST' action='' id=" . $row['id'] . ">";
+                    echo " <input type='hidden' name='department' value=" . $row['dname'] . ">";
+                    echo '		</br>
+                  <h3 class="card-title text-center" style="    color: white;" name="' . $row["dname"] . '"><b>' . $row["dname"] . '</b></h3>
+				</br>
+				<a href="#complain" class="btn btn-info btn-block" name="' . $row["dname"] . '" onClick="scrollToBottom(event)">Complain</a>
+
+				</form>
+				</div>
+              </div>
+            </div>';
                     ?>
 
                 </div>
@@ -526,7 +547,7 @@ if (isset($_POST['com_submit'])) {
 
 
                 if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "pdf" ||
-				$imageFileType=="PDF" || $imageFileType=="JPG" || $imageFileType=="JPEG" || $imageFileType== "PNG") {
+                    $imageFileType == "PDF" || $imageFileType == "JPG" || $imageFileType == "JPEG" || $imageFileType == "PNG") {
 
                     //echo $imageFileType;
                     //Upload the file into the temp dir

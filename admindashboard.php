@@ -244,20 +244,93 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                 <br/>
                 <?php
-                //NOTE: chage status to pending
+
+
+                $checkcomp = mysqli_num_rows(mysqli_query($con, "SELECT * from complain where Departmentname='Emergency' AND status!='Resolved'"));
+                if ($checkcomp > 0) {
+                    echo '  <div class="row">
+		    <div class="col-lg-12 col-md-12">
+              <div class="card">
+                <div class="card-header card-header-danger">
+                  <h4 class="card-title">Attention Required</h4>
+                  <p class="card-category">Urgent Complains</p>
+                </div>
+                <div class="card-body table-responsive">
+                  <table class="table table-hover">
+                    <thead class="text-danger">
+					
+                        <th>
+                          ID
+                        </th>
+                        <th>
+                          Detail
+                        </th>
+                        <th>
+                          Date Time
+                        </th>
+                        <th>
+                          Status
+                        </th>
+						
+						<th>
+                          Action
+                        </th>
+                      </thead>
+                      <tbody>';
+
+
+                    $sql = "SELECT * from complain where Departmentname='Emergency'  AND status != 'Resolved'";
+                    $result = mysqli_query($con, $sql);
+                    while ($row = mysqli_fetch_array($result)) {
+                        //Creates a loop to dipslay all complain
+                        echo "<tr><td>" . $row['id'] . "</td>";
+                        if (strlen($row['description']) > 50) {
+                            echo "<td >" . substr($row['description'], 0, 50) . " ...</td>";
+                        } else {
+                            $tmpd = $row['description'];
+                            $tmplen = 54 - strlen($row['description']);
+
+                            echo "<td >" . $tmpd . str_repeat('&nbsp;', $tmplen);
+                            "</td>";
+                        }
+                        echo "<td>" . $row['complaindate'] . "</td>";
+                        echo "<td class='";
+                        if ($row['status'] == 'Pending' || $row['status'] == 'Pending#') {
+                            echo 'text-danger';
+                        } else if ($row['status'] == 'In-Progress' || $row['status'] == 'In-Progress#') {
+                            echo 'text-warning';
+                        } else if ($row['status'] == 'Resolved' || $row['status'] == 'Resolved#') {
+                            echo 'text-success';
+                        }
+                        echo "'  style='    font-weight: 500;'>" . $row['status'] . "</td>";
+
+                        echo '<td><button type="button" class="btn btn-danger" name="' . $row['id'] . '" onclick="redirectme(event)">Take Action!</button></td></tr>';
+                    }
+
+                    echo '            </tbody>
+                    </table>
+                </div>
+              </div>
+            </div>
+		  </div>
+		 
+		  
+		  <br/>';
+                }
+                //Forwarded complains
                 $checkcomp = mysqli_num_rows(mysqli_query($con, "SELECT * from complain where id IN (SELECT ogid from admincomplain)
 		AND (status='In-Progress' OR status='Pending' OR status='In-Progress#' OR status='Pending#')"));
                 if ($checkcomp > 0) {
                     echo '  <div class="row">
 		    <div class="col-lg-12 col-md-12">
               <div class="card">
-                <div class="card-header card-header-danger">
+                <div class="card-header card-header-warning">
                   <h4 class="card-title">Forwaded Complain</h4>
                   <p class="card-category">Action required</p>
                 </div>
                 <div class="card-body table-responsive">
                   <table class="table table-hover">
-                    <thead class="text-danger">
+                    <thead class="text-warning">
 					
                         <th>
                           ID
@@ -311,7 +384,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                         echo "'  style='    font-weight: 500;'>" . $row['status'] . "</td>";
                         echo "<td>" . $row['Departmentname'] . "</td>";
                         echo "<td>" . $row['remark'] . "</td>";
-                        echo '<td><button type="button" class="btn btn-danger" name="' . $row['id'] . '" onclick="redirectme(event)">Take Action!</button></td></tr>';
+                        echo '<td><button type="button" class="btn btn-warning" name="' . $row['id'] . '" onclick="redirectme(event)">Take Action!</button></td></tr>';
                     }
 
                     echo '            </tbody>
