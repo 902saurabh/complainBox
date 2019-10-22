@@ -232,7 +232,7 @@ if (isset($_GET['date_submit'])) {
 
     if ($_GET['radio'] == 'All') {
 
-        $query = mysqli_query($con, "SELECT dname FROM department");
+        $query = mysqli_query($con, "SELECT * FROM department");
 
         while ($row = mysqli_fetch_array($query)) {
             $pending = 0;
@@ -242,14 +242,22 @@ if (isset($_GET['date_submit'])) {
             $total_complain = 0;
 
             $dp = $row['dname'];
-            $single = mysqli_query($con, "SELECT * from complain WHERE Departmentname like '%" . $dp . "%'");
-            $pend = "SELECT count(status) as e,status FROM `complain` where status='Pending' and Departmentname like '%" . $dp . "%' group by status";
-            $res = "SELECT count(status) as e,status FROM `complain` where status='Resolved' and Departmentname like '%" . $dp . "%' group by status ";
-            $inp = "SELECT count(status) as e,status FROM `complain` where status='In-Progress' and Departmentname like '%" . $dp . "%' group by status";
+
+            // CAST(U.DateCreated as DATE)
+
+            $single = mysqli_query($con, "SELECT * from complain WHERE Departmentname like '%$dp%'");
+
+            /*$total_all = mysqli_query($con,"select count(description) as t from complain where (Departmentname like '%" . $dp . "%' and complaindate between '".$start."' and '".$second."')");
+            //$single = mysqli_query($con, "SELECT * from complain WHERE (Departmentname like '%" . $dp . "%' and complaindate between '".$start."' and '".$second."' )");
+            $pend = "SELECT count(status) as e,status FROM `complain` where ( status='Pending' and Departmentname like '%" . $dp . "%' and complaindate between '".$start."' and '".$second."' ) group by status";
+            $res = "SELECT count(status) as e,status FROM `complain` where ( status='Resolved' and Departmentname like '%" . $dp . "%' and complaindate between '".$start."' and '".$second."' ) group by status ";
+            $inp = "SELECT count(status) as e,status FROM `complain` where ( status='In-Progress' and Departmentname like '%" . $dp . "%' and complaindate between '".$start."' and '".$second."' ) group by status";
 
 
-            $count_sum = "SELECT sum(cost) as c from complain where Departmentname like '%" . $dp . "%'";
+            $count_sum = "SELECT sum(cost) as c from complain where ( Departmentname like '%" . $dp . "%' and complaindate between '".$start."' and '".$second."' )";
 
+            $total_all=mysqli_fetch_array($total_all);
+            $total_all=$total_all['t'];
 
             $pend = mysqli_query($con, $pend);
             $res = mysqli_query($con, $res);
@@ -260,42 +268,51 @@ if (isset($_GET['date_submit'])) {
             $row5 = mysqli_fetch_array($pend);
             $row6 = mysqli_fetch_array($res);
             $row7 = mysqli_fetch_array($inp);
-
-            if (empty($row5['e'])) {
-                $row5['e'] = 0;
-            }
-            if (empty($row6['e'])) {
-                $row6['e'] = 0;
-            }
-            if (empty($row7['e'])) {
-                $row7['e'] = 0;
-            }
-
             $row8 = mysqli_fetch_array($count_sum);
+              if($row5['e']==""){
+            $row5['e']=0;
+            }
+            if($row6['e']==""){
+                $row6['e']=0;
+            }
+            if($row7['e']==""){
+                $row7['e']=0;
+            }
+            if($row8['c']=="") {
+                $row8['c']=0;
+            }
+            */
+
+            /*
+
+
+            <table class="table" align="center">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Total Complains</th>
+                  <th scope="col">Pending</th>
+                  <th scope="col">In-Progress</th>
+                  <th scope="col">Resolved</th>
+                  <th scope="col">Total Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">' . mysqli_num_rows($total_all) . '</th>
+                  <td>' . $row5['e'] . '</td>
+                  <td>' . $row7['e'] . '</td>
+                  <td>' . $row6['e'] . '</td>
+                  <td>' . $row8['c'] . '</td>
+                </tr>
+                </tbody>
+              </table>
+
+
+            */
 
 
             $html .= '<h3>Department:' . $dp . ' </h3>
 			
-			<table class="table" align="center">
-			  <thead class="thead-dark">
-			    <tr>
-			      <th scope="col">Total Complains</th>
-			      <th scope="col">Pending</th>
-			      <th scope="col">In-Progress</th>
-			      <th scope="col">Resolved</th>
-			      <th scope="col">Total Cost</th>
-			    </tr>
-			  </thead>
-			  <tbody>
-			    <tr>
-			      <th scope="row">' . mysqli_num_rows($single) . '</th>
-			      <td>' . $row5['e'] . '</td>
-			      <td>' . $row7['e'] . '</td>
-			      <td>' . $row6['e'] . '</td>
-			      <td>' . $row8['c'] . '</td>
-			    </tr>
-			    </tbody>
-			  </table>
 
 
 		
@@ -309,6 +326,7 @@ if (isset($_GET['date_submit'])) {
                         <th scope="col">Date Time</th>
                         <th scope="col">Status</th>
                         <th scope="col">Complainee Email</th>
+                        <th scope="col">Solved By</th>
                         <th scope="col">Cost</th>
                       </tr>
                     </thead>
@@ -339,6 +357,7 @@ if (isset($_GET['date_submit'])) {
                       <td>' . $row['status'] . '</td>
                        
                         <td>' . $row['complainantmail'] . '</td>
+                        <td>' . $row['solved_by'] . '</td>
                         <td>' . $row['cost'] . '</td>
                       </tr>
                       ';
@@ -364,6 +383,26 @@ if (isset($_GET['date_submit'])) {
 
             }
             $html .= '</tbody></table><br>
+			<table class="table" align="center">
+			  <thead class="thead-dark">
+			    <tr>
+			      <th scope="col">Total Complains</th>
+			      <th scope="col">Pending</th>
+			      <th scope="col">In-Progress</th>
+			      <th scope="col">Resolved</th>
+			      <th scope="col">Total Cost</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr>
+			      <th scope="row">' . $total_complain . '</th>
+			      <td>' . $pending . '</td>
+			      <td>' . $progress . '</td>
+			      <td>' . $resolved . '</td>
+			      <td>' . $total_cost . '</td>
+			    </tr>
+			    </tbody>
+			  </table>
     <hr>';
 
 
@@ -381,15 +420,15 @@ if (isset($_GET['date_submit'])) {
 
         $dep = $_GET['radio'];
         //echo $_POST['radio'];
-        $query = mysqli_query($con, "SELECT * from complain WHERE Departmentname='$dep'");
+        $query = mysqli_query($con, "SELECT * from complain WHERE Departmentname '%$dep%'");
 
 
-        $pend = "SELECT count(status) as e,status FROM complain where status='Pending' group by status";
-        $res = "SELECT count(status) as e,status FROM complain where status='Resolved' group by status";
-        $inp = "SELECT count(status) as e,status FROM complain where status='In-Progress' group by status";
+        $pend = "SELECT count(status) as e,status FROM complain where (status='Pending' and Departmentname like '%" . $dep . "%' and complaindate between '" . $start . "' and '" . $second . "' ) group by status";
+        $res = "SELECT count(status) as e,status FROM complain where (status='Resolved' and Departmentname like '%" . $dep . "%' and complaindate between '" . $start . "' and '" . $second . "' ) group by status";
+        $inp = "SELECT count(status) as e,status FROM complain where (status='In-Progress' and Departmentname like '%" . $dep . "%' and complaindate between '" . $start . "' and '" . $second . "' ) group by status";
 
 
-        $count_sum = "select count(Departmentname) as dp , sum(cost) as c from complain where 		Departmentname like '%" . $dep . "%'";
+        $count_sum = "select count(Departmentname) as dp , sum(cost) as c from complain where Departmentname like '%" . $dep . "%'";
 
 
         $pend = mysqli_query($con, $pend);
@@ -397,12 +436,25 @@ if (isset($_GET['date_submit'])) {
         $inp = mysqli_query($con, $inp);
         $count_sum = mysqli_query($con, $count_sum);
 
+
         //$test = mysqli_query($con,$query77);
         $row5 = mysqli_fetch_array($pend);
         $row6 = mysqli_fetch_array($res);
         $row7 = mysqli_fetch_array($inp);
-
         $row8 = mysqli_fetch_array($count_sum);
+
+        if ($row5['e'] == "") {
+            $row5['e'] = 0;
+        }
+        if ($row6['e'] == "") {
+            $row6['e'] = 0;
+        }
+        if ($row7['e'] == "") {
+            $row7['e'] = 0;
+        }
+        if ($row8['c'] == "") {
+            $row8['c'] = 0;
+        }
 
 
         $html .= '<table class="table" align="center">
@@ -419,8 +471,8 @@ if (isset($_GET['date_submit'])) {
 			    <tr>
 			      <th scope="row">' . $row8['dp'] . '</th>
 			      <td>' . $row5['e'] . '</td>
-			      <td>' . $row6['e'] . '</td>
 			      <td>' . $row7['e'] . '</td>
+			      <td>' . $row6['e'] . '</td>
 			      <td>' . $row8['c'] . '</td>
 			    </tr>
 			    </tbody>
@@ -447,6 +499,7 @@ if (isset($_GET['date_submit'])) {
                         <th scope="col">Date Time</th>
                         <th scope="col">Status</th>
                         <th scope="col">Complainee Email</th>
+                        <th scope="col">Solved By</th>
                         <th scope="col">Cost</th>
                       </tr>
                     </thead>';
@@ -476,6 +529,7 @@ if (isset($_GET['date_submit'])) {
                 
                        
                         <td>' . $row['complainantmail'] . '</td>
+                        <td>' . $row['solved_by'] . '</td>
                         <td>' . $row['cost'] . '</td>
                       </tr>
                       ';
@@ -518,7 +572,7 @@ if (isset($_GET['date_submit'])) {
 //$mpdf->SetFooter('Document Title');
     $mpdf->WriteHTML($html);
     $pdf = $mpdf->Output('', 'S');
-    $mpdf->Output($download, 'D');
+    $mpdf->Output($download, 'I');
 
     if ($_GET['complain_send_to'] != '')
 
@@ -591,8 +645,8 @@ function sendEmail($email, $pdf)
         $mail->Port = 587;                                    // TCP port to connect to
 
         //Recipients
-        $mail->setFrom($usermailid,$mailusername);
-        // //$mail->addAddress("9833saurabhtiwari@gmail.com");
+        $mail->setFrom($usermailid, $mailusername);
+        // $mail->addAddress("9833saurabhtiwari@gmail.com");
         $mail->addAddress($email);     // Add a recipient
 
         // Attachments
@@ -652,12 +706,13 @@ function sendEmail($email, $pdf)
                 </li>
 
 
-                <li class="nav-item  ">
-                    <a class="nav-link" href="./admindashboard.php">
+                <li class="nav-item">
+                    <a class="nav-link">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
                 </li>
+
                 <li class="nav-item ">
                     <a class="nav-link" href="./adminprofile.php">
                         <i class="material-icons">person</i>
@@ -665,12 +720,17 @@ function sendEmail($email, $pdf)
                     </a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link">
+                    <a class="nav-link" href="test_report.php">
                         <i class="material-icons">content_paste</i>
                         <p>Reports</p>
                     </a>
                 </li>
-
+                <li class="nav-item ">
+                    <a class="nav-link" href="./adddepartment.php">
+                        <i class="material-icons">group_add</i>
+                        <p>Add department</p>
+                    </a>
+                </li>
 
                 <li class="nav-item ">
                     <a class="nav-link" href="./editdepartment.php">
@@ -678,8 +738,13 @@ function sendEmail($email, $pdf)
                         <p>Edit department</p>
                     </a>
                 </li>
-                <?php echo $sidebar; ?>
 
+                <li class="nav-item ">
+                    <a class="nav-link" href="./removedepartment.php">
+                        <i class="material-icons">clear</i>
+                        <p>Remove department</p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./admincancel.php">
                         <i class="material-icons">clear</i>
@@ -687,11 +752,18 @@ function sendEmail($email, $pdf)
                     </a>
                 </li>
 
-
                 <li class="nav-item ">
                     <a class="nav-link" href="./admindocomp.php">
                         <i class="material-icons">content_paste</i>
                         <p>Do Complain</p>
+                    </a>
+                </li>
+
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./adminmycomplain.php?status=">
+                        <i class="material-icons">content_paste</i>
+                        <p>My Complains</p>
                     </a>
                 </li>
 
@@ -701,7 +773,6 @@ function sendEmail($email, $pdf)
                         <p>Logout</p>
                     </a>
                 </li>
-
             </ul>
         </div>
     </div>
@@ -731,7 +802,7 @@ function sendEmail($email, $pdf)
                 <div class="row">
 
                     <div class="col-md-6 offset-md-3">
-                        <form style="margin-top: 50px;" method="GET">
+                        <form style="margin-top: 50px;" method="GET" target="_blank">
                             <div class="card">
                                 <div class="card-header card-header-primary">
                                     <h4 class="card-title">REPORT DETAILS</h4>
@@ -792,6 +863,17 @@ function sendEmail($email, $pdf)
                                          <option value="2">Networking</option>
                                          <option value="3">Test</option>
                                        </select>-->
+                                        <div class="row" style="margin-top: 10px;">
+                                            <div class="col">
+                                                <input type="submit" class="btn btn-primary btn-block"
+                                                       name="date_submit" value="Export to PDF">
+                                            </div>
+                                            <div class="col">
+                                                <input type="submit" class="btn btn-primary btn-block" name="excel"
+                                                       value="Export to Excel" formaction="complain_report_ajax.php">
+                                            </div>
+                                        </div>
+
                                         <h4 for="send_to" style="margin-top: 20px; font-size:18px"><strong>Send Report
                                                 To:</strong></h4>
                                         <div class="row">
@@ -802,16 +884,6 @@ function sendEmail($email, $pdf)
                                             <div class="col-md-4 col-sd-12 col-ld-4">
                                                 <input type="submit" class="btn btn-primary btn-block"
                                                        name="date_submit" value="Send Mail">
-                                            </div>
-                                        </div>
-                                        <div class="row" style="margin-top: 10px;">
-                                            <div class="col">
-                                                <input type="submit" class="btn btn-primary btn-block"
-                                                       name="date_submit" value="Export to PDF">
-                                            </div>
-                                            <div class="col">
-                                                <input type="submit" class="btn btn-primary btn-block" name="excel"
-                                                       value="Export to Excel" formaction="complain_report_ajax.php">
                                             </div>
                                         </div>
                         </form>
@@ -1100,4 +1172,4 @@ if (isset($_POST['reg_complain'])) {
 
 
 </script>
-</body></html>
+</body></html> 

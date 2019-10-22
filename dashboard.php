@@ -376,9 +376,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                                             // use fileName however fits your app best, i.e. add it into a div
                                             var res = fileName.split(".");
-                                            if (res[res.length - 1] == "jpg" || res[res.length - 1] == "jpeg" || res[res.length - 1] == "pdf" || res[res.length - 1] == "png" ||
-                                                res[res.length - 1] == "JPG" || res[res.length - 1] == "JPEG" || res[res.length - 1] == "PDF" || res[res.length - 1] == "PNG"
-                                            ) {
+                                            if (res[res.length - 1] == "jpg" || res[res.length - 1] == "jpeg" || res[res.length - 1] == "pdf" || res[res.length - 1] == "png") {
                                                 infoArea.textContent = 'File name: ' + fileName;
                                                 $("#file-upload-filename").css("color", "blue");
                                                 $("#file_test").show();
@@ -434,6 +432,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             $department = $_COOKIE['dname'];
         ?>
 
+
     </div>
 </div>
 
@@ -487,9 +486,17 @@ if (isset($_POST['com_submit'])) {
     </script>';*/
     $location = $_POST['location'];
     $building = $_POST['buildingOption'];
+    /*  if (isset($_COOKIE['building'])) {
+        $building = $_COOKIE['building'];
+      }else{
+        $building='none';
+      }
+      */
+
     $complain_body = $_POST['complain_body'];
     $contactnumber = $_POST['contactnumber'];
 
+    // echo $contactnumber;
     if ($complain_body != '') {
         $body = mysqli_real_escape_string($con, $complain_body);
         $location = mysqli_real_escape_string($con, $location);
@@ -518,7 +525,8 @@ if (isset($_POST['com_submit'])) {
                 $imageFileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
 
 
-                if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "pdf") {
+                if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "pdf" ||
+				$imageFileType=="PDF" || $imageFileType=="JPG" || $imageFileType=="JPEG" || $imageFileType== "PNG") {
 
                     //echo $imageFileType;
                     //Upload the file into the temp dir
@@ -623,6 +631,8 @@ if (isset($_POST['com_submit'])) {
 <script>
 document.getElementById("completebody").style.display = "none";
 </script>
+
+
 <h4 style="text-align: center">Processing please wait...</h4>
 <div id="loader">
 

@@ -78,7 +78,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
 </head>
 
-<body class="">
+<body>
 <div class="wrapper " id="completebody">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="assets/img/sidebar.jpg">
         <!--
@@ -112,8 +112,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 </li>
 
 
-                <li class="nav-item " href="./admindashboard.php">
-                    <a class="nav-link">
+                <li class="nav-item ">
+                    <a class="nav-link" href="./admindashboard.php">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
@@ -157,7 +157,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="./adminmycomplain.php">
+                    <a class="nav-link" href="./adminmycomplain.php?status=">
                         <i class="material-icons">content_paste</i>
                         <p>My Complains</p>
                     </a>
@@ -288,7 +288,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                     <?php
 
 
-                    $sql = "SELECT * FROM department ";
+                    $sql = "SELECT * FROM department ORDER BY dname";
                     $result = mysqli_query($con, $sql);
                     //display all department
                     while ($row = mysqli_fetch_array($result)) {
@@ -343,13 +343,18 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                     <br/>
 
                                     <div class="row">
-                                        <div class="col">
+                                        <div class="col-lg-6 col-md-12 col-12">
                                             <!--   <label for="dropCompulsion" style="margin-bottom: 5px">Location:</label> -->
+
+                                            <label for="dropCompulsion"
+                                                   style="margin-bottom: 5px; color: #9128ac">Building:</label>
+
                                             <input type="text" class="form-control" id="dropCompulsion"
                                                    placeholder="Choose Building" spellcheck="false"
                                                    name="buildingOption" required/>
                                         </div>
-                                        <div class="col col-lg-3">
+                                        <div class="col-lg-6 col-md-12 col-12">
+                                            <br>
                                             <div class="dropdown" required>
                                                 <a class="btn btn-primary dropdown-toggle " href="#" role="button"
                                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -358,13 +363,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                                                 <ul class="dropdown-menu" style="cursor:pointer;"
                                                     aria-labelledby="dropdownMenuLink" name="ul" required>
-                                                    <li class="dropdown-item" id="item1" value="j" href="#">KJ SOMAIYA
-                                                        SCIENCE AND COMMERCE BUILDING
-                                                    </li>
-                                                    <li class="dropdown-item" id="item2" value="k" href="#">ARYABHATTA
-                                                        ENGINEERING BUILDING
-                                                    </li>
-                                                    <li class="dropdown-item" id="item3" href="#">BHASKARACHARYA</li>
+                                                    <li class="dropdown-item" id="item2" href="#">ARYABHATTA(A)</li>
+                                                    <li class="dropdown-item" id="item3" href="#">BHASKARACHARYA(B)</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -379,11 +379,17 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                                required>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="form-group" style="margin-top: 25px;">
 
-                                        <label class="bmd-label-floating"> Describe your complain</label>
+                                        <label style="margin-bottom: 5px; color: #9128ac"
+                                               for="exampleFormControlInput2">
+                                            Describe your complain
+                                        </label>
                                         <textarea class="form-control" name="complain_body" rows="5"
-                                                  required></textarea>
+                                                  id="exampleFormControlInput2"
+                                                  placeholder="(If complain is regarding laptop/pc please specify model number and brand name)"
+                                                  required
+                                        ></textarea>
 
                                     </div>
 
@@ -447,13 +453,15 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                                             // use fileName however fits your app best, i.e. add it into a div
                                             var res = fileName.split(".");
-                                            if (res[res.length - 1] == "jpg" || res[res.length - 1] == "jpeg" || res[res.length - 1] == "pdf" || res[res.length - 1] == "png") {
+                                            if (res[res.length - 1] == "jpg" || res[res.length - 1] == "jpeg" || res[res.length - 1] == "pdf" || res[res.length - 1] == "png" ||
+                                                res[res.length - 1] == "JPG" || res[res.length - 1] == "JPEG" || res[res.length - 1] == "PDF" || res[res.length - 1] == "PNG"
+                                            ) {
                                                 infoArea.textContent = 'File name: ' + fileName;
                                                 $("#file-upload-filename").css("color", "blue");
                                                 $("#file_test").show();
                                             } else {
                                                 $("#file-upload-filename").css("color", "red");
-                                                infoArea.textContent = "*Following file format is not 							supported!";
+                                                infoArea.textContent = "*Following file format is not supported! (only images or pdf)";
                                                 $("#file_test").hide();
                                             }
 
@@ -461,7 +469,20 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
 
                                     </script>
+                                    <div class="form-group" style="margin-top: 25px;">
+                                        <label for="exampleFormControlInput1"
+                                               style="margin-bottom: 5px; color: #9128ac">Phone/Extension
+                                            Number:</label>
+                                        <?php
+                                        $row = mysqli_fetch_array(mysqli_query($con, "SELECT contactnum FROM user WHERE email like '%" . $email . "%'"));
+                                        $conta = $row['contactnum'];
 
+                                        echo '<input type="number" class="form-control" id="contactnumber"
+                                               name="contactnumber" 
+                                               value="' . $conta . '" min="0"
+                                               required>';
+                                        ?>
+                                    </div>
 
                                     <input type="submit"
                                            id="file_test"
@@ -544,6 +565,7 @@ if (isset($_POST['com_submit'])) {
 
 
     $complain_body = $_POST['complain_body'];
+    $contactnumber = $_POST['contactnumber'];
 
     if ($complain_body != '') {
         $body = mysqli_real_escape_string($con, $complain_body);
@@ -637,26 +659,19 @@ if (isset($_POST['com_submit'])) {
 /* Center the loader */
 
 #loader {
-  position: absolute;
-  left: 50%;
+  	position: relative;
   top: 50%;
-  z-index: 1;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
-  border: 16px solid #f3f3f3;
+	margin: 60px auto auto auto;
+  border:5px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid blue;
-  border-right: 16px solid green;
-  border-bottom: 16px solid red;
-  border-left: 16px solid pink;
-  
+  border-top: 5px solid #3498db;
   width: 120px;
   height: 120px;
-  -webkit-animation: spin 2s linear infinite;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
   animation: spin 2s linear infinite;
 }
 
+/* Safari */
 @-webkit-keyframes spin {
   0% { -webkit-transform: rotate(0deg); }
   100% { -webkit-transform: rotate(360deg); }
@@ -667,25 +682,6 @@ if (isset($_POST['com_submit'])) {
   100% { transform: rotate(360deg); }
 }
 
-/* Add animation to "page content" */
-.animate-bottom {
-  position: relative;
-  -webkit-animation-name: animatebottom;
-  -webkit-animation-duration: 1s;
-  animation-name: animatebottom;
-  animation-duration: 1s
-}
-
-@-webkit-keyframes animatebottom {
-  from { bottom:-100px; opacity:0 } 
-  to { bottom:0px; opacity:1 }
-}
-
-@keyframes animatebottom { 
-  from{ bottom:-100px; opacity:0 } 
-  to{ bottom:0; opacity:1 }
-}
-
 #myDiv {
   display: none;
   text-align: center;
@@ -694,7 +690,7 @@ if (isset($_POST['com_submit'])) {
 <script>
 document.getElementById("completebody").style.display = "none";
 </script>
-<h4>Processing please wait...</h4>
+<h4 style="text-align: center">Processing please wait...</h4>
 <div id="loader">
 
 </div>
@@ -702,8 +698,15 @@ document.getElementById("completebody").style.display = "none";
 
 
 ';
-            mysqli_query($con, "INSERT into complain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate) values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime')");
+            //UPDATE `user` SET `contactnum` = '9833' WHERE `user`.`id` = 32;
+            $sql78 = "UPDATE user SET contactnum = '$contactnumber' WHERE   email like '%" . $email . "%'";
+            //echo $sql78;
+            mysqli_query($con, $sql78);
 
+            $sql79 = "INSERT into complain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate,contactnum) 
+                    values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime','$contactnumber')";
+            //   echo $sql79;
+            mysqli_query($con, $sql79);
             $id = mysqli_insert_id($con);
 
 
@@ -720,7 +723,7 @@ document.getElementById("completebody").style.display = "none";
       $.ajax({              
                 url:"complain_submit_ajax.php",
                 type:"POST",
-                data:"id=' . $id . '&mail_to=' . $mail_to . '",
+                data:"id=' . $id . '&department=' . $department . '",
                 cache:false,
 
               
@@ -743,7 +746,7 @@ document.getElementById("completebody").style.display = "none";
                 console.log(data);
 document.getElementById("loader").style.display = "none";
   document.getElementById("completebody").style.display = "block";
-				swal("Your complain successfully submitted");								  
+				//swal("Your complain successfully submitted");								  
                 window.location.href = "./index.php";
 
             }).fail(function() { 

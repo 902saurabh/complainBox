@@ -50,7 +50,7 @@ $_SESSION["name"] = $uname;
 
 $totcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain "));
 
-$totpendingcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE status='Pending' OR status='Pending#'"));
+$totpendingcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='Pending' OR status='Pending#') order by complaindate desc "));
 
 $totsolvedcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE  status='Resolved' OR status='Resolved#'"));
 

@@ -76,7 +76,7 @@ $upass = $row['password'];
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="./test_report.php">
+                    <a class="nav-link" href="./manager_test_report.php">
                         <i class="material-icons">content_paste</i>
                         <p>Reports</p>
                     </a>
@@ -104,7 +104,7 @@ $upass = $row['password'];
 
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="./adminmycomplain.php">
+                    <a class="nav-link" href="./adminmycomplain.php?status=">
                         <i class="material-icons">content_paste</i>
                         <p>My Complains</p>
                     </a>

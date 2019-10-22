@@ -137,7 +137,7 @@ if (!isset($_SESSION['name'])) {
 
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="./adminmycomplain.php">
+                    <a class="nav-link" href="./adminmycomplain.php?status=">
                         <i class="material-icons">content_paste</i>
                         <p>My Complains</p>
                     </a>

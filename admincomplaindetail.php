@@ -1,12 +1,46 @@
 <?php
+
 include("config/config.php");
-if (isset($_SESSION['name'])) {
-    $name = $_SESSION['name'];
-    $email = $_SESSION['email'];
-    $img = $_SESSION['imgurl'];
-} else {
+if (!isset($_SESSION['name'])) {
+
     header("Location: index.php");
     exit();
+} else {
+    $sql = "SELECT usertype FROM user WHERE email='" . $_SESSION["email"] . "'";
+    $res = mysqli_query($con, $sql);
+    $row = $res->fetch_assoc();
+
+    if ($row['usertype'] == 'admin') {
+        $sidebar = '
+	  <li class="nav-item ">
+            <a class="nav-link" href="./adddepartment.php">
+              <i class="material-icons">group_add</i>
+              <p>Add department</p>
+            </a>
+          </li>
+            <li class="nav-item ">
+            <a class="nav-link" href="./removedepartment.php">
+              <i class="material-icons">clear</i>
+              <p>Remove department</p>
+            </a>
+          </li>
+	  ';
+    } else {
+        $sidebar = '';
+    }
+
+    if ($row['usertype'] != 'admin') {
+        if ($row['usertype'] == 'User') {
+            header("Location: dashboard.php");
+            exit();
+        } else if ($row['usertype'] == 'Department') {
+            header("Location: depthome.php");
+            exit();
+
+
+        }
+    }
+
 }
 ?>
 <!DOCTYPE html>
@@ -65,43 +99,52 @@ if (isset($_SESSION['name'])) {
                 </li>
 
 
-                <li class="nav-item  ">
-                    <a class="nav-link" href="./depthome.php">
+                <li class="nav-item">
+                    <a class="nav-link" href="./admindashboard.php">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="./deptstatuscomplain.php?status=">
-                        <i class="material-icons">list_alt</i>
-                        <p>View Complains</p>
+                    <a class="nav-link" href="./adminprofile.php">
+                        <i class="material-icons">person</i>
+                        <p>My Profile</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="test_report.php">
+                        <i class="material-icons">content_paste</i>
+                        <p>Reports</p>
                     </a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="./depthcancel.php">
-                        <i class="material-icons">cancel_presentation</i>
-                        <p>Cancel Complains</p>
+                    <a class="nav-link" href="./editdepartment.php">
+                        <i class="material-icons">create</i>
+                        <p>Edit department</p>
+                    </a>
+                </li>
+                <?php echo $sidebar; ?>
+                <li class="nav-item">
+                    <a class="nav-link" href="./admincancel.php">
+                        <i class="material-icons">clear</i>
+                        <p>Cancel complains</p>
                     </a>
                 </li>
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="./deptdocomplain.php">
-                        <i class="material-icons">post_add</i>
+                    <a class="nav-link" href="./admindocomp.php">
+                        <i class="material-icons">content_paste</i>
                         <p>Do Complain</p>
                     </a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="./deptmycomplain.php?status=">
-                        <i class="material-icons">view_list</i>
-                        <p>My Complains</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="./deptreport.php">
+
+
+                <li class="nav-item  active">
+                    <a class="nav-link" href="./adminmycomplain.php">
                         <i class="material-icons">content_paste</i>
-                        <p>Report</p>
+                        <p>My Complains</p>
                     </a>
                 </li>
                 <li class="nav-item ">

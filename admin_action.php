@@ -179,19 +179,19 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             $cname = $fetch['complainant'];
             $cmail = $fetch['complainantmail'];
             $dtym = $fetch['complaindate'];
-            $cstatus = $fetch['status'];									  
-	    $quotation = $fetch['quotation'];	  
-        }
-        if (empty($upload_img)) {
-            $upload = "";
-        } else {
+            $cstatus = $fetch['status'];
+            $usercontactnum = $fetch['contactnum'];
 
-            /*$upload="
-            <div class='form-group'>
-            <a class='btn btn-primary' target='_blank' href='" .$upload_img."'>View Document</a>
-            </div>";*/
+            if (empty($upload_img)) {
+                $upload = "";
+            } else {
 
-            $upload = '<div class="col-lg-4 col-md-6 col-sm-6">
+                /*$upload="
+                <div class='form-group'>
+                <a class='btn btn-primary' target='_blank' href='" .$upload_img."'>View Document</a>
+                </div>";*/
+
+                $upload = '<div class="col-lg-4 col-md-6 col-sm-6">
 
                 <div class="card card-stats">
                 <br>
@@ -202,7 +202,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 </div>
                 <div class="card-footer" style="margin-top:0px;">
                   <div class="stats">
-                    <a class="btn btn-primary"  target="_blank" href="file:///' . $upload_img . '">View Document</a>
+                    <a class="btn btn-primary"  target="_blank" href="../' . $upload_img . '">View Document</a>
                    
                   </h4>
                   </div>
@@ -210,26 +210,26 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
               </div>
 
                 </div>';
-        }
+            }
 
 
-	if (empty($quotation)) {
-            $view_quotation = "";
-        } else {
+            if (empty($quotation)) {
+                $view_quotation = "";
+            } else {
 
-            /*$upload="
-            <div class='form-group'>
-            <a class='btn btn-primary' target='_blank' href='" .$upload_img."'>View Quotation:</a>
-            </div>";*/
+                /*$upload="
+                <div class='form-group'>
+                <a class='btn btn-primary' target='_blank' href='" .$upload_img."'>View Quotation:</a>
+                </div>";*/
 
-            $view_quotation = '<div class="row">
+                $view_quotation = '<div class="row">
 	<div class="col-lg-6 col-md-6 col-sm-6">
 
                 <div class="card card-stats">
                 <br>
                 <div class="card-header card-header-warning card-header-icon">
                   
-                  <p class="card-category text-left text-primary">Uploaded Quotation :</p>
+                  <p class="card-category text-left text-primary">Uploaded Attachment :</p>
                   
                 </div>
                 <div class="card-footer" style="margin-top:0px;">
@@ -242,11 +242,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
               </div>
 
                 </div></div>';
+            }
         }
-
-
-
-
 
 
         ?>
@@ -259,8 +256,9 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                     <div class="col-md-8 offset-md-2">
                         <div class="card" id="dept_card">
-                            <div class="card-header card-header-primary" style="margin:0;">
-                                <h4 class="card-title" id="complain_card">Complain Id : <?php echo $id; ?></h4>
+                            <div class="card-header card-header-primary" style="margin:0">
+                                <h4 class="card-title"
+                                    id="complain_card"><?php echo "Complain Id : $id - $cstatus "; ?></h4>
                                 <!--
                                 <p class="card-category">Complain By '.$cname.'</p>
                                 <p class="card-category">Mail id : '.$cmail.'</p>
@@ -319,6 +317,31 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                             <br>
                                             <div class="card-header card-header-warning card-header-icon">
 
+                                                <p class="card-category text-left text-primary">Contact Number</p>
+
+                                            </div>
+                                            <div class="card-footer" style="margin-top: 0px;">
+                                                <div class="stats" style="word-break: break-word">
+                                                    <h4 class="card-title"
+                                                        style="font-weight:400"><?php echo $usercontactnum; ?>
+
+                                                    </h4>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="col-lg-4 col-md-6 col-sm-6">
+
+                                        <div class="card card-stats">
+                                            <br>
+                                            <div class="card-header card-header-warning card-header-icon">
+
                                                 <p class="card-category text-left text-primary">Date Time :</p>
 
                                             </div>
@@ -332,11 +355,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                         </div>
 
                                     </div>
-                                </div>
-
-
-                                <div class="row">
-
                                     <div class="col-lg-4 col-md-6 col-sm-6">
 
                                         <div class="card card-stats">
@@ -378,7 +396,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                         </div>
 
                                     </div>
-
+                                    <?php echo $upload; ?>
                                 </div>
 
 
@@ -470,7 +488,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                                                 $compdept = $rowdpt['Departmentname'];
 
 
-                                                                $sql = "SELECT * FROM department";
+                                                                $sql = "SELECT * FROM department order by dname";
                                                                 $result = mysqli_query($con, $sql);
 
                                                                 while ($row = mysqli_fetch_array($result)) {
@@ -586,9 +604,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                                                             <ul class="dropdown-menu btn-block"
                                                                 aria-labelledby="dropdownMenuLink">
-                                                                <li class="dropdown-item complain_status" id="item1"
-                                                                    name="pending" href="#">Pending
-                                                                </li>
                                                                 <li class="dropdown-item complain_status" id="item2"
                                                                     name="inprogress" href="#">In-Progress
                                                                 </li>
@@ -620,8 +635,9 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                                     <div class="stats">
                                                         <div class="form-group">
 
-                                                            <input type="number" name="timer" class="form-control"
-                                                                   value=0 style="">
+                                                            <input type="number" name="timer" id="timer_update"
+                                                                   class="form-control" style="" min="0" value="0"
+                                                                   required>
                                                         </div>
 
 
@@ -643,8 +659,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                                     <div class="stats">
                                                         <div class="form-group">
 
-                                                            <input type="number" name="cost" class="form-control"
-                                                                   value=0>
+                                                            <input type="number" name="cost" id="cost_update"
+                                                                   class="form-control" min="0" value=0 required>
                                                         </div>
 
 
@@ -658,7 +674,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                                     </div>
 
-				<?php echo $view_quotation;?>		 
+                                    <?php echo $view_quotation; ?>
                                     <!--
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="card card-stats">
@@ -686,7 +702,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 -->
 
 
-                                    <input type="submit" name="reg_complain" class="btn btn-primary "  style="float: right;" value="Update">
+                                    <input type="submit" name="reg_complain" class="btn btn-primary"
+                                           style="float: left;" value="Update">
 
 
                                     <!--      <div class="row">
@@ -797,6 +814,18 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
 //$sql7="UPDATE complain SET status='".$status."' , time_constraint=".$timer." ,cost=".$cost." WHERE id=".$id.";";
 //echo $sql7;
+
+        if ($status == "Resolved") {
+            //$query8 = mysqli_query($con,"SELECT * FROM complain where id='$id'");
+            //row8 = mysqli_fetch_array($query8);
+            /*if($row8['solved_by']=="NULL"){
+              $query8 = mysqli_query($con,"INSERT into complain(solved_by) values('') where id =")
+            }*/
+            $solved_by = $uname;
+            $query = mysqli_query($con, "UPDATE complain SET solved_by='$uname' WHERE id='$id'");
+
+        }
+
         $query = mysqli_query($con, "UPDATE complain SET status='$status' , time_constraint='$timer' , cost='$cost' WHERE id='$id'");
 
 

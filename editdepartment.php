@@ -149,7 +149,7 @@ $_SESSION["name"] = $uname;
 
 
                 <li class="nav-item ">
-                    <a class="nav-link" href="./adminmycomplain.php">
+                    <a class="nav-link" href="./adminmycomplain.php?status=">
                         <i class="material-icons">content_paste</i>
                         <p>My Complains</p>
                     </a>

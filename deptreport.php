@@ -21,6 +21,14 @@ $result1 = mysqli_query($con, $sqlt);
 
 $row5 = mysqli_fetch_array($result1);
 $vname = $row5['name'];
+
+$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+$result1 = mysqli_query($con, $sqlt);
+$deptnamearr = array();
+while ($row1 = mysqli_fetch_array($result1)) {
+    $deptnamearr[] = $row1['name'];
+}
+
 /*
 while ($row1 = mysqli_fetch_array($result1)) {
     if (mysqli_num_rows(mysqli_query($con, $sqlt)) > 1) {
@@ -56,22 +64,15 @@ $uname = $_SESSION["name"];
     <link href="assets/css/material-dashboard.css?v=2.1.1" rel="stylesheet"/>
 </head>
 
-
 <?php
-
 $html = "";
-
 if (isset($_GET['date_submit'])) {
-
-
     $pending = 0;
     $resolved = 0;
     $progress = 0;
     $total_cost = 0;
-
     $start = $_GET['first'];
     $second = $_GET['second'];
-
     $day1 = explode("-", $start);
     $day2 = explode("-", $second);
     $month = "";
@@ -94,8 +95,6 @@ if (isset($_GET['date_submit'])) {
     } else {
         $day2[2] .= 'th';
     }
-
-
     switch ($day1[1]) {
         case 1:
             $month = "January";
@@ -179,7 +178,6 @@ if (isset($_GET['date_submit'])) {
     <div style="float:right;">
     <h5>From:' . $day1[2] . " " . $month . " " . $day1[0] . ' </h5>
     <h5>To:' . $day2[2] . " " . $month2 . " " . $day2[0] . ' </h5>
-
     </div>
   
           <h3 style="text-align:center"><strong>Complain Report</strong></h3>
@@ -190,24 +188,15 @@ if (isset($_GET['date_submit'])) {
               border-collapse: collapse;
             }
               </style>
-
-
-
           ';
-
-
     $pending = 0;
     $resolved = 0;
     $progress = 0;
     $total_cost = 0;
     $total_complain = 0;
-
-
-    $dep = $vname;
+    $dep = $_GET['radio'];
     //echo $_POST['radio'];
-    $query = mysqli_query($con, "SELECT * from complain WHERE Departmentname='$dep'");
-
-
+    $query = mysqli_query($con, "SELECT * from complain WHERE Departmentname like '%$dep%'");
     $html .= '<h3>Department:' . $dep . ' </h3>
     
                <table class="table departmentTable">
@@ -226,11 +215,8 @@ if (isset($_GET['date_submit'])) {
         $date = explode(" ", $date);
         $start = strtotime($_GET['first']);
         $second = strtotime($_GET['second']);
-
         $check = strtotime($date[0]);
-
         if ($start <= $check && $check <= $second) {
-
             $html .= '<tr>
                       <td>' . $row['id'] . '</td>
                       
@@ -260,16 +246,10 @@ if (isset($_GET['date_submit'])) {
                     $resolved += 1;
                     break;
             }
-
             $total_cost += $row['cost'];
             $total_complain += 1;
-
         }
-
-
         //$html.=$row['complaindate']."<br>";
-
-
     }
     $html .= '</table><br>
     <table class="table" align="center">
@@ -293,24 +273,21 @@ if (isset($_GET['date_submit'])) {
     </tbody>
     </table>
     <hr>';
-
     $mpdf = new Mpdf();
     $dname = date("d-m-Y H:i:s");
     $download = "complain(" . $dname . ").pdf";
-
     $currentTime = date("d-m-Y H:i:s");
     $mpdf->SetFooter($currentTime);
     //$mpdf->SetFooter('Document Title');
+    $file_name = $dep . ".pdf";
     $mpdf->WriteHTML($html);
     $pdf = $mpdf->Output('', 'S');
-    $mpdf->Output();
-
+    $mpdf->Output($file_name, 'I');
     if ($_GET['complain_send_to'] != '')
         sendEmail($_GET['complain_send_to'], $pdf);
 }
-
-
 ?>
+
 
 <?php
 
@@ -464,7 +441,7 @@ function sendEmail($email, $pdf)
                 <div class="row">
 
                     <div class="col-md-6 offset-md-3">
-                        <form style="margin-top: 50px;" method="GET">
+                        <form style="margin-top: 50px;" method="GET" target="_blank">
                             <div class="card">
                                 <div class="card-header card-header-primary">
                                     <h4 class="card-title">REPORT DETAILS</h4>
@@ -497,8 +474,18 @@ function sendEmail($email, $pdf)
 
 
                                     <div style="margin: 25px 0 25px 10px">
-                                        <h4><strong>Department:<?php echo $vname; ?></strong></h4>
+
                                         <?php
+                                        $len = count($deptnamearr);
+                                        while ($len != 0) {
+
+                                            echo '<input type="radio" name="radio" value="' . $deptnamearr[$len - 1] . '">';
+                                            echo $deptnamearr[$len - 1];
+                                            echo "<br>";
+
+                                            $len -= 1;
+
+                                        }
                                         ?>
 
 
@@ -511,7 +498,6 @@ function sendEmail($email, $pdf)
 
                                         <div class="row" style="margin-top: 10px;">
                                             <div class="col">
-                                                <input type="hidden" name="radio" value="<?php echo $vname; ?>">
                                                 <input type="submit" class="btn btn-primary btn-block"
                                                        name="date_submit" value="Export to PDF">
                                             </div>
