@@ -20,6 +20,7 @@ if (!isset($_SESSION['name'])) {
     $row = $res->fetch_assoc();
 
     if ($row['usertype'] == 'admin') {
+
         $sidebar = '
 	  <li class="nav-item ">
             <a class="nav-link" href="./adddepartment.php">
@@ -35,6 +36,7 @@ if (!isset($_SESSION['name'])) {
           </li>
 	  ';
     } else {
+        header("Location: ./manager_test_report.php");
         $sidebar = '';
     }
 

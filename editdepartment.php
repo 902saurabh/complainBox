@@ -188,7 +188,7 @@ $_SESSION["name"] = $uname;
                 <div class="row">
                     <?php
 
-                    $sql = "SELECT * FROM department ";
+                    $sql = "SELECT * FROM department order by dname";
                     $result = mysqli_query($con, $sql);
                     //display all department
                     while ($row = mysqli_fetch_array($result)) {

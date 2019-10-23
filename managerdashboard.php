@@ -489,7 +489,9 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                     <thead class="text-primary">
                         <th>ID</th>               
 						<th>Detail</th>
-						<th>Date Time</th>                        
+						<th>Date Time</th>   
+						<th>Priority</th>   
+					                     
 						<th>Status</th>                    
 					<!--	<th>Complainant</th>  
 						<th>Mail</th>-->

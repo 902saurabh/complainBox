@@ -272,6 +272,10 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                         </div>
                     </div>
                     <br/>
+
+                    <?php
+                    //display text here
+                    ?>
                     <div class="col-md-8 offset-md-2">
                         <div class="card">
                             <div class="card-header card-header-primary" style="

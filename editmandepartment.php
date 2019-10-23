@@ -86,7 +86,7 @@ $_SESSION["name"] = $uname;
                 </li>
 
 
-                <li class="nav-item ">
+                <li class="nav-item">
                     <a class="nav-link" href="./managerdashboard.php">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
@@ -99,19 +99,40 @@ $_SESSION["name"] = $uname;
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="test_report.php">
+                    <a class="nav-link" href="./manager_test_report.php">
                         <i class="material-icons">content_paste</i>
                         <p>Reports</p>
                     </a>
                 </li>
 
                 <li class="nav-item active">
-                    <a class="nav-link">
+                    <a class="nav-link" href="./editmandepartment.php">
                         <i class="material-icons">create</i>
                         <p>Edit department</p>
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="./admincancel.php">
+                        <i class="material-icons">clear</i>
+                        <p>Cancel complains</p>
+                    </a>
+                </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./admindocomp.php">
+                        <i class="material-icons">content_paste</i>
+                        <p>Do Complain</p>
+                    </a>
+                </li>
+
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./adminmycomplain.php?status=">
+                        <i class="material-icons">content_paste</i>
+                        <p>My Complains</p>
+                    </a>
+                </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="./logout.php">
                         <i class="material-icons">arrow_back</i>
@@ -146,7 +167,7 @@ $_SESSION["name"] = $uname;
                 <div class="row">
                     <?php
 
-                    $sql = "SELECT * FROM department ";
+                    $sql = "SELECT * FROM department order by dname";
                     $result = mysqli_query($con, $sql);
                     //display all department
                     while ($row = mysqli_fetch_array($result)) {

@@ -136,12 +136,30 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                         <p>Cancel complains</p>
                     </a>
                 </li>
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./admindocomp.php">
+                        <i class="material-icons">content_paste</i>
+                        <p>Do Complain</p>
+                    </a>
+                </li>
+
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="./adminmycomplain.php?status=">
+                        <i class="material-icons">content_paste</i>
+                        <p>My Complains</p>
+                    </a>
+                </li>
+
+
                 <li class="nav-item ">
                     <a class="nav-link" href="./logout.php">
                         <i class="material-icons">arrow_back</i>
                         <p>Logout</p>
                     </a>
                 </li>
+
 
             </ul>
         </div>
