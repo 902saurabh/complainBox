@@ -295,7 +295,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                 </div>
 
-                <br/>
+
                 <div class="row" style="display: none" id="complain">
 
                     <div class="col-md-12">
@@ -306,6 +306,10 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                         </div>
                     </div>
                     <br/>
+                    <div id="emergency_dept"></div>
+
+
+                    <br>
                     <div class="col-md-8 offset-md-2">
                         <div class="card">
                             <div class="card-header card-header-primary" style="
@@ -462,7 +466,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                     </div>
 
                                     <label for="exampleFormControlInput1"
-                                           style="margin-bottom: 20px; color: #9128ac">Set Priority:</label>
+                                           style="margin-bottom: 20px; color: #9128ac">Set Priority: </label>
 
 
                                     <div class="custom-control custom-radio">
@@ -538,6 +542,26 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
         var dname = event.target.name;
         y.innerHTML = "Service : " + dname;
+
+
+        var em = document.getElementById("emergency_dept");
+
+        var dname = event.target.name;
+
+        var cmp = dname.localeCompare("Emergency");
+        if (cmp == 0) {
+            em.innerHTML = '  <div class="col-md-8 offset-md-2">\n' +
+                '                        <div class="card">\n' +
+                '                            <div class="card-header card-header-danger" style="margin: 0;">\n' +
+                '                                <h4 class="card-title" id="emergency_dept">Please DO NOT complain here unless your complain required urgent attenction.</h4>\n' +
+                '                                <p class="card-category"> Your mail id, name and other details will be recorded </p>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>  ';
+        } else {
+            em.innerHTML = '';
+        }
+
         window.scrollTo(0, document.querySelector("#complain").scrollHeight);
         //var dname=event.target.name;
         document.cookie = "dname=" + dname;

@@ -273,9 +273,11 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                     </div>
                     <br/>
 
-                    <?php
-                    //display text here
-                    ?>
+                    <div id="emergency_dept"></div>
+
+
+                    <br>
+
                     <div class="col-md-8 offset-md-2">
                         <div class="card">
                             <div class="card-header card-header-primary" style="
@@ -285,7 +287,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                 <p class="card-category"></p>
                             </div>
                             <div class="card-body">
-                                <form action="" enctype="multipart/form-data" style="margin-top: -40px;" method="POST">
+                                <form action="" enctype="multipart/form-data" style="margin-top: -40px;"
+                                      method="POST">
                                     <br/>
                                     <br/>
 
@@ -310,7 +313,9 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                                 <ul class="dropdown-menu" style="cursor:pointer;"
                                                     aria-labelledby="dropdownMenuLink" name="ul" required>
                                                     <li class="dropdown-item" id="item2" href="#">ARYABHATTA(A)</li>
-                                                    <li class="dropdown-item" id="item3" href="#">BHASKARACHARYA(B)</li>
+                                                    <li class="dropdown-item" id="item3" href="#">
+                                                        BHASKARACHARYA(B)
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -346,7 +351,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6 col-sm-12">
-                                                <label class="bmd-label-floating">Supporting Document(Optional)</label>
+                                                <label class="bmd-label-floating">Supporting
+                                                    Document(Optional)</label>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-12">
                                                 <!--<label for="upload"
@@ -433,25 +439,28 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                     </div>
 
                                     <label for="exampleFormControlInput1"
-                                           style="margin-bottom: 20px; color: #9128ac">Set Priority:</label>
+                                           style="margin-bottom: 20px; color: #9128ac">Set Priority: </label>
 
 
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" name="radio" id="customRadio1" class="custom-control-input"
+                                        <input type="radio" name="radio" id="customRadio1"
+                                               class="custom-control-input"
                                                value="minor">
                                         <label class="custom-control-label" style="
 									color: black;" for="customRadio1" required>Minor</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" name="radio" id="customRadio2" class="custom-control-input"
+                                        <input type="radio" name="radio" id="customRadio2"
+                                               class="custom-control-input"
                                                value="moderate">
                                         <label class="custom-control-label" style="
 									color: black;" for="customRadio2" required>Moderate</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" name="radio" id="customRadio3" class="custom-control-input"
+                                        <input type="radio" name="radio" id="customRadio3"
+                                               class="custom-control-input"
                                                value="critical">
                                         <label class="custom-control-label" style="
 									color: black;" for="customRadio3" required>Critical</label>
@@ -528,9 +537,24 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
     function scrollToBottom(event) {
         var build = "";
         var y = document.getElementById("complain_card");
+        var em = document.getElementById("emergency_dept");
 
         var dname = event.target.name;
         y.innerHTML = "Service : " + dname;
+
+        var cmp = dname.localeCompare("Emergency");
+        if (cmp == 0) {
+            em.innerHTML = '  <div class="col-md-8 offset-md-2">\n' +
+                '                        <div class="card">\n' +
+                '                            <div class="card-header card-header-danger" style="margin: 0;">\n' +
+                '                                <h4 class="card-title" id="emergency_dept">Please DO NOT complain here unless your complain required urgent attenction.</h4>\n' +
+                '                                <p class="card-category"> Your mail id, name and other details will be recorded </p>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>  ';
+        } else {
+            em.innerHTML = '';
+        }
         window.scrollTo(0, document.querySelector("#complain").scrollHeight);
         //var dname=event.target.name;
         document.cookie = "dname=" + dname;
@@ -614,7 +638,7 @@ if (isset($_POST['com_submit'])) {
                     move_uploaded_file($tmpFilePath, $filePath);
                     //$files[] = $shortname;
                     $file_path = $filePath;
-                    //insert into db 
+                    //insert into db
                     //use $shortname for the filename
                     //use $filePath for the relative url to the file
                 } else {

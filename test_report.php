@@ -422,7 +422,7 @@ if (isset($_GET['date_submit'])) {
 
         $dep = $_GET['radio'];
         //echo $_POST['radio'];
-        $query = mysqli_query($con, "SELECT * from complain WHERE Departmentname '%$dep%'");
+        $query = mysqli_query($con, "SELECT * from complain WHERE Departmentname like '%$dep%'");
 
 
         $pend = "SELECT count(status) as e,status FROM complain where (status='Pending' and Departmentname like '%" . $dep . "%' and complaindate between '" . $start . "' and '" . $second . "' ) group by status";
@@ -641,13 +641,13 @@ function sendEmail($email, $pdf)
         $mail->isSMTP();                                            // Set mailer to use SMTP
         $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                                   // Enable SMTP authentication
-        $mail->Username = $usermailid;                     // SMTP username
-        $mail->Password = $usermailpass;                               // SMTP password
+        $mail->Username = 'kjsce.complainbox@gmail.com';                     // SMTP username
+        $mail->Password = 'UnitTesting';                               // SMTP password
         $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 587;                                    // TCP port to connect to
 
         //Recipients
-        $mail->setFrom($usermailid, $mailusername);
+        $mail->setFrom('kjsce.complainbox@gmail.com', 'KJSCE Complain Box');
         // $mail->addAddress("9833saurabhtiwari@gmail.com");
         $mail->addAddress($email);     // Add a recipient
 

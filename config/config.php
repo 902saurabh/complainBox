@@ -1,8 +1,9 @@
 <?php
+
 $filerootpath = '../upload/';
 $usermailid = "kjsce.complainbox@gmail.com";
 $mailusername = "KJSCE Complain Box";
-$usermailpass = "Kjsce@1234";
+$usermailpass = "UnitTesting";//UnitTesting
 ob_start();        // output buffer start
 session_start();  //session start
 

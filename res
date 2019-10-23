@@ -67,4 +67,21 @@ $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
               </div>
             </div>';
 
+<div id="emergency_dept"></div>
+var em = document.getElementById("emergency_dept");
 
+        var dname = event.target.name;
+
+        var cmp = dname.localeCompare("Emergency");
+        if (cmp == 0) {
+            em.innerHTML = '  <div class="col-md-8 offset-md-2">\n' +
+                '                        <div class="card">\n' +
+                '                            <div class="card-header card-header-danger" style="margin: 0;">\n' +
+                '                                <h4 class="card-title" id="emergency_dept">Please DO NOT complain here unless your complain required urgent attenction.</h4>\n' +
+                '                                <p class="card-category"> Your mail id, name and other details will be recorded </p>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>  ';
+        } else {
+            em.innerHTML = '';
+        }
