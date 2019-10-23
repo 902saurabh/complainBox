@@ -508,6 +508,32 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                         ?>
                                     </div>
 
+                                    <label for="exampleFormControlInput1"
+                                           style="margin-bottom: 20px; color: #9128ac">Set Priority:</label>
+
+
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" name="radio" id="customRadio1" class="custom-control-input"
+                                               value="minor">
+                                        <label class="custom-control-label" style="
+									color: black;" for="customRadio1" required>Minor</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" name="radio" id="customRadio2" class="custom-control-input"
+                                               value="moderate">
+                                        <label class="custom-control-label" style="
+									color: black;" for="customRadio2" required>Moderate</label>
+                                    </div>
+
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" name="radio" id="customRadio3" class="custom-control-input"
+                                               value="critical">
+                                        <label class="custom-control-label" style="
+									color: black;" for="customRadio3" required>Critical</label>
+                                    </div>
+
+
                                     <input type="submit"
                                            id="file_test"
                                            name="com_submit" class="btn btn-primary" value="Submit">
@@ -590,6 +616,7 @@ if (isset($_POST['com_submit'])) {
 
     $complain_body = $_POST['complain_body'];
     $contactnumber = $_POST['contactnumber'];
+    $priority = $_POST['priority'];
 
     if ($complain_body != '') {
         $body = mysqli_real_escape_string($con, $complain_body);
@@ -727,8 +754,8 @@ document.getElementById("completebody").style.display = "none";
             //echo $sql78;
             mysqli_query($con, $sql78);
 
-            $sql79 = "INSERT into complain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate,contactnum) 
-                    values('$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime','$contactnumber')";
+            $sql79 = "INSERT into complain(priority,description,complainimg,Departmentname,status,complainant,complainantmail,building,location,complaindate,contactnum) 
+                    values('$priority','$body','$file_path','$department','Pending','$name','$email','$building','$location','$datetime','$contactnumber')";
             //   echo $sql79;
             mysqli_query($con, $sql79);
             $id = mysqli_insert_id($con);

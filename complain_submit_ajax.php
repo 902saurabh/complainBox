@@ -27,6 +27,7 @@ $sender_mail = $row['complainantmail'];
 $building = $row['building'];
 $location = $row['location'];
 $contact = $row['contactnum'];
+$priority = $row['priority'];
 
 $msg = "Dear Sir,<br>
 <b>New complain been registered for " . $department . " area of work</b><br>
@@ -82,6 +83,20 @@ try {
 
         $mail->addAddress($mails[$len]);
         $len = $len + 1;
+    }
+    if ($priority == 'critical') {
+        echo "<script>alert('hello');</script>";
+        $q = mysqli_query($con, "SELECT  email from user where usertype='admin' or usertype='Manager'");
+        while ($row = mysqli_fetch_array($q)) {
+            $mails = explode(",", $row['email']);
+            $len = 0;
+            while ($len != sizeof($mails)) {
+                $mail->addAddress($mails[$len]);
+                $len = $len + 1;
+            }
+
+        }
+
     }
 
     // Add a recipient

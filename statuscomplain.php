@@ -287,6 +287,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                         <th>Department</th>               
 						<th>Detail</th>
 						<th>Date Time</th>                        
+							<th>Priority</th>
 						<th>Status</th>                    
 					<!--	<th>Complainant</th>  
 						<th>Mail</th>-->
@@ -297,7 +298,12 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
         $result = mysqli_query($con, $sql);
         while ($row = mysqli_fetch_array($result)) {
             //Creates a loop to dipslay all complain
-            echo "<tr><td>" . $row['id'] . "</td>";
+            if ($row['priority'] == 'critical') {
+                echo '<tr style="background-color:rgba(255, 0, 0, 0.2)">';
+            } else {
+                echo '<tr>';
+            }
+            echo "<td>" . $row['id'] . "</td>";
             echo "<td>" . $row['Departmentname'] . "</td>";
 
             if (strlen($row['description']) > 50) {
@@ -310,6 +316,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 "</td>";
             }
             echo "<td>" . $row['complaindate'] . "</td>";
+            echo "<td>" . $row['priority'] . "</td>";
 
             echo "<td class='";
             if ($row['status'] == 'Pending' || $row['status'] == 'Pending#') {

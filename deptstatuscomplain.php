@@ -282,6 +282,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                         <th>Area of Work</th>               
 						<th>Detail</th>
 						<th>Date Time</th>                        
+						<th>Priority</th>
 						<th>Status</th>                    
 					<!--	<th>Complainant</th>  
 						<th>Mail</th>-->
@@ -315,7 +316,12 @@ while ($row1 = mysqli_fetch_array($result1)) {
             $result = mysqli_query($con, $sql);
             while ($row = mysqli_fetch_array($result)) {
                 //Creates a loop to dipslay all complain
-                echo "<tr><td>" . $row['id'] . "</td>";
+                if ($row['priority'] == 'critical') {
+                    echo '<tr style="background-color:rgba(255, 0, 0, 0.2)">';
+                } else {
+                    echo '<tr>';
+                }
+                echo "<td>" . $row['id'] . "</td>";
                 echo "<td>" . $row['Departmentname'] . "</td>";
                 if (strlen($row['description']) > 50) {
                     echo "<td >" . substr($row['description'], 0, 50) . " ...</td>";
@@ -327,6 +333,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                     "</td>";
                 }
                 echo "<td>" . $row['complaindate'] . "</td>";
+                echo "<td>" . $row['priority'] . "</td>";
 
                 echo "<td class='";
                 if ($row['status'] == 'Pending' || $row['status'] == 'Pending#') {

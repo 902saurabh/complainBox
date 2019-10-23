@@ -384,6 +384,9 @@ while ($row1 = mysqli_fetch_array($result1)) {
                           Date Time
                         </th>
                         <th>
+							Priority
+							</th>
+                        <th>
                           Status
                         </th>
 						
@@ -415,7 +418,12 @@ while ($row1 = mysqli_fetch_array($result1)) {
             $result = mysqli_query($con, $sql);
             while ($row = mysqli_fetch_array($result)) {
                 //Creates a loop to dipslay all complain
-                echo " <tr><td>" . $row['id'] . "</td>";
+                if ($row['priority'] == 'critical') {
+                    echo '<tr style="background-color:rgba(255, 0, 0, 0.2)">';
+                } else {
+                    echo '<tr>';
+                }
+                echo "<td>" . $row['id'] . "</td>";
                 echo "<td>" . $row['Departmentname'] . "</td>";
                 if (strlen($row['description']) > 50) {
                     echo "<td >" . substr($row['description'], 0, 50) . " ...</td>";
@@ -428,6 +436,8 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 }
 
                 echo "<td>" . $row['complaindate'] . "</td>";
+                echo "<td>" . $row['priority'] . "</td>";
+
                 echo "<td class='";
                 if ($row['status'] == 'Pending' || $row['status'] == 'Pending#') {
                     echo 'text-danger';
@@ -474,7 +484,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
             $dtym = $fetch['complaindate'];
             $cstatus = $fetch['status'];
             $usercontactnum = $fetch['contactnum'];
-
+            $priority = $fetch['priority'];
             if (empty($upload_img)) {
                 $upload = "";
             } else {
@@ -518,7 +528,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
       <div class="col-md-8 offset-md-2">
               <div class="card" id="dept_card">
                 <div class="card-header card-header-primary" style="margin:0">
-                  <h4 class="card-title" id="complain_card">Complain Id : ' . $id . ' - ' . $cstatus . '</h4>
+                  <h4 class="card-title" id="complain_card">Complain Id : ' . $id . ' - ' . $cstatus . ' - ' . $fetch['priority'] . '</h4>
                   <!--
                   <p class="card-category">Complain By ' . $cname . '</p>
                   <p class="card-category">Mail id : ' . $cmail . '</p>
