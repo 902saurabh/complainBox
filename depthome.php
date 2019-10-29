@@ -917,6 +917,8 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
 
                 $query = mysqli_query($con, "SELECT * FROM complain WHERE id='$id'");
+                $dt= date("Y-m-d H:i:s");
+                $query = mysqli_query($con, "UPDATE complain SET resolved_date='$dt' where id='$id'");
                 $row = mysqli_fetch_array($query);
 
                 $body = $row['description'];

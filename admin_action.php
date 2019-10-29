@@ -841,6 +841,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             }*/
             $solved_by = $uname;
             $query = mysqli_query($con, "UPDATE complain SET solved_by='$uname' WHERE id='$id'");
+             $dt= date("Y-m-d H:i:s");
+            $query = mysqli_query($con, "UPDATE complain SET resolved_date='$dt' where id='$id'");
 
         }
 

@@ -328,6 +328,7 @@ if (isset($_GET['date_submit'])) {
                         <th scope="col">Status</th>
                         <th scope="col">Complainee Email</th>
                         <th scope="col">Solved By</th>
+                        <th scope="col">Resolved Date</th>
                         <th scope="col">Cost</th>
                       </tr>
                     </thead>
@@ -359,6 +360,7 @@ if (isset($_GET['date_submit'])) {
                        
                         <td>' . $row['complainantmail'] . '</td>
                         <td>' . $row['solved_by'] . '</td>
+                         <td>' . $row['resolved_date'] . '</td>
                         <td>' . $row['cost'] . '</td>
                       </tr>
                       ';
@@ -504,6 +506,7 @@ if (isset($_GET['date_submit'])) {
                         <th scope="col">Status</th>
                         <th scope="col">Complainee Email</th>
                         <th scope="col">Solved By</th>
+                         <th scope="col">Resolved Date</th>
                         <th scope="col">Cost</th>
                       </tr>
                     </thead>';
@@ -534,6 +537,7 @@ if (isset($_GET['date_submit'])) {
                        
                         <td>' . $row['complainantmail'] . '</td>
                         <td>' . $row['solved_by'] . '</td>
+                         <td>' . $row['resolved_date'] . '</td>
                         <td>' . $row['cost'] . '</td>
                       </tr>
                       ';
