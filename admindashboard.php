@@ -342,7 +342,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                           Date Time
                         </th>
 						<th>
-						Priority
+						Severity
                         </th>
                         <th>
                           Status
@@ -564,7 +564,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                         <th>ID</th>               
 						<th>Detail</th>
 						<th>Date Time</th>                        
-						<th>Priority</th>
+						<th>Severity</th>
 						<th>Status</th>                    
 					<!--	<th>Complainant</th>  
 						<th>Mail</th>-->
@@ -574,7 +574,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                                         while ($row = mysqli_fetch_array($result1)) {
                                             //Creates a loop to dipslay all complain
-                                            if ($row['priority'] == 'critical') {
+                                            if ($row['priority'] == 'High') {
                                                 echo '<tr style="background-color:rgba(255, 0, 0, 0.2)">';
                                             } else {
                                                 echo '<tr>';

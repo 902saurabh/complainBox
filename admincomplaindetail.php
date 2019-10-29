@@ -241,7 +241,7 @@ if (!isset($_SESSION['name'])) {
                     <div class="col-md-8 offset-md-2">
                         <div class="card" id="dept_card">
                             <div class="card-header card-header-primary" style="margin:0;">
-                                <h4 class="card-title" id="complain_card">Complain Id : <?php echo $id; ?></h4>
+                                <h4 class="card-title" id="complain_card">Complain Id : <?php echo $id."-".$fetch['priority']; ?></h4>
                                 <!--
                                 <p class="card-category">Complain By '.$cname.'</p>
                                 <p class="card-category">Mail id : '.$cmail.'</p>

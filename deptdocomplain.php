@@ -249,7 +249,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                     $result = mysqli_query($con, $sql);
                     //display all department
                     while ($row = mysqli_fetch_array($result)) {
-                        if (in_array($row['dname'], $deptnamearr) || $row['dname'] == 'Emergency') {
+                        if ( $row['dname'] == 'Emergency') {
                             continue;
                         }
 
@@ -466,28 +466,28 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                     </div>
 
                                     <label for="exampleFormControlInput1"
-                                           style="margin-bottom: 20px; color: #9128ac">Set Priority: </label>
+                                           style="margin-bottom: 20px; color: #9128ac">Complain Severity: </label>
 
 
                                     <div class="custom-control custom-radio">
                                         <input type="radio" name="radio" id="customRadio1" class="custom-control-input"
-                                               value="minor">
+                                               value="Low">
                                         <label class="custom-control-label" style="
-									color: black;" for="customRadio1" required>Minor</label>
+									color: black;" for="customRadio1" required>Low</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
                                         <input type="radio" name="radio" id="customRadio2" class="custom-control-input"
-                                               value="moderate">
+                                               value="Medium">
                                         <label class="custom-control-label" style="
-									color: black;" for="customRadio2" required>Moderate</label>
+									color: black;" for="customRadio2" required>Medium</label>
                                     </div>
 
                                     <div class="custom-control custom-radio">
                                         <input type="radio" name="radio" id="customRadio3" class="custom-control-input"
-                                               value="critical">
+                                               value="High">
                                         <label class="custom-control-label" style="
-									color: black;" for="customRadio3" required>Critical</label>
+									color: black;" for="customRadio3" required>High</label>
                                     </div>
 
 
@@ -621,7 +621,8 @@ if (isset($_POST['com_submit'])) {
                 $imageFileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
 
 
-                if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "pdf") {
+                if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "pdf" ||
+                    $imageFileType=="JPG" || $imageFileType== "PNG" || $imageFileType=="JPEG" || $imageFileType=="PDF") {
 
                     //echo $imageFileType;
                     //Upload the file into the temp dir

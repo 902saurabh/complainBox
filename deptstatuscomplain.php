@@ -282,7 +282,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                         <th>Area of Work</th>               
 						<th>Detail</th>
 						<th>Date Time</th>                        
-						<th>Priority</th>
+						<th>Severity</th>
 						<th>Status</th>                    
 					<!--	<th>Complainant</th>  
 						<th>Mail</th>-->
@@ -316,7 +316,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
             $result = mysqli_query($con, $sql);
             while ($row = mysqli_fetch_array($result)) {
                 //Creates a loop to dipslay all complain
-                if ($row['priority'] == 'critical') {
+                if ($row['priority'] == 'High') {
                     echo '<tr style="background-color:rgba(255, 0, 0, 0.2)">';
                 } else {
                     echo '<tr>';
