@@ -85,7 +85,12 @@ if (isset($_SESSION['name'])) {
                         <p>Cancel Complains</p>
                     </a>
                 </li>
-
+                <li class="nav-item ">
+                    <a class="nav-link" href="./deptforward.php">
+                        <i class="material-icons">forward</i>
+                        <p>Forwad Complains</p>
+                    </a>
+                </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="./deptdocomplain.php">
                         <i class="material-icons">post_add</i>
@@ -198,7 +203,8 @@ if (isset($_SESSION['name'])) {
                     <div class="col-md-8 offset-md-2">
                         <div class="card" id="dept_card">
                             <div class="card-header card-header-primary" style="margin:0;">
-                                <h4 class="card-title" id="complain_card">Complain Id : <?php echo $id."-".$fetch['priority']; ?></h4>
+                                <h4 class="card-title" id="complain_card">Complain Id
+                                    : <?php echo $id . "-" . $fetch['priority']; ?></h4>
                                 <!--
                                 <p class="card-category">Complain By '.$cname.'</p>
                                 <p class="card-category">Mail id : '.$cmail.'</p>

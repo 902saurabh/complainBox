@@ -361,7 +361,9 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                       <tbody>';
 
 
-                    $sql = "SELECT complain.id,complaindate,description,status,Departmentname,remark FROM complain INNER JOIN admincomplain ON admincomplain.ogid=complain.id  AND  status not like '%Resolved%' ORDER BY complaindate DESC ";
+                    $sql = "SELECT complain.id,complaindate,description,status,Departmentname,remark,priority FROM complain 
+INNER JOIN admincomplain ON admincomplain.ogid=complain.id  
+AND  status not like '%Resolved%' ORDER BY complaindate DESC ";
                     $result = mysqli_query($con, $sql);
                     while ($row = mysqli_fetch_array($result)) {
                         //Creates a loop to dipslay all complain

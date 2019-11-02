@@ -1,11 +1,25 @@
 <?php
-
 include("checkuser.php");
+
+// Load Composer's autoloader
+require 'vendor/autoload.php';
+
 //dashboard of department
 //$mysqli = new mysqli("localhost", "root", "", "complainbox");
-
-
 $uname = $_SESSION["name"];
+/*
+$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+$result1 = mysqli_query($con, $sqlt);
+
+while ($row1 = mysqli_fetch_array($result1)) {
+    if (mysqli_num_rows(mysqli_query($con, $sqlt)) > 1) {
+        $uname = $uname . $row1["name"] . ',';//set name to department name instead of gmail account name
+        $_SESSION["name"] = $uname;
+    } else {
+        $uname = $row1["name"] . ',';//set name to department name instead of gmail account name
+        $_SESSION["name"] = $uname;
+    }
+}*/
 $totcomp = 0;//mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE Departmentname like'%" . $uname . "%'"));
 
 $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
@@ -52,18 +66,18 @@ while ($row1 = mysqli_fetch_array($result1)) {
         $totinprogresscomp += 1;
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
+
     <meta charset="utf-8"/>
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Complain | Complain Box </title>
+    <title>Forwarded Complains | Complain Box </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     <!--     Fonts and icons     -->
@@ -83,7 +97,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
           Tip 2: you can also add an image using data-image tag
       -->
         <div class="logo">
-            <a href="#" class="simple-text logo-normal">
+            <a class="simple-text logo-normal">
                 Complain Box
             </a>
         </div>
@@ -96,24 +110,25 @@ while ($row1 = mysqli_fetch_array($result1)) {
                     <br/>
                     <div class="card-profile">
                         <div class="card-avatar">
+
                             <img class="img" src="<?php echo $_SESSION['imgurl']; ?>"/>
+
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">    <?php echo $_SESSION['name']; ?></h5>
-                        </div>
+                            <h5 class="card-title">    <?php echo $uname; ?></h5>
 
-                    </div>
+                        </div>
                 </li>
 
 
-                <li class="nav-item  ">
+                <li class="nav-item ">
                     <a class="nav-link" href="./depthome.php">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
                 </li>
 
-                <li class="nav-item active ">
+                <li class="nav-item ">
                     <a class="nav-link" href="./deptstatuscomplain.php?status=">
                         <i class="material-icons">list_alt</i>
                         <p>View Complains</p>
@@ -126,7 +141,12 @@ while ($row1 = mysqli_fetch_array($result1)) {
                         <p>Cancel Complains</p>
                     </a>
                 </li>
-
+                <li class="nav-item active">
+                    <a class="nav-link" href="./deptforward.php">
+                        <i class="material-icons">forward</i>
+                        <p>Forwad Complains</p>
+                    </a>
+                </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="./deptdocomplain.php">
                         <i class="material-icons">post_add</i>
@@ -145,14 +165,12 @@ while ($row1 = mysqli_fetch_array($result1)) {
                         <p>Report</p>
                     </a>
                 </li>
-
                 <li class="nav-item ">
                     <a class="nav-link" href="./logout.php">
                         <i class="material-icons">arrow_back</i>
                         <p>Logout</p>
                     </a>
                 </li>
-
 
             </ul>
         </div>
@@ -162,7 +180,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
-                    <a class="navbar-brand" href="#"><b>Complains</b></a>
+                    <a class="navbar-brand" href="#"><b>Forwarded Complains</b></a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -183,113 +201,50 @@ while ($row1 = mysqli_fetch_array($result1)) {
             echo '
       <div class="content" id="complainDetail">
         <div class="container-fluid">
-         		<div class="row">
-		  <div class="col-md-12">
-              <div class="card card-plain">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title mt-0"><b>Complains Status</b></h4>
-                </div>
-                </div>
-                </div>
-</div>            
-			<br/>
-		         <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                <div class="card-header card-header-primary card-header-icon">
-                  <div class="card-icon">
-                    <i class="material-icons">format_list_bulleted</i>
-                  </div>
-                  <p class="card-category">Complains</p>
-                  <h3 class="card-title">' . $totcomp . '
-                  </h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-				  
-                    <i class="material-icons">content_paste</i><a href="./deptstatuscomplain.php?status=">View Details</a>
+		        
+		
+		';
 
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                <div class="card-header card-header-warning card-header-icon">
-                  <div class="card-icon">
-                    <i class="fa fa-clock-o"></i>
-
-                  </div>
-                  <p class="card-category">Pending</p>
-                  <h3 class="card-title">' . $totpendingcomp . '</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">error_outline</i><a href="./deptstatuscomplain.php?status=Pending">View Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                <div class="card-header card-header-info card-header-icon">
-                  <div class="card-icon">
-				  <i class="fa fa-refresh"></i>
-                  </div>
-                  <p class="card-category">In Progress</p>
-                  <h3 class="card-title">' . $totinprogresscomp . '</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">refresh</i><a href="./deptstatuscomplain.php?status=In-Progress">View Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="card card-stats">
-                <div class="card-header card-header-success card-header-icon">
-                  <div class="card-icon">
-					<i class="fa fa-check-square-o"></i>
-
-                  </div>
-                  <p class="card-category">Solved</p>
-                  <h3 class="card-title">' . $totsolvedcomp . '</h3>
-                </div>
-                <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">check</i><a href="./deptstatuscomplain.php?status=Solved">View Details</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-	<br/>																
-          <div class="row">
+            //if close
+            echo '<div class="row">
 			
 				<div class="col-md-12">
               <div class="card">
-                <div class="card-header card-header-primary" style="margin:0;">
-                  <h4 class="card-title ">' . $_GET["status"] . ' Complains</h4>
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">List of forwared Complains</h4>
                   <p class="card-category">  </p>
-                </div>';
-
-
-            echo '   <div class="card-body table-responsive">
-                  <table class="table table-hover">
-                    <thead class="text-primary">
-                        <th>ID</th>               
-                        <th>Area of Work</th>               
-						<th>Detail</th>
-						<th>Date Time</th>
-						<th>Priority</th>
-						<th>Status</th>                    
-					<!--	<th>Complainant</th>  
-						<th>Mail</th>-->
-						<th>View</th>
-                    </thead> <tbody>';
-
-            $sql = "SELECT * FROM complain WHERE Departmentname like '%" . $_SESSION['name'] . "%' AND status like '%" . $_GET['status'] . "%' ORDER BY id DESC";
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          ID
+                        </th>
+						
+                        <th>
+                          Area Of Work
+                        </th>
+						<th>
+                          Detail
+                        </th>
+                       
+                        <th>
+                          Date Time
+                        </th>
+                        <th>
+						Your remark
+							</th>
+                        <th>
+                          Admin Remark
+                        </th>
+						
+						<th>
+                          Action
+                        </th>
+                      </thead>
+                      <tbody>
+                     ';
 
 
             $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
@@ -301,26 +256,22 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
 
             //SELECT * FROM complain WHERE Departmentname='Carpentry' OR Departmentname='Networking' ORDER BY id DESC
-            $sql = "SELECT * FROM complain WHERE 
-			( Departmentname like '%" . $deptnamearr[0] . "%' AND status like '%" . $_GET['status'] . "%' ) ";
+            $sql = "SELECT complain.id,complaindate,description,status,Departmentname,remark,priority,admin_remark FROM complain INNER JOIN admincomplain ON admincomplain.ogid=complain.id
+		AND ( Departmentname like '%" . $deptnamearr[0] . "%' ";
             $arrlength = count($deptnamearr);
 
             for ($x = 1; $x < $arrlength; $x++) {
-                $sql = $sql . "OR ( Departmentname like '%" . $deptnamearr[$x] . "%' AND status like '%" . $_GET['status'] . "%' )  ";
+                $sql = $sql . "OR Departmentname like '%" . $deptnamearr[$x] . "%'  ";
             }
-            if ($_GET['status'] != 'Pending') {
-                $sql = $sql . " ORDER BY id DESC";
-            } else {
-                $sql = $sql . "ORDER BY id DESC";
-            }
+            $sql = $sql . ")";
+
+            $sql = $sql . "ORDER BY id DESC";
+
+
             $result = mysqli_query($con, $sql);
             while ($row = mysqli_fetch_array($result)) {
                 //Creates a loop to dipslay all complain
-				if($row['priority']=='critical'){
-				echo '<tr style="background-color:rgba(255, 0, 0, 0.2)">';
-				}else{
-				echo '<tr>';
-				}
+
                 echo "<td>" . $row['id'] . "</td>";
                 echo "<td>" . $row['Departmentname'] . "</td>";
                 if (strlen($row['description']) > 50) {
@@ -332,25 +283,15 @@ while ($row1 = mysqli_fetch_array($result1)) {
                     echo "<td >" . $tmpd . str_repeat('&nbsp;', $tmplen);
                     "</td>";
                 }
+
                 echo "<td>" . $row['complaindate'] . "</td>";
-				echo "<td>" . $row['priority'] . "</td>";
+                echo "<td>" . $row['remark'] . "</td>";
 
-                echo "<td class='";
-                if ($row['status'] == 'Pending' || $row['status'] == 'Pending#') {
-                    echo 'text-danger';
-                } else if ($row['status'] == 'In-Progress' || $row['status'] == 'In-Progress#') {
-                    echo 'text-warning';
-                } else if ($row['status'] == 'Resolved' || $row['status'] == 'Resolved#') {
-                    echo 'text-success';
-                }
-                echo "'  style='    font-weight: 500;'>" . $row['status'] . "</td>";
-                //echo "<td>".$row['complainant']."</td>";
-                //echo "<td>".$row['complainantmail']."</td>";
-                echo '<td><button type="button" class="btn btn-primary" name="' . $row['id'] . '" onclick="takeAction(event)">Take Action</button></td>';
 
+                echo "<td>" . $row['admin_remark'] . "</td>";
+                echo '<td><button type="button" class="btn btn-primary" name="' . $row['id'] . '" onclick="takeAction(event)">Take Action</button></td></tr>';
             }
-
-
+            // }//end outer while
             echo '</tbody>
                     </table>
                   </div>
@@ -369,10 +310,28 @@ while ($row1 = mysqli_fetch_array($result1)) {
         <!----     action form   ---->
 
 
+        <?php
+
+        /*if(isset($_POST['pending'])){
+          header("Location: dashboard.php");
+        }*/
+
+        ?>
+
+
         <!----end of complain-->
 
 
     </div>
+    <!--   Core JS Files
+
+  margin-top: 34px;
+      left: -119px;
+      color: #fff;
+      background: #9c27b0;
+
+
+      -->
 
 
     <script src="assets/js/core/jquery.min.js"></script>
@@ -427,9 +386,9 @@ while ($row1 = mysqli_fetch_array($result1)) {
             $.ajax(function(){
               type:"POST",
               url:"status_update.php",
-              data:"status="+val+"&id=<?php //echo $_GET['id']?>"
+              data:"status="+val+"&id=
     }).done(function(){
-      window.open("depthome.php?id="+<?php //echo $_GET['id']?>,"_self");
+      window.open("depthome.php?id="+,"_self");
     });
 
 
@@ -657,25 +616,88 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
     if (isset($_POST['forward_admin'])) {
 
-        if (isset($_COOKIE['status'])) {
-            $status = $_COOKIE['status'];
-        } else {
-            $status = "Pending";
-        }
-
-        $query = mysqli_query($con, "UPDATE complain SET status='$status#' WHERE id='$id'");
-
-
         $remark = $_POST['remark'];
-        $sql7 = "INSERT INTO admincomplain (`ogid`, `remark`) values ($id,'" . $remark . "')";
+        $remark = mysqli_real_escape_string($con, $remark);
+        $norowcom = mysqli_num_rows(mysqli_query($con, "select * from admincomplain where ogid=" . $id . " ;"));
+        if (!$norowcom > 0) {
+            $sql7 = "INSERT INTO admincomplain (`ogid`, `remark`) values ($id,'" . $remark . "')";
 //echo $sql7;
-        $query = mysqli_query($con, $sql7);
+            $query = mysqli_query($con, $sql7);
 
-        $query = mysqli_query($con, "SELECT email from user WHERE usertype='admin'");
-        $row = mysqli_fetch_array($query);
-        $mail_to = $row['email'];
+            $query = mysqli_query($con, "SELECT email from user WHERE usertype='admin'");
+            $row = mysqli_fetch_array($query);
+            $mail_to = $row['email'];
 
-        echo '<script>
+            //////// Quoatatio////////////////
+
+
+            $uploadOk = 1;
+            $tmpFilePath = $_FILES['upload']['tmp_name'];//[$i];
+
+            echo "<script>alert('tmp  " . $tmpFilePath . "');</script>";
+            $file_path = '';
+
+            //Make sure we have a filepath
+            if ($tmpFilePath != "") {
+
+                if ($_FILES["upload"]["size"] < 25000000) {
+                    //save the filename
+                    $shortname = $_FILES['upload']['name'];
+
+                    //save the url and the file
+                    $filePath = "$filerootpath" . date('d-m-Y-H-i-s') . '-' . $_FILES['upload']['name'];
+                    //$filePath = date('d-m-Y-H-i-s') . '-' . $_FILES['upload']['name'];
+
+                    $imageFileType = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+
+
+                    if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "pdf") {
+
+                        //echo $imageFileType;
+                        //Upload the file into the temp dir
+                        //  if(move_uploaded_file($tmpFilePath, $filePath)) {
+                        //echo "<script>alert('tmpFilePath   " . $tmpFilePath . "');</script>";
+
+                        //if (move_uploaded_file($tmpFilePath, $filePath))
+                        // echo "<script>alert('done   ');</script>";
+                        //else
+                        move_uploaded_file($tmpFilePath, $filePath);
+                        //  echo "<script>alert('error ');</script>";
+                        //echo "<script>alert('file   " . $filePath . "');</script>";
+                        //$files[] = $shortname;
+                        $file_path = $filePath;
+                        //insert into db
+                        //use $shortname for the filename
+                        //use $filePath for the relative url to the file
+                    } else {
+                        $uploadOk = 0;
+                        $msg = '<script>alert("Sorry, File format is not supported.")</script>';
+                        echo $msg;
+                        //  header("Location: complain.php?department=$department");
+                    }
+                    //}
+                } else {
+                    $uploadOk = 0;
+                    $msg = '<script>alert("Sorry, your file should not be more than 25MB.")</script>';
+                    echo $msg;
+                    // header("Location: complain.php?department=$department");
+                }
+
+
+            }
+
+
+            if ($uploadOk == 1) {
+
+                $query = mysqli_query($con, "UPDATE complain SET quotation='$file_path' WHERE id='$id'");
+
+            }
+
+
+            /////quaotaion end here/////////////
+
+
+            echo '<script>
                 
 		        $.ajax({              
                 url:"complain_submit_ajax.php",
@@ -694,7 +716,15 @@ while ($row1 = mysqli_fetch_array($result1)) {
             });
 
             </script>';
-        header("Location: depthome.php");
+            //  header("Location: depthome.php");
+        } else {
+
+            echo '<script>alert("Complain already forwarded ");
+                window.location.href = "depthome.php";
+            </script>';
+
+        }
+
     }
 
 
@@ -703,7 +733,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
     <script>
 
-        $("li").click(function () {
+        $(".dropdown-item").click(function () {
 
             var val = $(this).text();
             $("#dropdownMenuLink").text($(this).text());
@@ -723,7 +753,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
             /* $.ajax({
                type: "POST",
                url: "status_update.php",
-               data:"status="+val+"&id=<?php //echo $_GET['id']?>"
+               data:"status="+val+"&id=
     }).done(function(){
       window.open("depthome.php","_self");
     });
@@ -732,26 +762,47 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
         });
 
-        function viewDetails() {
 
-            var id = event.target.name;
-            window.open("admin_view.php?id=" + id, "_self");
-            // window.location.href = "./admin_action.php";
+    </script>
+
+
+    <script type="text/javascript">
+
+        /* $("input[name='number']").on("change", function(){
+
+           var t=$("#timer_update").val();
+           var c=$("#cost_update").val();
+           var u=$("#dropdownMenuLink").val();
+
+           if((u=='Resolved' || u=='In-Progress') && (t>0 || c>0)){
+               document.getElementById('status_change').disabled = false;
+           }else{
+             document.getElementById('status_change').disabled = true;
+
+           }
+
+         }*/
+
+        function stoppedTyping() {
+
+            var t = document.getElementById('complainRemark');
+            if (t.value.length > 0) {
+                document.getElementById('forwardComplain').disabled = false;
+            } else {
+                document.getElementById('forwardComplain').disabled = true;
+            }
         }
 
-        function takeAction(event) {
-
-            // var building = document.getElementById('building');
-            // var location = document.getElementById('location');
-            // var msg = document.getElementById('complain_message');
-            var id = event.target.name;
-
-            window.open("depthome.php?id=" + id, "_self");
-
-
+        function verify() {
+            /* if  is empty{
+                 alert "Put some text in there!"
+                 return
+             }
+             else{
+                 do button functionality
+             }
+         */
         }
-
-
     </script>
 
 

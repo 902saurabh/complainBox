@@ -199,7 +199,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             $dtym = $fetch['complaindate'];
             $cstatus = $fetch['status'];
             $usercontactnum = $fetch['contactnum'];
-
+            $quotation = $fetch['quotation'];
             if (empty($upload_img)) {
                 $upload = "";
             } else {
@@ -240,7 +240,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 <a class='btn btn-primary' target='_blank' href='" .$upload_img."'>View Quotation:</a>
                 </div>";*/
 
-                $view_quotation = '<div class="row">
+                $view_quotation = '
 	<div class="col-lg-6 col-md-6 col-sm-6">
 
                 <div class="card card-stats">
@@ -259,7 +259,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 </div>
               </div>
 
-                </div></div>';
+                </div>
+                ';
             }
         }
 
@@ -691,8 +692,37 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                         </div>
 
                                     </div>
+                                    <input type="submit" name="reg_complain" class="btn btn-primary btn-block"
+                                           style="float: left;" value="Update">
 
-                                    <?php echo $view_quotation; ?>
+                                    <br/>
+                                    <div class="row" style="margin-top: 50px">
+                                        <?php echo $view_quotation; ?>
+
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+
+                                            <div class="card card-stats">
+                                                <br>
+                                                <div class="card-header card-header-warning card-header-icon">
+
+                                                    <p class="card-category text-left text-primary">Remark:</p>
+                                                    <input type="text" name="adminremark" class="form-control"
+                                                           id="complainRemark" placeholder="Enter remark"
+                                                    >
+
+                                                </div>
+                                                <div class="card-footer" style="margin-top: 0px;">
+                                                    <div class="stats" style="word-break: break-word">
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <input type="submit" name="reg_complain" class="btn btn-primary btn-block"
+                                               style="float: left;" value="Update Remark">
+                                    </div>
                                     <!--
 <div class="col-lg-12 col-md-12 col-sm-12">
   <div class="card card-stats">
@@ -718,10 +748,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 </div>
 
 -->
-
-
-                                    <input type="submit" name="reg_complain" class="btn btn-primary"
-                                           style="float: left;" value="Update">
 
 
                                     <!--      <div class="row">
@@ -814,7 +840,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
 
     if (isset($_POST['reg_complain'])) {
-
         if (isset($_COOKIE['status'])) {
             $status = $_COOKIE['status'];
         } else {
@@ -829,7 +854,14 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
         $timer = $_POST['timer'];
         $cost = $_POST['cost'];
+        $adminremark = $_POST['adminremark'];
+        $adminremark = mysqli_real_escape_string($con, $adminremark);
 
+        if (isset($adminremark)) {
+            $sql99 = "UPDATE admincomplain SET admin_remark='$adminremark' WHERE ogid='$id'";
+            $query = mysqli_query($con, $sql99);
+
+        }
 //$sql7="UPDATE complain SET status='".$status."' , time_constraint=".$timer." ,cost=".$cost." WHERE id=".$id.";";
 //echo $sql7;
 
@@ -841,7 +873,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             }*/
             $solved_by = $uname;
             $query = mysqli_query($con, "UPDATE complain SET solved_by='$uname' WHERE id='$id'");
-             $dt= date("Y-m-d H:i:s");
+            $dt = date("Y-m-d H:i:s");
             $query = mysqli_query($con, "UPDATE complain SET resolved_date='$dt' where id='$id'");
 
         }

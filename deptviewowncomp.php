@@ -73,8 +73,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                     </div>
                 </li>
-
-
                 <li class="nav-item  ">
                     <a class="nav-link" href="./depthome.php">
                         <i class="material-icons">dashboard</i>
@@ -84,22 +82,40 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                 <li class="nav-item ">
                     <a class="nav-link" href="./deptstatuscomplain.php?status=">
-                        <i class="material-icons">content_paste</i>
-                        <p>View Complain</p>
+                        <i class="material-icons">list_alt</i>
+                        <p>View Complains</p>
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link" href="./depthcancel.php">
+                        <i class="material-icons">cancel_presentation</i>
+                        <p>Cancel Complains</p>
+                    </a>
+                </li>
 
-                <li class="nav-item active">
-                    <a class="nav-link" href="./deptdocomplain.php">
-                        <i class="material-icons">content_paste</i>
-                        <p>Do Complain</p>
+                <li class="nav-item ">
+                    <a class="nav-link" href="./deptforward.php">
+                        <i class="material-icons">forward</i>
+                        <p>Forwad Complains</p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="./deptpass.php">
-                        <i class="material-icons">person</i>
-                        <p>My Profile</p>
+                    <a class="nav-link" href="./deptdocomplain.php">
+                        <i class="material-icons">post_add</i>
+                        <p>Do Complain</p>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="./deptmycomplain.php?status=">
+                        <i class="material-icons">view_list</i>
+                        <p>My Complains</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="./deptreport.php">
+                        <i class="material-icons">content_paste</i>
+                        <p>Report</p>
                     </a>
                 </li>
                 <li class="nav-item ">
@@ -108,6 +124,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                         <p>Logout</p>
                     </a>
                 </li>
+
             </ul>
         </div>
     </div>

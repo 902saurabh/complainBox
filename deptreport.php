@@ -390,6 +390,12 @@ function sendEmail($email, $pdf)
                 </li>
 
                 <li class="nav-item ">
+                    <a class="nav-link" href="./deptforward.php">
+                        <i class="material-icons">forward</i>
+                        <p>Forwad Complains</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
                     <a class="nav-link" href="./deptdocomplain.php">
                         <i class="material-icons">post_add</i>
                         <p>Do Complain</p>

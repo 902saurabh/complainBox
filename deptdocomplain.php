@@ -96,7 +96,12 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                         <p>Cancel Complains</p>
                     </a>
                 </li>
-
+                <li class="nav-item ">
+                    <a class="nav-link" href="./deptforward.php">
+                        <i class="material-icons">forward</i>
+                        <p>Forwad Complains</p>
+                    </a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="./deptdocomplain.php">
                         <i class="material-icons">post_add</i>
@@ -249,7 +254,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                     $result = mysqli_query($con, $sql);
                     //display all department
                     while ($row = mysqli_fetch_array($result)) {
-                        if ( $row['dname'] == 'Emergency') {
+                        if ($row['dname'] == 'Emergency') {
                             continue;
                         }
 
@@ -622,7 +627,7 @@ if (isset($_POST['com_submit'])) {
 
 
                 if ($imageFileType == "jpg" || $imageFileType == "png" || $imageFileType == "jpeg" || $imageFileType == "pdf" ||
-                    $imageFileType=="JPG" || $imageFileType== "PNG" || $imageFileType=="JPEG" || $imageFileType=="PDF") {
+                    $imageFileType == "JPG" || $imageFileType == "PNG" || $imageFileType == "JPEG" || $imageFileType == "PDF") {
 
                     //echo $imageFileType;
                     //Upload the file into the temp dir

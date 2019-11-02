@@ -146,6 +146,12 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 </li>
 
                 <li class="nav-item ">
+                    <a class="nav-link" href="./deptforward.php">
+                        <i class="material-icons">forward</i>
+                        <p>Forwad Complains</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
                     <a class="nav-link" href="./deptdocomplain.php">
                         <i class="material-icons">post_add</i>
                         <p>Do Complain</p>
@@ -808,7 +814,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 </div>
                 <input type="submit" name="reg_complain" id="status_change" class="btn btn-primary btn-block" value="Update Status" style="margin: 10px 25px 10px 25px">
                 </div>';
-            if ($cstatus == 'Pending') {
+            if ($cstatus != 'Resolved') {
                 echo '<div class="row" style="margin-top:30px">
                   <div class="col-lg-6 col-md-6 col-sm-6">
 
@@ -917,7 +923,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
 
                 $query = mysqli_query($con, "SELECT * FROM complain WHERE id='$id'");
-                $dt= date("Y-m-d H:i:s");
+                $dt = date("Y-m-d H:i:s");
                 $query = mysqli_query($con, "UPDATE complain SET resolved_date='$dt' where id='$id'");
                 $row = mysqli_fetch_array($query);
 
