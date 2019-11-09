@@ -10,19 +10,7 @@ require 'vendor/autoload.php';
 //dashboard of department
 //$mysqli = new mysqli("localhost", "root", "", "complainbox");
 $uname = $_SESSION["name"];
-/*
-$sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
-$result1 = mysqli_query($con, $sqlt);
 
-while ($row1 = mysqli_fetch_array($result1)) {
-    if (mysqli_num_rows(mysqli_query($con, $sqlt)) > 1) {
-        $uname = $uname . $row1["name"] . ',';//set name to department name instead of gmail account name
-        $_SESSION["name"] = $uname;
-    } else {
-        $uname = $row1["name"] . ',';//set name to department name instead of gmail account name
-        $_SESSION["name"] = $uname;
-    }
-}*/
 $totcomp = 0;//mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE Departmentname like'%" . $uname . "%'"));
 
 $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
@@ -1411,7 +1399,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 window.location.href = "depthome.php";
 
             }).fail(function() { 
-                alert( "Login with Somaiya mail" );
+                alert( "Error Occur" );
             });
 
             </script>';

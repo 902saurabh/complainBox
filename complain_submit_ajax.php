@@ -13,8 +13,6 @@ include("config/config.php");
 $id = $_POST['id'];
 $dp = $_POST['department'];
 $dep = mysqli_query($con, "SELECT email from user where usertype='Department' and username='$dp'");
-$row5 = mysqli_fetch_array($dep);
-$dep = $row5['email'];
 $query = mysqli_query($con, "SELECT * FROM complain WHERE id='$id'");
 $row = mysqli_fetch_array($query);
 
@@ -76,16 +74,21 @@ try {
     //Recipients
     $mail->setFrom($usermailid, $mailusername);
     //$mail->addAddress("9833saurabhtiwari@gmail.com");
-
-    $mails = explode(",", $dep);
-    $len = 0;
-    while ($len != sizeof($mails)) {
-
-        $mail->addAddress($mails[$len]);
-        $len = $len + 1;
+//
+//    $mails = explode(",", $dep);
+//    $len = 0;
+//    while ($len != sizeof($mails)) {
+//
+//        $mail->addAddress($mails[$len]);
+//        $len = $len + 1;
+//    }
+    while ($row = mysqli_fetch_array($dep)) {
+        $email = $row['email'];
+        $mail->addAddress($email);
     }
+
     if ($priority == 'critical') {
-        echo "<script>alert('hello');</script>";
+//        echo "<script>alert('hello');</script>";
         $q = mysqli_query($con, "SELECT  email from user where usertype='admin' or usertype='Manager'");
         while ($row = mysqli_fetch_array($q)) {
             $mails = explode(",", $row['email']);

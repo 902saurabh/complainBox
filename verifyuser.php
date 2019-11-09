@@ -20,6 +20,7 @@ if (isset($_POST["id"])) {
         echo $usertype;//return value to ajax
     } else if ($row["usertype"] == "Department") {
         $sql2 = "UPDATE user SET imgurl='" . $_POST["imgurl"] . "' WHERE email='" . $_POST["email"] . "'";
+//        $sql2 = "UPDATE user SET head_name='" . $_POST["name"] . "' WHERE email='" . $_POST["email"] . "'";
         $con->query($sql2);
         $usertype = "Department";
 

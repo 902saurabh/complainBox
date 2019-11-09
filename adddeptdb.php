@@ -33,78 +33,61 @@ $pass = $_POST["passwrd1"];
 $hmail = $_POST["headmail"];
 $dimg = $_POST["deptimg"];
 
-
-$sqlque = "select * from user where email='" . $hmail . "' AND usertype='User'";
-$res_u = mysqli_query($con, $sqlque);
-
-//echo mysqli_num_rows($res_u);
-if (mysqli_num_rows($res_u) == 1) {
-
-    $sql = "insert into department (dname,deptimg) values('$name','$dimg')";
-    mysqli_query($con, $sql);
-
-    $sql = "update  user set name='$name',username='$name',email='$hmail',password='$pass',usertype='Department' where email='$hmail';";
-
-    ///echo $sql;
-
-    mysqli_query($con, $sql);
-
-
-    echo '
-		
-		<html>
-<body>
-
-  <script src="assets/js/plugins/sweetalert2.js"></script>
-<script>
-swal("Department Added","","success");
-
-setTimeout(function(){
-
-	window.location.href = "./admindashboard.php";
-
-},1000);			
-</script>
-</body>
-</html>
-
-		';
-
-
+if (strpos($hmail, ',') !== false) {
+    $dept_email_arr = explode(",", $hmail);
 } else {
-    $sqlque = "select * from user where (username='" . $name . "' OR email='" . $hmail . "')AND usertype='Department'";
-    $res_u = mysqli_query($con, $sqlque);
-
-
-    $sql = "insert into department (dname,deptimg) values('$name','$dimg')";
-    mysqli_query($con, $sql);
-
-    $sql = "insert into user (name,username,email,password,usertype) values('$name','$name','$hmail','$pass','Department')";
-    mysqli_query($con, $sql);
-
-
-    echo '
-		
-		<html>
-        <body>
-        
-         <script src="assets/js/plugins/sweetalert2.js"></script>
-        <script>
-        swal("Department Added","","success");
-        
-        setTimeout(function(){
-        
-            window.location.href = "./admindashboard.php";
-        
-        },1000);			
-        </script>
-        </body>
-        </html>
-
-		';
-
-
+    $dept_email_arr = array($hmail);
 }
 
+$sql = "insert into department (dname,deptimg) values('$name','$dimg')";
+mysqli_query($con, $sql);
+
+
+$arrlength = count($dept_email_arr);
+for ($x = 0; $x < $arrlength; $x++) {
+    $hmail = $dept_email_arr[$x];
+    $sqlque = "select * from user where email='" . $hmail . "' AND usertype='User'";
+    $res_u = mysqli_query($con, $sqlque);
+
+//echo mysqli_num_rows($res_u);
+    if (mysqli_num_rows($res_u) == 1) {
+
+
+        $sql = "update  user set name='$name',username='$name',email='$hmail',password='$pass',usertype='Department' where email='$hmail';";
+
+        ///echo $sql;
+
+        mysqli_query($con, $sql);
+
+
+    } else {
+
+
+        $sql = "insert into user (name,username,email,password,usertype) values('$name','$name','$hmail','$pass','Department')";
+        mysqli_query($con, $sql);
+
+
+    }
+
+}
+//echo '
+//
+//		<html>
+//        <body>
+//
+//         <script src="assets/js/plugins/sweetalert2.js"></script>
+//        <script>
+//        swal("Department Added","","success");
+//
+//        setTimeout(function(){
+//
+//            window.location.href = "./admindashboard.php";
+//
+//        },1000);
+//        </script>
+//        </body>
+//        </html>
+//
+//		';
 
 ?>

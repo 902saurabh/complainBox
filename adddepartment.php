@@ -29,7 +29,7 @@ $sql = "SELECT name FROM user WHERE email='" . $_SESSION["email"] . "'";
 $res = $res_u = mysqli_query($con, $sql);
 $row = $res->fetch_assoc();
 $uname = $row["name"];//set name to department name instead of gmail account name
-$_SESSION["name"] = $uname;
+//$_SESSION["name"] = $uname;
 
 ?>
 <!DOCTYPE html>
@@ -233,12 +233,12 @@ $_SESSION["name"] = $uname;
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row" style="display: none">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label class="bmd-label-floating">Password for Department</label>
                                                 <input type="password" name="passwrd1" autocomplete="off"
-                                                       class="form-control" required>
+                                                       class="form-control" value="kjsce" required>
                                             </div>
                                         </div>
 
