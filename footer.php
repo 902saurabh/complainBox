@@ -1,7 +1,8 @@
 <footer class="footer footer-default">
     <div class="container">
-        <!-- <nav class="float-left">
+         <nav class="float-left">
            <ul>
+		   <!--
              <li>
                <a >
                 Complain Box
@@ -21,9 +22,14 @@
                <a href="#">
                  Licenses
                </a>
+             </li>-->
+			 <li>
+               <a href="suggestion.php">
+                 Suggestions
+               </a>
              </li>
            </ul>
-         </nav>-->
+         </nav>
         <div class="copyright float-right">
             &copy;
             <script>
