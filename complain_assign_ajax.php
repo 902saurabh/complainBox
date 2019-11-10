@@ -28,7 +28,7 @@ $contact = $row['contactnum'];
 $priority = $row['priority'];
 
 $msg = "Dear Sir/Ma'am,<br>
-<b>New complain been registered for " . $department . " area of work</b><br>
+<b>Complain is assign for " . $dp . " area of work</b><br>
 Complain details are,<br>
 <strong>Complain ID:</strong> " . $id . "<br>
 <strong>Building:</strong> " . $building . "<br>
@@ -114,7 +114,7 @@ try {
     //$var=$_POST['body'];
     //$var='Test';//$_POST['body'];
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'New Complain Register with id  ' . $id;
+    $mail->Subject = 'Complain Assign  id  ' . $id;
     $mail->Body = $msg;
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 

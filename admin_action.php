@@ -1,6 +1,13 @@
 <?php
 include("config/config.php");
+
 //dashboard of admin
+
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+
+// Load Composer's autoloader
+require 'vendor/autoload.php';
 if (!isset($_SESSION['name'])) {
 
     header("Location: index.php");
@@ -29,12 +36,21 @@ if (!isset($_SESSION['name'])) {
         $sidebar = '';
     }
 
+    if ($row['usertype'] != 'admin') {
+        if ($row['usertype'] == 'User') {
+            header("Location: dashboard.php");
+            exit();
+        } else if ($row['usertype'] == 'Department') {
+            header("Location: depthome.php");
+            exit();
+
+        } else {
+            header("Location: index.php");
+            exit();
+        }
+    }
+
 }
-$sql = "SELECT name FROM user WHERE email='" . $_SESSION["email"] . "'";
-$res = $res_u = mysqli_query($con, $sql);
-$row = $res->fetch_assoc();
-$uname = $row["name"];//set name to department name instead of gmail account name
-$_SESSION["name"] = $uname;
 
 $totcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain "));
 
@@ -114,7 +130,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="test_report.php">
+                    <a class="nav-link" href="./test_report.php">
                         <i class="material-icons">content_paste</i>
                         <p>Reports</p>
                     </a>
@@ -204,10 +220,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 $upload = "";
             } else {
 
-                /*$upload="
-                <div class='form-group'>
-                <a class='btn btn-primary' target='_blank' href='" .$upload_img."'>View Document</a>
-                </div>";*/
 
                 $upload = '<div class="col-lg-4 col-md-6 col-sm-6">
 
@@ -603,7 +615,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                         </div>
 
                                         <div class="col-lg-6 col-md-6 col-sm-6">
-
                                             <div class="card card-stats">
                                                 <br>
                                                 <div class="card-header card-header-warning card-header-icon">
@@ -620,16 +631,13 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                                                aria-expanded="false">
                                                                 SELECT STATUS
                                                             </a>
-
-                                                            <ul class="dropdown-menu btn-block"
-                                                                aria-labelledby="dropdownMenuLink">
-                                                                <li class="dropdown-item complain_status" id="item2"
-                                                                    name="inprogress" href="#">In-Progress
-                                                                </li>
-                                                                <li class="dropdown-item complain_status" id="item3"
-                                                                    name="resolved" href="#">Resolved
-                                                                </li>
-                                                            </ul>
+                                                            <?php
+                                                            echo '
+                                       <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenuLink" >
+                                            <li class="dropdown-item" id="item2" name="inprogress" href="#">In-Progress</li>
+                                            <li class="dropdown-item" id="item3" name="resolved" href="#">Resolved</li>
+                                       </ul>';
+                                                            ?>
                                                         </div>
 
                                                         </h4>
@@ -723,80 +731,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                         <input type="submit" name="reg_complain" class="btn btn-primary btn-block"
                                                style="float: left;" value="Update Remark">
                                     </div>
-                                    <!--
-<div class="col-lg-12 col-md-12 col-sm-12">
-  <div class="card card-stats">
-                <br>
-                <div class="card-header card-header-warning card-header-icon">
-                  
-                  <p class="card-category text-left text-primary">Remove Department:</p>
-                  
-                </div>
-                <div class="card-footer" style="margin-top:0px;">
-                  <div class="stats">
-                  <div class="form-group">
-                    
-                       <input type="text"  class="form-control" onkeypress="this.style.width = ((this.value.length + 1) * 8) + 'px';" value=<?php //echo $compdept;?>>
-					   
-						<input   class="btn btn-primary pull-rigth " value="CHANGE">
-                    </div>
-                   
-                   
-                  </h4>
-                  </div>
-                </div>
-</div>
 
--->
-
-
-                                    <!--      <div class="row">
-
-                                        <div class="col-md-12 col-sd-12">
-                                            <div class="dropdown" >
-                                        <a class="btn btn-primary btn-block dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          SELECT STATUS
-                                        </a>
-
-                                        <ul class="dropdown-menu btn-block" aria-labelledby="dropdownMenuLink" >
-                                          <li class="dropdown-item" id="item1" name="pending" href="#">Pending</li>
-                                          <li class="dropdown-item" id="item2" name="inprogress" href="#">In-Progress</li>
-                                          <li class="dropdown-item" id="item3" name="resolved" href="#">Resolved</li>
-                                        </ul>
-                                      </div>
-                                      </div>
-                            </div>
-
-                            <br/>
-                              <div class="row">
-                              <div class="col-md-12 col-sd-12">
-
-                              <h6><u><b>Enter number of dasy required to solve problem</b></u></h6>
-                                        <input type="number" id="start" name="timer" style="display:none;">
-
-                                                </div>
-                                       </div>
-
-
-                             <br/>
-
-
-                            <div class="row">
-                            <div class="col-md-4 col-sd-12">
-
-                            <a href="./depthome.php" class="btn btn-primary btn-block">GO BACK</a>
-                            </div>
-
-                            <div class="col-md-4 col-sd-12">
-
-                            <input type="submit" name="reg_complain" class="btn btn-primary btn-block" value="Update Status">
-                            </div>
-                            <div class="col-md-4 col-sd-12">
-
-
-                            <input type="submit" class="btn btn-primary btn-block"  name="forward_admin"  value="Forward to Admin">
-                            </div>
-                            </div>-->
 
                                 </form>
 
@@ -871,10 +806,83 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             /*if($row8['solved_by']=="NULL"){
               $query8 = mysqli_query($con,"INSERT into complain(solved_by) values('') where id =")
             }*/
-            $solved_by = $uname;
+//            echo '<script>alert("in resolved part")</script>';
+            $uname = $_SESSION['name'];
             $query = mysqli_query($con, "UPDATE complain SET solved_by='$uname' WHERE id='$id'");
             $dt = date("Y-m-d H:i:s");
             $query = mysqli_query($con, "UPDATE complain SET resolved_date='$dt' where id='$id'");
+
+
+            $query = mysqli_query($con, "SELECT * FROM complain WHERE id='$id'");
+            $row = mysqli_fetch_array($query);
+            $body = $row['description'];
+            $file_path = $row['complainimg'];
+            $mail_to = $row['complainantmail'];
+            $department = $row['Departmentname'];
+            $sender = $row['complainant'];
+            $sender_mail = $row['complainantmail'];
+            $building = $row['building'];
+            $location = $row['location'];
+
+
+            $msg = "<strong>department:</strong> " . $department . "<br>
+<strong>Building:</strong> " . $building . "<br>
+<strong>Location:</strong> " . $location . "<br>
+<strong>Description:</strong> " . $body . "<br><br>
+<strong>YOUR COMPLAIN HAS BEEN RESOLVED</strong>";
+//$department= $_POST['department'];
+//$location = $_POST['location'];
+//$building = $_POST['building'];
+
+//$query = mysqli_query($con,"INSERT into complain(description,complainimg,Departmentname,status,complainant,complainantmail,building,location) values('$body','$file_path','$department','pending','$name','$email','$building','$location')");
+//echo '<script>  swal("Your complain successfully submitted"); </script>';
+
+//echo '"<script>".$body.'"
+            //      </script>"';
+
+//"body='.$body.'&attachment='.$file_path.'&deptmail='.$dptmail.'&department='.$department.'&location='.$location.'&building="+build,
+
+// Import PHPMailer classes into the global namespace
+// These must be at the top of your script, not inside a function
+
+// Instantiation and passing `true` enables exceptions
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->SMTPDebug = 1;                                       // Enable verbose debug output
+                $mail->isSMTP();                                            // Set mailer to use SMTP
+                $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+                $mail->SMTPAuth = true;                                   // Enable SMTP authentication
+                $mail->Username = $usermailid;                     // SMTP username
+                $mail->Password = $usermailpass;                               // SMTP password
+                $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+                $mail->Port = 587;                                    // TCP port to connect to
+
+                //Recipients
+                $mail->setFrom($usermailid, $mailusername);
+                //$mail->addAddress("9833saurabhtiwari@gmail.com");
+                $mail->addAddress($mail_to);     // Add a recipient
+
+                // Attachments
+                //  if($file_path!="")
+                //  $mail->addAttachment($file_path);         // Add attachments
+                //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+
+                // Content
+                //$var=$_POST['body'];
+                //$var='Test';//$_POST['body'];
+                $mail->isHTML(true);                                  // Set email format to HTML
+                $mail->Subject = 'Complain Resolved id ' . $id;
+                $mail->Body = $msg;
+                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                $mail->send();
+                echo 'Message has been sent';
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+
 
         }
 
@@ -887,7 +895,39 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
 
     ?>
+    <script>
 
+        $(".dropdown-item").click(function () {
+
+            var val = $(this).text().trim();
+            $("#dropdownMenuLink").text($(this).text());
+
+            document.cookie = "status=" + $(this).text();
+
+            if ($(this).text() == 'In-Progress') {
+                $('#expense').hide();
+                $("#start").show();
+            } else if ($(this).text().trim() == 'Resolved') {
+                $("#start").hide();
+                $('#expense').show();
+            } else {
+                $('#expense').hide();
+                $("#start").show();
+            }
+            /* $.ajax({
+               type: "POST",
+               url: "status_update.php",
+               data:"status="+val+"&id=
+    }).done(function(){
+      window.open("depthome.php","_self");
+    });
+
+*/
+
+        });
+
+
+    </script>
     <script>
 
         function doSomething(a) {
@@ -1079,28 +1119,15 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
         });
     </script>
 
-
     <script>
 
-        $(".forward_department").click(function () {
+        $(".dropdown-item").click(function () {
 
             var val = $(this).text();
-            $("#dropdownMenuLink1").text($(this).text());
-            document.cookie = "Department=" + $(this).text();
-
-
-        });
-
-
-        $(".complain_status").click(function () {
-
-            var val = $(this).text();
+            console.log(val + "clicked");
             $("#dropdownMenuLink").text($(this).text());
 
-            //  $("#dropdownMenuLink1").text($(this).text());
-
             document.cookie = "status=" + $(this).text();
-            //  document.cookie = "Department=" + $(this).text();
 
             if ($(this).text() == 'In-Progress') {
                 $('#expense').hide();
@@ -1115,7 +1142,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             /* $.ajax({
                type: "POST",
                url: "status_update.php",
-               data:"status="+val+"&id=<?php //echo $_GET['id']?>"
+               data:"status="+val+"&id=
     }).done(function(){
       window.open("depthome.php","_self");
     });
@@ -1126,3 +1153,5 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
 
     </script>
+
+

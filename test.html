@@ -1,22 +1,7 @@
-<?php
-
-
-include("config/config.php");
-
-$deptn = $_GET['dept'] . ',';
-$deptnm = $_GET['dept'];
-$id = $_GET['id'];
-
-$query = mysqli_query($con, "UPDATE complain SET Departmentname=concat( '$deptn',Departmentname)  WHERE id='$id'");
-$result1 = mysqli_query($con, $query);
-
-
-$var = '
 <html lang="en">
 <head>
 </head>
 <body>
-<h4 style="text-align: center">Please wait</h4>
 <script src="assets/js/core/jquery.min.js"></script>
 <script src="assets/js/core/popper.min.js"></script>
 <script src="assets/js/core/bootstrap-material-design.min.js"></script>
@@ -33,9 +18,9 @@ $var = '
 
 
     $.ajax({
-        url: "complain_assign_ajax.php",
+        url: "complain_submit_ajax.php",
         type: "POST",
-        data: "id=' . $id . '&department=' . $deptnm . '",
+        data: "id=118&department=Fire-System",
         cache: false,
 
 
@@ -51,11 +36,3 @@ $var = '
 </script>
 </body>
 </html>
-';
-echo $var;
-
-
-?>
-
-
-

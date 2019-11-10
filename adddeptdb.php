@@ -70,24 +70,24 @@ for ($x = 0; $x < $arrlength; $x++) {
     }
 
 }
-//echo '
-//
-//		<html>
-//        <body>
-//
-//         <script src="assets/js/plugins/sweetalert2.js"></script>
-//        <script>
-//        swal("Department Added","","success");
-//
-//        setTimeout(function(){
-//
-//            window.location.href = "./admindashboard.php";
-//
-//        },1000);
-//        </script>
-//        </body>
-//        </html>
-//
-//		';
+echo '
+
+		<html>
+        <body>
+
+         <script src="assets/js/plugins/sweetalert2.js"></script>
+        <script>
+        swal("Department Added","","success");
+
+        setTimeout(function(){
+
+            window.location.href = "./admindashboard.php";
+
+        },1000);
+        </script>
+        </body>
+        </html>
+
+		';
 
 ?>
