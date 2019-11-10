@@ -67,7 +67,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>
-        Admin Dashboard | Complain Box
+        Complaint Box
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
@@ -112,7 +112,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                         </div>
                 </li>
-                <li class="nav-item active ">
+                <li class="nav-item  ">
                     <a class="nav-link" href="./admindashboard.php">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
@@ -141,7 +141,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 <?php
                 echo $sidebar;
                 ?>
-                <li class="nav-item">
+                <li class="nav-item  active">
                     <a class="nav-link" href="./admincancel.php">
                         <i class="material-icons">clear</i>
                         <p>Cancel complains</p>
@@ -409,11 +409,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
     padding: 10px;cursor: auto; " disabled><?php
                                         echo $description;
                                         ?></textarea>
-
-                                    <p class="btn btn-primary" name="'.$row['id'].'" onclick="viewDetails()"
-                                       style="float:right; cursor:auto">
-                                        Status: <?php echo $cstatus . " " . $status_remark;
-                                        ?></p>
 
 
                                 </div>
@@ -703,15 +698,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 $('#expense').hide();
                 $("#start").show();
             }
-            /* $.ajax({
-               type: "POST",
-               url: "status_update.php",
-               data:"status="+val+"&id=<?php //echo $_GET['id']?>"
-    }).done(function(){
-      window.open("depthome.php","_self");
-    });
 
-*/
 
         });
 

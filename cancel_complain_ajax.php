@@ -14,6 +14,7 @@ $id = $_POST['id'];
 //$complain_id=$_POST['complainid'];
 $query = mysqli_query($con, "SELECT * FROM cancelcomplain WHERE id='$id'");
 $row = mysqli_fetch_array($query);
+//$dep = mysqli_query($con, "SELECT email from user where usertype='Department' and username='$dp'");
 
 $body = $row['description'];
 $file_path = $row['complainimg'];
@@ -63,7 +64,7 @@ try {
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom($usermailid,$mailusername);
+    $mail->setFrom($usermailid, $mailusername);
     //$mail->addAddress("9833saurabhtiwari@gmail.com");
 
     $mails = explode(",", $mail_to);
@@ -84,9 +85,9 @@ try {
     //$var=$_POST['body'];
     //$var='Test';//$_POST['body'];
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'Cancelled Complain';
+    $mail->Subject = 'Cancelled Complain id ' . $id;
     $mail->Body = $msg;
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+//    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
     echo 'Message has been sent';

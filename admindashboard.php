@@ -180,7 +180,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                             <div class="card-footer">
                                 <div class="stats">
 
-                                    <i class="material-icons">content_paste</i><a href="./statuscomplain.php?status=">View
+                                    <!--                                    <i class="material-icons">content_paste</i>-->
+                                    <a href="./statuscomplain.php?status=">View
                                         Details</a>
 
                                 </div>
@@ -199,7 +200,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">error_outline</i><a
+                                    <!--                                    <i class="material-icons">error_outline</i>-->
+                                    <a
                                             href="./statuscomplain.php?status=Pending">View Details</a>
                                 </div>
                             </div>
@@ -216,7 +218,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">refresh</i><a
+                                    <!--                                    <i class="material-icons">refresh</i>-->
+                                    <a
                                             href="./statuscomplain.php?status=In-Progress">View Details</a>
                                 </div>
                             </div>
@@ -234,7 +237,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
-                                    <i class="material-icons">check</i><a href="./statuscomplain.php?status=Solved">View
+                                    <!--                                    <i class="material-icons">check</i>-->
+                                    <a href="./statuscomplain.php?status=Solved">View
                                         Details</a>
                                 </div>
                             </div>
@@ -419,7 +423,7 @@ AND  status not like '%Resolved%' ORDER BY complaindate DESC ";
                                             <?php
 
 
-                                            $sql = "SELECT * FROM department ";
+                                            $sql = "SELECT * FROM department ORDER BY dname";
                                             $result = mysqli_query($con, $sql);
                                             //display all department
                                             while ($row = mysqli_fetch_array($result)) {
@@ -451,7 +455,7 @@ AND  status not like '%Resolved%' ORDER BY complaindate DESC ";
                                 <div class="tab-content">
                                     <?php
 
-                                    $sql = "SELECT * FROM department ";
+                                    $sql = "SELECT * FROM department ORDER BY dname";
                                     $result = mysqli_query($con, $sql);
                                     //display all department
                                     while ($row = mysqli_fetch_array($result)) {

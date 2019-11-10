@@ -209,6 +209,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             $cstatus = $fetch['status'];
             $usercont = $fetch['contactnum'];
             $solvedby = $fetch['solved_by'];
+            $resdate = $fetch['resolved_date'];
 
             if ($cstatus == 'In-Progress' || $cstatus == 'In-Progress#') {
                 $status_remark = "(Time Require: " . $fetch['time_constraint'] . " Days)";
@@ -234,7 +235,9 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 <div class="card-footer" style="margin-top:0px;">
                   <div class="stats">
                   
-                                                    <h4 class="card-title" style="font-weight:400">' . $solvedby . '
+                                                    <h4 class="card-title" style="font-weight:400">'
+                . $solvedby . ' On ' . $resdate .
+                '
 
                   </h4>
                   </div>
@@ -286,7 +289,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                         <div class="card" id="dept_card">
                             <div class="card-header card-header-primary" style="margin:0;">
                                 <h4 class="card-title" id="complain_card">Complain Id
-                                    : <?php echo $id . " - " . $fetch['priority']; ?></h4>
+                                    : <?php echo $id . " - " . $fetch['priority'] . " - " . $cstatus; ?></h4>
                                 <!--
                                 <p class="card-category">Complain By '.$cname.'</p>
                                 <p class="card-category">Mail id : '.$cmail.'</p>
@@ -755,15 +758,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 $('#expense').hide();
                 $("#start").show();
             }
-            /* $.ajax({
-               type: "POST",
-               url: "status_update.php",
-               data:"status="+val+"&id=<?php //echo $_GET['id']?>"
-    }).done(function(){
-      window.open("depthome.php","_self");
-    });
 
-*/
 
         });
 

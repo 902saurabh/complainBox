@@ -276,7 +276,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                     <div class="col-md-12">
                         <div class="card card-plain">
                             <div class="card-header card-header-primary">
-                                <h4 class="card-title mt-0"><b>Select Department to complain</b></h4>
+                                <h4 class="card-title mt-0"><b>Select Area of Service</b></h4>
                             </div>
                         </div>
                     </div>
@@ -602,7 +602,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             em.innerHTML = '  <div class="col-md-8 offset-md-2">\n' +
                 '                        <div class="card">\n' +
                 '                            <div class="card-header card-header-danger" style="margin: 0;">\n' +
-                '                                <h4 class="card-title" id="emergency_dept">Please DO NOT complain here unless your complain required urgent attenction.</h4>\n' +
+                '                                <h4 class="card-title" id="emergency_dept">Please DO NOT complain here unless your complaint requires immediate action.</h4>\n' +
                 '                                <p class="card-category"> Your mail id, name and other details will be recorded </p>\n' +
                 '                            </div>\n' +
                 '                        </div>\n' +

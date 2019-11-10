@@ -242,33 +242,33 @@ if (isset($_GET['date_submit'])) {
             $total_complain = 0;
 
             $dp = $row['Departmentname'];
-            $single = mysqli_query($con, "SELECT * from complain WHERE Departmentname like '%".$dp."%'");
-            $pend = "SELECT count(status) as e,status FROM `complain` where status='Pending' and Departmentname like '%".$dp."%' group by status";
-            $res = "SELECT count(status) as e,status FROM `complain` where status='Resolved' and Departmentname like '%".$dp."%' group by status ";
-            $inp = "SELECT count(status) as e,status FROM `complain` where status='In-Progress' and Departmentname like '%".$dp."%' group by status";
+            $single = mysqli_query($con, "SELECT * from complain WHERE Departmentname like '%" . $dp . "%'");
+            $pend = "SELECT count(status) as e,status FROM `complain` where status='Pending' and Departmentname like '%" . $dp . "%' group by status";
+            $res = "SELECT count(status) as e,status FROM `complain` where status='Resolved' and Departmentname like '%" . $dp . "%' group by status ";
+            $inp = "SELECT count(status) as e,status FROM `complain` where status='In-Progress' and Departmentname like '%" . $dp . "%' group by status";
 
 
-            $count_sum = "SELECT sum(cost) as c from complain where Departmentname like '%".$dp."%'";
+            $count_sum = "SELECT sum(cost) as c from complain where Departmentname like '%" . $dp . "%'";
 
 
-            $pend = mysqli_query($con,$pend);
-            $res = mysqli_query($con,$res);
-            $inp = mysqli_query($con,$inp);
-            $count_sum = mysqli_query($con,$count_sum);
+            $pend = mysqli_query($con, $pend);
+            $res = mysqli_query($con, $res);
+            $inp = mysqli_query($con, $inp);
+            $count_sum = mysqli_query($con, $count_sum);
 
             //$test = mysqli_query($con,$query77);
             $row5 = mysqli_fetch_array($pend);
             $row6 = mysqli_fetch_array($res);
             $row7 = mysqli_fetch_array($inp);
 
-            if(empty($row5['e'])){
-                $row5['e']=0;
+            if (empty($row5['e'])) {
+                $row5['e'] = 0;
             }
-            if(empty($row6['e'])){
-                $row6['e']=0;
+            if (empty($row6['e'])) {
+                $row6['e'] = 0;
             }
-            if(empty($row7['e'])){
-                $row7['e']=0;
+            if (empty($row7['e'])) {
+                $row7['e'] = 0;
             }
 
             $row8 = mysqli_fetch_array($count_sum);
@@ -384,19 +384,18 @@ if (isset($_GET['date_submit'])) {
         $query = mysqli_query($con, "SELECT * from complain WHERE Departmentname='$dep'");
 
 
-
         $pend = "SELECT count(status) as e,status FROM complain where status='Pending' group by status";
         $res = "SELECT count(status) as e,status FROM complain where status='Resolved' group by status";
         $inp = "SELECT count(status) as e,status FROM complain where status='In-Progress' group by status";
 
 
-        $count_sum = "select count(Departmentname) as dp , sum(cost) as c from complain where 		Departmentname like '%".$dep."%'";
+        $count_sum = "select count(Departmentname) as dp , sum(cost) as c from complain where 		Departmentname like '%" . $dep . "%'";
 
 
-        $pend = mysqli_query($con,$pend);
-        $res = mysqli_query($con,$res);
-        $inp = mysqli_query($con,$inp);
-        $count_sum = mysqli_query($con,$count_sum);
+        $pend = mysqli_query($con, $pend);
+        $res = mysqli_query($con, $res);
+        $inp = mysqli_query($con, $inp);
+        $count_sum = mysqli_query($con, $count_sum);
 
         //$test = mysqli_query($con,$query77);
         $row5 = mysqli_fetch_array($pend);
@@ -406,7 +405,7 @@ if (isset($_GET['date_submit'])) {
         $row8 = mysqli_fetch_array($count_sum);
 
 
-            $html .= '<table class="table" align="center">
+        $html .= '<table class="table" align="center">
 			  <thead class="thead-dark">
 			    <tr>
 			      <th scope="col">Total Complains</th>
@@ -426,14 +425,6 @@ if (isset($_GET['date_submit'])) {
 			    </tr>
 			    </tbody>
 			  </table>';
-
-
-
-
-
-
-
-
 
 
         $html .= '<h3>Department:' . $dep . ' </h3>
@@ -600,7 +591,7 @@ function sendEmail($email, $pdf)
         $mail->Port = 587;                                    // TCP port to connect to
 
         //Recipients
-        $mail->setFrom($usermailid,$mailusername);
+        $mail->setFrom($usermailid, $mailusername);
         // //$mail->addAddress("9833saurabhtiwari@gmail.com");
         $mail->addAddress($email);     // Add a recipient
 
@@ -1086,15 +1077,7 @@ if (isset($_POST['reg_complain'])) {
             $('#expense').hide();
             $("#start").show();
         }
-        /* $.ajax({
-           type: "POST",
-           url: "status_update.php",
-           data:"status="+val+"&id=<?php //echo $_GET['id']?>"
-    }).done(function(){
-      window.open("depthome.php","_self");
-    });
 
-*/
 
     });
 

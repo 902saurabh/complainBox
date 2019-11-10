@@ -149,124 +149,124 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
         </nav>
         <!-- End Navbar -->
         <div class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card card-plain">
-                            <div class="card-header card-header-primary">
-                                <h4 class="card-title mt-0"><b>Complain Status</b></h4>
+            <br class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-plain">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title mt-0"><b>Complain Status</b></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats" style="box-shadow:none;">
+                        <div class="card-header card-header-danger card-header-icon">
+                            <div class="card-icon">
+                                <i class="material-icons">format_list_bulleted</i>
+                            </div>
+                            <p class="card-category">Complains</p>
+                            <h3 class="card-title"><?php echo $totcomp ?>
+                            </h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats">
+                                <a href="./deptviewowncomp.php?status=">View Details</a>
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <br/>
-                <div class="row">
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card card-stats" style="box-shadow:none;">
-                            <div class="card-header card-header-danger card-header-icon">
-                                <div class="card-icon">
-                                    <i class="material-icons">format_list_bulleted</i>
-                                </div>
-                                <p class="card-category">Complains</p>
-                                <h3 class="card-title"><?php echo $totcomp ?>
-                                </h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats">
-                                    <a href="./deptviewowncomp.php?status=">View Details</a>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats" style="box-shadow:none;">
+                        <div class="card-header card-header-warning card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-clock-o"></i>
 
-                                </div>
                             </div>
+                            <p class="card-category">Pending</p>
+                            <h3 class="card-title"><?php echo $totpendingcomp ?></h3>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card card-stats" style="box-shadow:none;">
-                            <div class="card-header card-header-warning card-header-icon">
-                                <div class="card-icon">
-                                    <i class="fa fa-clock-o"></i>
-
-                                </div>
-                                <p class="card-category">Pending</p>
-                                <h3 class="card-title"><?php echo $totpendingcomp ?></h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats"><a href="./deptviewowncomp.php?status=Pending">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="card card-stats" style="box-shadow:none;">
-                            <div class="card-header card-header-info card-header-icon">
-                                <div class="card-icon">
-                                    <i class="fa fa-refresh"></i>
-                                </div>
-                                <p class="card-category">In Progress</p>
-                                <h3 class="card-title"><?php echo $totinprogresscomp ?></h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats"><a href="./deptviewowncomp.php?status=In-Progress">View Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6" style="box-shadow:none;">
-                        <div class="card card-stats">
-                            <div class="card-header card-header-success card-header-icon">
-                                <div class="card-icon">
-                                    <i class="fa fa-check-square-o"></i>
-
-                                </div>
-                                <p class="card-category">Solved</p>
-                                <h3 class="card-title"><?php echo $totsolvedcomp ?></h3>
-                            </div>
-                            <div class="card-footer">
-                                <div class="stats"><a href="./deptviewowncomp.php?status=Solved">View Details</a>
-                                </div>
+                        <div class="card-footer">
+                            <div class="stats"><a href="./deptviewowncomp.php?status=Pending">View Details</a>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <br/>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card card-plain">
-                            <div class="card-header card-header-primary">
-                                <h4 class="card-title mt-0"><b>Select Area of Service </b></h4>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats" style="box-shadow:none;">
+                        <div class="card-header card-header-info card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-refresh"></i>
+                            </div>
+                            <p class="card-category">In Progress</p>
+                            <h3 class="card-title"><?php echo $totinprogresscomp ?></h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats"><a href="./deptviewowncomp.php?status=In-Progress">View Details</a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-lg-3 col-md-6 col-sm-6" style="box-shadow:none;">
+                    <div class="card card-stats">
+                        <div class="card-header card-header-success card-header-icon">
+                            <div class="card-icon">
+                                <i class="fa fa-check-square-o"></i>
+
+                            </div>
+                            <p class="card-category">Solved</p>
+                            <h3 class="card-title"><?php echo $totsolvedcomp ?></h3>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stats"><a href="./deptviewowncomp.php?status=Solved">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-plain">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title mt-0"><b>Select Area of Service </b></h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-                <div class="row">
+            <div class="row">
 
-                    <?php
+                <?php
 
-                    $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
-                    $result1 = mysqli_query($con, $sqlt);
-                    $deptnamearr = array();
-                    while ($row1 = mysqli_fetch_array($result1)) {
-                        $deptnamearr[] = $row1['name'];
+                $sqlt = "SELECT name from user WHERE email like '%" . $_SESSION['email'] . "%'";
+                $result1 = mysqli_query($con, $sqlt);
+                $deptnamearr = array();
+                while ($row1 = mysqli_fetch_array($result1)) {
+                    $deptnamearr[] = $row1['name'];
+                }
+                $sql = "SELECT * FROM department ORDER BY dname";
+                $result = mysqli_query($con, $sql);
+                //display all department
+                while ($row = mysqli_fetch_array($result)) {
+                    if ($row['dname'] == 'Emergency') {
+                        continue;
                     }
-                    $sql = "SELECT * FROM department ORDER BY dname";
-                    $result = mysqli_query($con, $sql);
-                    //display all department
-                    while ($row = mysqli_fetch_array($result)) {
-                        if ($row['dname'] == 'Emergency') {
-                            continue;
-                        }
 
-                        $dptname = $row['dname'];
+                    $dptname = $row['dname'];
 
-                        echo '     <div class="col-lg-3 col-md-6 col-sm-6">
+                    echo '     <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <div class="card-header ">';
 
-                        echo "<form method='POST' action='' id=" . $row['id'] . ">";
-                        echo " <input type='hidden' name='department' value=" . $row['dname'] . ">";
-                        echo '		</br>
+                    echo "<form method='POST' action='' id=" . $row['id'] . ">";
+                    echo " <input type='hidden' name='department' value=" . $row['dname'] . ">";
+                    echo '		</br>
                   <h3 class="card-title text-center" name="' . $row["dname"] . '"><b>' . $row["dname"] . '</b></h3>									  
 				</br>
 				<a href="#complain" class="btn btn-info btn-block" name="' . $row["dname"] . '" onClick="scrollToBottom(event)">Complain</a>
@@ -275,17 +275,17 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 				</div>
               </div>
             </div>';
-                    }
-                    $sql = "SELECT * FROM department WHERE dname='Emergency'";
-                    $result = mysqli_query($con, $sql);
-                    $row = mysqli_fetch_array($result);
-                    echo '     <div class="col-lg-3 col-md-6 col-sm-6">
+                }
+                $sql = "SELECT * FROM department WHERE dname='Emergency'";
+                $result = mysqli_query($con, $sql);
+                $row = mysqli_fetch_array($result);
+                echo '     <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <div class="card-header "style="background: #f44336;">';
 
-                    echo "<form method='POST' action='' id=" . $row['id'] . ">";
-                    echo " <input type='hidden' name='department' value=" . $row['dname'] . ">";
-                    echo '		</br>
+                echo "<form method='POST' action='' id=" . $row['id'] . ">";
+                echo " <input type='hidden' name='department' value=" . $row['dname'] . ">";
+                echo '		</br>
                   <h3 class="card-title text-center" style="    color: white;" name="' . $row["dname"] . '"><b>' . $row["dname"] . '</b></h3>									  
 				</br>
 				<a href="#complain" class="btn btn-info btn-block" name="' . $row["dname"] . '" onClick="scrollToBottom(event)">Complain</a>
@@ -296,232 +296,232 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             </div>';
 
 
-                    ?>
+                ?>
 
-                </div>
+            </div>
 
+            <br/>
+            <div class="row" style="display: none" id="complain">
 
-                <div class="row" style="display: none" id="complain">
-
-                    <div class="col-md-12">
-                        <div class="card card-plain">
-                            <div class="card-header card-header-primary">
-                                <h4 class="card-title mt-0"><b>Fill Complain Form</b></h4>
-                            </div>
+                <div class="col-md-12">
+                    <div class="card card-plain">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title mt-0"><b>Fill Complain Form</b></h4>
                         </div>
                     </div>
-                    <br/>
-                    <div id="emergency_dept"></div>
+                </div>
+                <br/>
+                <div id="emergency_dept"></div>
 
 
-                    <br>
-                    <div class="col-md-8 offset-md-2">
-                        <div class="card">
-                            <div class="card-header card-header-primary" style="
+                <br>
+                <div class="col-md-8 offset-md-2">
+                    <div class="card">
+                        <div class="card-header card-header-primary" style="
     margin: 0;
 ">
-                                <h4 class="card-title" id="complain_card"></h4>
-                                <p class="card-category"></p>
-                            </div>
-                            <div class="card-body">
-                                <form action="" enctype="multipart/form-data" style="margin-top: -40px;" method="POST">
-                                    <br/>
-                                    <br/>
+                            <h4 class="card-title" id="complain_card"></h4>
+                            <p class="card-category"></p>
+                        </div>
+                        <div class="card-body">
+                            <form action="" enctype="multipart/form-data" style="margin-top: -40px;" method="POST">
+                                <br/>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-12 col-12">
+                                        <!--   <label for="dropCompulsion" style="margin-bottom: 5px">Location:</label> -->
+
+                                        <label for="dropCompulsion"
+                                               style="margin-bottom: 5px; color: #9128ac">Building:</label>
+
+                                        <input type="text" class="form-control" id="dropCompulsion"
+                                               placeholder="Choose Building" spellcheck="false"
+                                               name="buildingOption" required/>
+
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 col-12">
+                                        <br>
+                                        <div class="dropdown" required>
+                                            <a class="btn btn-primary dropdown-toggle " href="#" role="button"
+                                               id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                               aria-expanded="false">Options</a>
+
+                                            <ul class="dropdown-menu" style="cursor:pointer;"
+                                                aria-labelledby="dropdownMenuLink" name="ul" required>
+                                                <li class="dropdown-item" id="item2" href="#">ARYABHATTA(A)</li>
+                                                <li class="dropdown-item" id="item3" href="#">BHASKARACHARYA(B)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group" style="margin-top: 25px;">
+                                    <label for="exampleFormControlInput1"
+                                           style="margin-bottom: 5px; color: #9128ac">Location:</label>
+
+                                    <input type="text" class="form-control" id="exampleFormControlInput1"
+                                           name="location" placeholder="Eg: Room no,Lab name,Campus area..."
+                                           required>
+                                </div>
+
+                                <div class="form-group" style="margin-top: 25px;">
+
+                                    <label style="margin-bottom: 5px; color: #9128ac"
+                                           for="exampleFormControlInput2">
+                                        Describe your complain
+                                    </label>
+                                    <textarea class="form-control" name="complain_body" rows="5"
+                                              id="exampleFormControlInput2"
+                                              placeholder="(If complain is regarding laptop/pc please specify model number and brand name)"
+                                              required
+                                    ></textarea>
+
+                                </div>
+
+
+                                <div class="form-group">
 
                                     <div class="row">
-                                        <div class="col-lg-6 col-md-12 col-12">
-                                            <!--   <label for="dropCompulsion" style="margin-bottom: 5px">Location:</label> -->
-
-                                            <label for="dropCompulsion"
-                                                   style="margin-bottom: 5px; color: #9128ac">Building:</label>
-
-                                            <input type="text" class="form-control" id="dropCompulsion"
-                                                   placeholder="Choose Building" spellcheck="false"
-                                                   name="buildingOption" required/>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <label class="bmd-label-floating">Supporting Document(Optional)</label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <!--<label for="upload"
+                                                style="margin: 0px 70px 10px 228px;
+                                                    border: 3px solid #9c27b0;
+                                                    border-radius: 13px;
+                                                    padding: 5px;
+                                                    background-color: #9c27b0;
+                                                    color: white;
+                                                    cursor: pointer;">Upload File</label>
+                                                    -->
+                                            <label for="upload" class="btn btn-primary">Upload</label>
+                                            <input id='upload' name="upload" type="file">
+                                            <!--       <div id="file-upload-filename" style=" margin: 0px 70px 10px 213px;"></div>
+                                             <input type="file" class="form-control-file" id="exampleFormControlFile1">-->
 
                                         </div>
-                                        <div class="col-lg-6 col-md-12 col-12">
-                                            <br>
-                                            <div class="dropdown" required>
-                                                <a class="btn btn-primary dropdown-toggle " href="#" role="button"
-                                                   id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                   aria-expanded="false">Options</a>
-
-                                                <ul class="dropdown-menu" style="cursor:pointer;"
-                                                    aria-labelledby="dropdownMenuLink" name="ul" required>
-                                                    <li class="dropdown-item" id="item2" href="#">ARYABHATTA(A)</li>
-                                                    <li class="dropdown-item" id="item3" href="#">BHASKARACHARYA(B)</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="form-group" style="margin-top: 25px;">
-                                        <label for="exampleFormControlInput1"
-                                               style="margin-bottom: 5px; color: #9128ac">Location:</label>
-
-                                        <input type="text" class="form-control" id="exampleFormControlInput1"
-                                               name="location" placeholder="Eg: Room no,Lab name,Campus area..."
-                                               required>
-                                    </div>
-
-                                    <div class="form-group" style="margin-top: 25px;">
-
-                                        <label style="margin-bottom: 5px; color: #9128ac"
-                                               for="exampleFormControlInput2">
-                                            Describe your complain
-                                        </label>
-                                        <textarea class="form-control" name="complain_body" rows="5"
-                                                  id="exampleFormControlInput2"
-                                                  placeholder="(If complain is regarding laptop/pc please specify model number and brand name)"
-                                                  required
-                                        ></textarea>
-
                                     </div>
 
 
-                                    <div class="form-group">
+                                    <div id="file-upload-filename"></div>
+                                </div>
 
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                                <label class="bmd-label-floating">Supporting Document(Optional)</label>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                                <!--<label for="upload"
-                                                    style="margin: 0px 70px 10px 228px;
-                                                        border: 3px solid #9c27b0;
-                                                        border-radius: 13px;
-                                                        padding: 5px;
-                                                        background-color: #9c27b0;
-                                                        color: white;
-                                                        cursor: pointer;">Upload File</label>
-                                                        -->
-                                                <label for="upload" class="btn btn-primary">Upload</label>
-                                                <input id='upload' name="upload" type="file">
-                                                <!--       <div id="file-upload-filename" style=" margin: 0px 70px 10px 213px;"></div>
-                                                 <input type="file" class="form-control-file" id="exampleFormControlFile1">-->
+                                <script type="text/css">
+                                    input[type="file"] {
+                                        z-index: -1;
+                                        position: absolute;
+                                        opacity: 0;
+                                    }
 
-                                            </div>
-                                        </div>
+                                    input:focus + label {
+                                        outline: 2px solid;
+                                    }
+                                </script>
 
 
-                                        <div id="file-upload-filename"></div>
-                                    </div>
+                                <script type="text/javascript">
 
-                                    <script type="text/css">
-                                        input[type="file"] {
-                                            z-index: -1;
-                                            position: absolute;
-                                            opacity: 0;
+
+                                    var input = document.getElementById('upload');
+                                    var infoArea = document.getElementById('file-upload-filename');
+
+                                    input.addEventListener('change', showFileName);
+
+                                    function showFileName(event) {
+
+                                        // the change event gives us the input it occurred in
+                                        var input = event.srcElement;
+
+                                        // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
+                                        var fileName = input.files[0].name;
+
+                                        // use fileName however fits your app best, i.e. add it into a div
+                                        var res = fileName.split(".");
+                                        if (res[res.length - 1] == "jpg" || res[res.length - 1] == "jpeg" || res[res.length - 1] == "pdf" || res[res.length - 1] == "png" ||
+                                            res[res.length - 1] == "JPG" || res[res.length - 1] == "JPEG" || res[res.length - 1] == "PDF" || res[res.length - 1] == "PNG"
+                                        ) {
+                                            infoArea.textContent = 'File name: ' + fileName;
+                                            $("#file-upload-filename").css("color", "blue");
+                                            $("#file_test").show();
+                                        } else {
+                                            $("#file-upload-filename").css("color", "red");
+                                            infoArea.textContent = "*Following file format is not supported! (only images or pdf)";
+                                            $("#file_test").hide();
                                         }
 
-                                        input:focus + label {
-                                            outline: 2px solid;
-                                        }
-                                    </script>
+                                    }
 
 
-                                    <script type="text/javascript">
+                                </script>
+                                <div class="form-group" style="margin-top: 25px;">
+                                    <label for="exampleFormControlInput1"
+                                           style="margin-bottom: 5px; color: #9128ac">Phone/Extension
+                                        Number:</label>
+                                    <?php
+                                    $row = mysqli_fetch_array(mysqli_query($con, "SELECT contactnum FROM user WHERE email like '%" . $email . "%'"));
+                                    $conta = $row['contactnum'];
 
-
-                                        var input = document.getElementById('upload');
-                                        var infoArea = document.getElementById('file-upload-filename');
-
-                                        input.addEventListener('change', showFileName);
-
-                                        function showFileName(event) {
-
-                                            // the change event gives us the input it occurred in
-                                            var input = event.srcElement;
-
-                                            // the input has an array of files in the `files` property, each one has a name that you can use. We're just using the name here.
-                                            var fileName = input.files[0].name;
-
-                                            // use fileName however fits your app best, i.e. add it into a div
-                                            var res = fileName.split(".");
-                                            if (res[res.length - 1] == "jpg" || res[res.length - 1] == "jpeg" || res[res.length - 1] == "pdf" || res[res.length - 1] == "png" ||
-                                                res[res.length - 1] == "JPG" || res[res.length - 1] == "JPEG" || res[res.length - 1] == "PDF" || res[res.length - 1] == "PNG"
-                                            ) {
-                                                infoArea.textContent = 'File name: ' + fileName;
-                                                $("#file-upload-filename").css("color", "blue");
-                                                $("#file_test").show();
-                                            } else {
-                                                $("#file-upload-filename").css("color", "red");
-                                                infoArea.textContent = "*Following file format is not supported! (only images or pdf)";
-                                                $("#file_test").hide();
-                                            }
-
-                                        }
-
-
-                                    </script>
-                                    <div class="form-group" style="margin-top: 25px;">
-                                        <label for="exampleFormControlInput1"
-                                               style="margin-bottom: 5px; color: #9128ac">Phone/Extension
-                                            Number:</label>
-                                        <?php
-                                        $row = mysqli_fetch_array(mysqli_query($con, "SELECT contactnum FROM user WHERE email like '%" . $email . "%'"));
-                                        $conta = $row['contactnum'];
-
-                                        echo '<input type="number" class="form-control" id="contactnumber"
+                                    echo '<input type="number" class="form-control" id="contactnumber"
                                                name="contactnumber" 
                                                value="' . $conta . '" min="0"
                                                required>';
-                                        ?>
-                                    </div>
+                                    ?>
+                                </div>
 
-                                    <label for="exampleFormControlInput1"
-                                           style="margin-bottom: 20px; color: #9128ac">Complain Severity: </label>
+                                <label for="exampleFormControlInput1"
+                                       style="margin-bottom: 20px; color: #9128ac">Complain Severity: </label>
 
 
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" name="radio" id="customRadio1" class="custom-control-input"
-                                               value="Low">
-                                        <label class="custom-control-label" style="
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" name="radio" id="customRadio1" class="custom-control-input"
+                                           value="Low" required>
+                                    <label class="custom-control-label" style="
 									color: black;" for="customRadio1" required>Low</label>
-                                    </div>
+                                </div>
 
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" name="radio" id="customRadio2" class="custom-control-input"
-                                               value="Medium">
-                                        <label class="custom-control-label" style="
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" name="radio" id="customRadio2" class="custom-control-input"
+                                           value="Medium">
+                                    <label class="custom-control-label" style="
 									color: black;" for="customRadio2" required>Medium</label>
-                                    </div>
+                                </div>
 
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" name="radio" id="customRadio3" class="custom-control-input"
-                                               value="High">
-                                        <label class="custom-control-label" style="
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" name="radio" id="customRadio3" class="custom-control-input"
+                                           value="High">
+                                    <label class="custom-control-label" style="
 									color: black;" for="customRadio3" required>High</label>
-                                    </div>
+                                </div>
 
 
-                                    <input type="submit"
-                                           id="file_test"
-                                           name="com_submit" class="btn btn-primary" value="Submit">
+                                <input type="submit"
+                                       id="file_test"
+                                       name="com_submit" class="btn btn-primary" value="Submit">
 
-                                    <div class="clearfix"></div>
-                                </form>
-                            </div>
+                                <div class="clearfix"></div>
+                            </form>
                         </div>
                     </div>
-
-
                 </div>
 
 
             </div>
 
+
         </div>
 
-        <?php
-        include("footer.php");
-        if (isset($_COOKIE['dname']))
-            $department = $_COOKIE['dname'];
-        ?>
-
-
     </div>
+
+    <?php
+    include("footer.php");
+    if (isset($_COOKIE['dname']))
+        $department = $_COOKIE['dname'];
+    ?>
+
+
+</div>
 </div>
 
 
@@ -558,7 +558,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             em.innerHTML = '  <div class="col-md-8 offset-md-2">\n' +
                 '                        <div class="card">\n' +
                 '                            <div class="card-header card-header-danger" style="margin: 0;">\n' +
-                '                                <h4 class="card-title" id="emergency_dept">Please DO NOT complain here unless your complain required urgent attenction.</h4>\n' +
+                '                                <h4 class="card-title" id="emergency_dept">Please DO NOT complain here unless your complaint requires immediate action.</h4>\n' +
                 '                                <p class="card-category"> Your mail id, name and other details will be recorded </p>\n' +
                 '                            </div>\n' +
                 '                        </div>\n' +

@@ -68,7 +68,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Complain | Complain Box </title>
+    <title>Cancel Complain | Complain Box </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     <!--     Fonts and icons     -->
@@ -201,7 +201,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 				
               <div class="card">
                 <div class="card-header card-header-primary" style="margin:0;">
-                  <h4 class="card-title "> Complains</h4>
+                  <h4 class="card-title ">Cancel Complains</h4>
                   <p class="card-category">  </p>
                 </div>';
 
@@ -301,27 +301,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
         <script src="assets/js/material-dashboard.js?v=2.1.1" type="text/javascript"></script>
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script src="assets/demo/demo.js"></script>
-
-
-        <script>
-            /*  $("li").click(function(){
-                alert("j");
-                var val=$(this).text();
-                $("#dropdownMenuLink").text("STATUS: "+$(this).text());
-                $.ajax(function(){
-                  type:"POST",
-                  url:"status_update.php",
-                  data:"status="+val+"&id=<?php //echo $_GET['id']?>"
-    }).done(function(){
-      window.open("depthome.php?id="+<?php //echo $_GET['id']?>,"_self");
-    });
-
-
-
-    });
-  */
-
-        </script>
 
 
         <script>

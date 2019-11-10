@@ -412,22 +412,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
 
     <script>
-        /*  $("li").click(function(){
-            alert("j");
-            var val=$(this).text();
-            $("#dropdownMenuLink").text("STATUS: "+$(this).text());
-            $.ajax(function(){
-              type:"POST",
-              url:"status_update.php",
-              data:"status="+val+"&id=<?php //echo $_GET['id']?>"
-    }).done(function(){
-      window.open("depthome.php?id="+<?php //echo $_GET['id']?>,"_self");
-    });
 
-
-
-    });
-  */
 
     </script>
 
@@ -712,15 +697,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 $('#expense').hide();
                 $("#start").show();
             }
-            /* $.ajax({
-               type: "POST",
-               url: "status_update.php",
-               data:"status="+val+"&id=<?php //echo $_GET['id']?>"
-    }).done(function(){
-      window.open("depthome.php","_self");
-    });
 
-*/
 
         });
 

@@ -1,22 +1,7 @@
 <?php
 
 include("checkuser.php");
-//dashboard of department
-//$mysqli = new mysqli("localhost", "root", "", "complainbox");
-/*$sql = "SELECT name FROM user WHERE email like '%" . $_SESSION["email"] . "%'";
-$res = $res_u = mysqli_query($con, $sql);
-$row = $res->fetch_assoc();
-$uname = $row["name"];//set name to department name instead of gmail account name
-//$_SESSION["name"] = $uname;
 
-$totcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE Departmentname like'%" . $uname . "%'"));
-
-$totpendingcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='Pending' OR status='Pending#' ) AND Departmentname like'%" . $uname . "%'"));
-
-$totsolvedcomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE  (status='Resolved' OR status='Resolved#' ) AND Departmentname like'%" . $uname . "%'"));
-
-$totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain WHERE (status='In-Progress' OR status='In-Progress#' ) AND Departmentname like'%" . $uname . "%'"));
-*/
 ?>
 
 <!DOCTYPE html>
@@ -672,15 +657,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 $('#expense').hide();
                 $("#start").show();
             }
-            /* $.ajax({
-               type: "POST",
-               url: "status_update.php",
-               data:"status="+val+"&id=<?php //echo $_GET['id']?>"
-    }).done(function(){
-      window.open("depthome.php","_self");
-    });
 
-*/
 
         });
 
