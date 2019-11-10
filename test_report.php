@@ -432,7 +432,7 @@ if (isset($_GET['date_submit'])) {
         $inp = "SELECT count(status) as e,status FROM complain where (status='In-Progress' and Departmentname like '%" . $dep . "%' and complaindate between '" . $start . "' and '" . $second . "' ) group by status";
 
 
-        $count_sum = "select count(Departmentname) as dp , sum(cost) as c from complain where Departmentname like '%" . $dep . "%'";
+        $count_sum = "select count(Departmentname) as dp , sum(cost) as c from complain where Departmentname like '%" . $dep . "%' and complaindate between '" . $start . "' and '" . $second . "'";
 
 
         $pend = mysqli_query($con, $pend);

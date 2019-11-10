@@ -869,6 +869,12 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 //  $mail->addAttachment($file_path);         // Add attachments
                 //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
+                
+
+                $dep = mysqli_query($con, "SELECT email from user where usertype='Department' and username='$dp'");
+
+
+
                 // Content
                 //$var=$_POST['body'];
                 //$var='Test';//$_POST['body'];

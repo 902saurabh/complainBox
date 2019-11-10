@@ -926,10 +926,10 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
 
                 $msg = "<strong>department:</strong> " . $department . "<br>
-<strong>Building:</strong> " . $building . "<br>
-<strong>Location:</strong> " . $location . "<br>
-<strong>Description:</strong> " . $body . "<br><br>
-<strong>YOUR COMPLAIN HAS BEEN RESOLVED</strong>";
+                        <strong>Building:</strong> " . $building . "<br>
+                        <strong>Location:</strong> " . $location . "<br>
+                        <strong>Description:</strong> " . $body . "<br><br>
+                        <strong>YOUR COMPLAIN HAS BEEN RESOLVED</strong>";
 //$department= $_POST['department'];
 //$location = $_POST['location'];
 //$building = $_POST['building'];
@@ -963,6 +963,41 @@ while ($row1 = mysqli_fetch_array($result1)) {
                     $mail->setFrom($usermailid, $mailusername);
                     //$mail->addAddress("9833saurabhtiwari@gmail.com");
                     $mail->addAddress($mail_to);     // Add a recipient
+
+
+                  // ***********notify all************//
+                    /*
+
+                    $set_dep = mysqli_query($con, "SELECT Departmentname from complain where id='$id'");
+                    $row10 = mysqli_fetch_array($set_dep);
+
+                    $names = explode(",", $row10['Departmentname']);
+                     $len = 0;
+                      while ($len != sizeof($names)) {
+                        $p_dep=$names[$len];
+                        $next_query = mysqli_query($con,"SELECT email from user where usertype='Department' and username='$p_dep'");
+                          $len = $len + 1;
+
+                           while ($row11 = mysqli_fetch_array($next_query)) {
+                            $mails = explode(",", $row11['email']);
+                            $len = 0;
+                            while ($len != sizeof($mails)) {
+                                $mail->addAddress($mails[$len]);
+                                $len = $len + 1;
+                                }
+
+                            }
+
+
+
+
+                      }
+
+                      */
+
+                        // ***********notify all************//
+
+                 
 
                     // Attachments
                     //  if($file_path!="")
@@ -1390,7 +1425,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                 url:"complain_submit_ajax.php",
                 type:"POST",
                
-                data:"id=' . $id . '&mail_to=' . $mail_to . '",
+                data:"id=' . $id . '&department=' . $department . '",
                 cache:false,
 
               

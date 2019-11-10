@@ -13,6 +13,7 @@ include("config/config.php");
 $id = $_POST['id'];
 $dp = $_POST['department'];
 $dep = mysqli_query($con, "SELECT email from user where usertype='Department' and username='$dp'");
+
 $query = mysqli_query($con, "SELECT * FROM complain WHERE id='$id'");
 $row = mysqli_fetch_array($query);
 
@@ -82,10 +83,50 @@ try {
 //        $mail->addAddress($mails[$len]);
 //        $len = $len + 1;
 //    }
-    while ($row = mysqli_fetch_array($dep)) {
-        $email = $row['email'];
-        $mail->addAddress($email);
-    }
+
+    $txt="";
+
+    if($dp=="Emergency"){
+
+        
+          $all = mysqli_query($con,"SELECT email from user where usertype != 'User'");
+
+          while ($row = mysqli_fetch_array($all)) {
+                $email = $row['email'];
+                $mail->addAddress($email);
+        }
+
+
+        //   by comma splitting//
+        /*
+        $all = mysqli_query($con,"SELECT email from user where usertype != 'User'");
+        while($row5=mysqli_fetch_array($all)){
+
+            $array = $row5['email'];
+
+            $mails = explode(",",$array);
+            $len = 0;
+            while ($len != sizeof($mails)) {
+                $mail->addAddress($mails[$len]);
+                $len = $len + 1;
+            }
+
+
+        }
+
+        */
+
+         //   by comma splitting//
+
+      $txt .= "An Emergency";
+
+    }else{
+
+
+         while ($row = mysqli_fetch_array($dep)) {
+                $email = $row['email'];
+                $mail->addAddress($email);
+            }
 
     if ($priority == 'critical') {
 //        echo "<script>alert('hello');</script>";
@@ -102,6 +143,12 @@ try {
 
     }
 
+    $txt .= "New";
+   
+    }
+
+    
+
     // Add a recipient
 
     // Attachments
@@ -114,7 +161,7 @@ try {
     //$var=$_POST['body'];
     //$var='Test';//$_POST['body'];
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = 'New Complain Register with id  ' . $id;
+    $mail->Subject = $txt.' Complain Register with id  ' . $id;
     $mail->Body = $msg;
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
