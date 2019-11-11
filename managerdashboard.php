@@ -569,6 +569,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 					<!--	<th>Complainant</th>  
 						<th>Mail</th>-->
 						<th>View</th>
+						<th>Action</th>
                     </thead> <tbody>';
 
 
@@ -604,6 +605,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                             //echo "<td>".$row['complainant']."</td>";
                                             //echo "<td>".$row['complainantmail']."</td>";
                                             echo '<td><button type="button" class="btn btn-primary" name="' . $row['id'] . '" onclick="viewDetails()">View Details</button></td>';
+                                            echo '<td><button type="button" class="btn btn-primary" name="' . $row['id'] . '" onclick="takeAction()">Take Action</button></td>';
 
                                         }
 
@@ -852,6 +854,12 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             // window.location.href = "./admin_action.php";
         }
 
+        function takeAction() {
+
+            var id = event.target.name;
+            window.open("admin_action.php?id=" + id, "_self");
+            // window.location.href = "./admin_action.php";
+        }
 
         $(document).ready(function () {
             // Javascript method's body can be found in assets/js/demos.js
