@@ -54,8 +54,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
     background: white;
 ">
             <a class="simple-text logo-normal">
-                Complain Box
-            </a>
+            FMS </a>
         </div>
 
 
@@ -340,7 +339,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
                                         <textarea class="form-control" name="complain_body" rows="5"
                                                   id="exampleFormControlInput2"
-                                                  placeholder="(If complain is regarding laptop/pc please specify model number and brand name)"
+                                                  placeholder="(If complain is regarding laptop/desktop/projector please specify model number, brand name and DSR number)"
                                                   required
                                         ></textarea>
 

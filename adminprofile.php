@@ -66,8 +66,7 @@ if ($row['usertype'] != 'admin') {
       -->
         <div class="logo">
             <a href="" class="simple-text logo-normal">
-                Complain Box
-            </a>
+            FMS </a>
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">

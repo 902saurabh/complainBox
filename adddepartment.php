@@ -66,8 +66,7 @@ $uname = $row["name"];//set name to department name instead of gmail account nam
 
         <div class="logo">
             <a href="#" class="simple-text logo-normal">
-                Complain Box
-            </a>
+            FMS </a>
         </div>
 
 

@@ -63,8 +63,7 @@ $_SESSION["name"] = $uname;
 
         <div class="logo">
             <a class="simple-text logo-normal">
-                Complain Box
-            </a>
+            FMS </a>
         </div>
 
 

@@ -89,8 +89,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
       -->
         <div class="logo">
             <a class="simple-text logo-normal">
-                Complain Box
-            </a>
+            FMS </a>
         </div>
 
 

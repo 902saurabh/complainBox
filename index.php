@@ -48,10 +48,10 @@ if (isset($_SESSION['type'])) {
 <div class="page-header header-filter" data-parallax="true" style="background-image: url('assets/img/slider1.jpg')">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <h1 class="title">COMPLAINT BOX</h1>
-                <h1 class="title"> One Step Solution</h1>
-                <h4>A portal for all your complaints, Focus on complaining about the problem you have, rather than
+            <div class="col-md-12">
+                <h2 class="title">FACILITY MANAGEMENT SYSTEM</h2>
+                <h2 class="title"> One Step Solution</h2>
+                <h4>A portal for all your complaints, Focus on complaining about the<br> problem you have, rather than
                     staying with the issue.</h4>
                 <br>
                 <h4><b>Login in with Somaiya Mail</b></h4>

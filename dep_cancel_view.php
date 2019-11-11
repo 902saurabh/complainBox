@@ -34,8 +34,7 @@ include("checkuser.php");
       -->
         <div class="logo">
             <a href="#" class="simple-text logo-normal">
-                Complain Box
-            </a>
+            FMS </a>
         </div>
 
 
