@@ -1,35 +1,35 @@
 <footer class="footer footer-default">
     <div class="container">
-         <nav class="float-left">
-           <ul>
-		   <!--
-             <li>
-               <a >
-                Complain Box
-               </a>
-             </li>
-             <li>
-               <a href="#">
-                 About Us
-               </a>
-             </li>
-             <li>
-               <a href="#">
-                 Blog
-               </a>
-             </li>
-             <li>
-               <a href="#">
-                 Licenses
-               </a>
-             </li>-->
-			 <li>
-               <a href="suggestion.php">
-                 Suggestions
-               </a>
-             </li>
-           </ul>
-         </nav>
+        <nav class="float-left">
+            <ul>
+                <!--
+                  <li>
+                    <a >
+                     Complain Box
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      About Us
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      Blog
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      Licenses
+                    </a>
+                  </li>-->
+                <!--			 <li>-->
+                <!--               <a href="suggestion.php">-->
+                <!--                 Suggestions-->
+                <!--               </a>-->
+                <!--             </li>-->
+            </ul>
+        </nav>
         <div class="copyright float-right">
             &copy;
             <script>

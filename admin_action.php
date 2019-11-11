@@ -785,8 +785,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
         } else {
             $deptn = '';
         }
-
-
         $timer = $_POST['timer'];
         $cost = $_POST['cost'];
         $adminremark = $_POST['adminremark'];
@@ -796,36 +794,38 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
             $sql99 = "UPDATE admincomplain SET admin_remark='$adminremark' WHERE ogid='$id'";
             $query = mysqli_query($con, $sql99);
 
-        }
+        } else {
+
+
 //$sql7="UPDATE complain SET status='".$status."' , time_constraint=".$timer." ,cost=".$cost." WHERE id=".$id.";";
 //echo $sql7;
 
-        if ($status == "Resolved") {
-            //$query8 = mysqli_query($con,"SELECT * FROM complain where id='$id'");
-            //row8 = mysqli_fetch_array($query8);
-            /*if($row8['solved_by']=="NULL"){
-              $query8 = mysqli_query($con,"INSERT into complain(solved_by) values('') where id =")
-            }*/
+            if ($status == "Resolved") {
+                //$query8 = mysqli_query($con,"SELECT * FROM complain where id='$id'");
+                //row8 = mysqli_fetch_array($query8);
+                /*if($row8['solved_by']=="NULL"){
+                  $query8 = mysqli_query($con,"INSERT into complain(solved_by) values('') where id =")
+                }*/
 //            echo '<script>alert("in resolved part")</script>';
-            $uname = $_SESSION['name'];
-            $query = mysqli_query($con, "UPDATE complain SET solved_by='$uname' WHERE id='$id'");
-            $dt = date("Y-m-d H:i:s");
-            $query = mysqli_query($con, "UPDATE complain SET resolved_date='$dt' where id='$id'");
+                $uname = $_SESSION['name'];
+                $query = mysqli_query($con, "UPDATE complain SET solved_by='$uname' WHERE id='$id'");
+                $dt = date("Y-m-d H:i:s");
+                $query = mysqli_query($con, "UPDATE complain SET resolved_date='$dt' where id='$id'");
 
 
-            $query = mysqli_query($con, "SELECT * FROM complain WHERE id='$id'");
-            $row = mysqli_fetch_array($query);
-            $body = $row['description'];
-            $file_path = $row['complainimg'];
-            $mail_to = $row['complainantmail'];
-            $department = $row['Departmentname'];
-            $sender = $row['complainant'];
-            $sender_mail = $row['complainantmail'];
-            $building = $row['building'];
-            $location = $row['location'];
+                $query = mysqli_query($con, "SELECT * FROM complain WHERE id='$id'");
+                $row = mysqli_fetch_array($query);
+                $body = $row['description'];
+                $file_path = $row['complainimg'];
+                $mail_to = $row['complainantmail'];
+                $department = $row['Departmentname'];
+                $sender = $row['complainant'];
+                $sender_mail = $row['complainantmail'];
+                $building = $row['building'];
+                $location = $row['location'];
 
 
-            $msg = "<strong>department:</strong> " . $department . "<br>
+                $msg = "<strong>department:</strong> " . $department . "<br>
 <strong>Building:</strong> " . $building . "<br>
 <strong>Location:</strong> " . $location . "<br>
 <strong>Description:</strong> " . $body . "<br><br>
@@ -838,7 +838,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 //echo '<script>  swal("Your complain successfully submitted"); </script>';
 
 //echo '"<script>".$body.'"
-            //      </script>"';
+                //      </script>"';
 
 //"body='.$body.'&attachment='.$file_path.'&deptmail='.$dptmail.'&department='.$department.'&location='.$location.'&building="+build,
 
@@ -846,55 +846,53 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 // These must be at the top of your script, not inside a function
 
 // Instantiation and passing `true` enables exceptions
-            $mail = new PHPMailer(true);
+                $mail = new PHPMailer(true);
 
-            try {
-                //Server settings
-                $mail->SMTPDebug = 1;                                       // Enable verbose debug output
-                $mail->isSMTP();                                            // Set mailer to use SMTP
-                $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-                $mail->SMTPAuth = true;                                   // Enable SMTP authentication
-                $mail->Username = $usermailid;                     // SMTP username
-                $mail->Password = $usermailpass;                               // SMTP password
-                $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
-                $mail->Port = 587;                                    // TCP port to connect to
+                try {
+                    //Server settings
+                    $mail->SMTPDebug = 1;                                       // Enable verbose debug output
+                    $mail->isSMTP();                                            // Set mailer to use SMTP
+                    $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
+                    $mail->SMTPAuth = true;                                   // Enable SMTP authentication
+                    $mail->Username = $usermailid;                     // SMTP username
+                    $mail->Password = $usermailpass;                               // SMTP password
+                    $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
+                    $mail->Port = 587;                                    // TCP port to connect to
 
-                //Recipients
-                $mail->setFrom($usermailid, $mailusername);
-                //$mail->addAddress("9833saurabhtiwari@gmail.com");
-                $mail->addAddress($mail_to);     // Add a recipient
+                    //Recipients
+                    $mail->setFrom($usermailid, $mailusername);
+                    //$mail->addAddress("9833saurabhtiwari@gmail.com");
+                    $mail->addAddress($mail_to);     // Add a recipient
 
-                // Attachments
-                //  if($file_path!="")
-                //  $mail->addAttachment($file_path);         // Add attachments
-                //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-
-                
-
-                $dep = mysqli_query($con, "SELECT email from user where usertype='Department' and username='$dp'");
+                    // Attachments
+                    //  if($file_path!="")
+                    //  $mail->addAttachment($file_path);         // Add attachments
+                    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
 
 
+                    $dep = mysqli_query($con, "SELECT email from user where usertype='Department' and username='$dp'");
 
-                // Content
-                //$var=$_POST['body'];
-                //$var='Test';//$_POST['body'];
-                $mail->isHTML(true);                                  // Set email format to HTML
-                $mail->Subject = 'Complain Resolved id ' . $id;
-                $mail->Body = $msg;
-                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-                $mail->send();
-                echo 'Message has been sent';
-            } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                    // Content
+                    //$var=$_POST['body'];
+                    //$var='Test';//$_POST['body'];
+                    $mail->isHTML(true);                                  // Set email format to HTML
+                    $mail->Subject = 'Complain Resolved id ' . $id;
+                    $mail->Body = $msg;
+                    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+                    $mail->send();
+                    echo 'Message has been sent';
+                } catch (Exception $e) {
+                    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                }
+
+
             }
 
+            $query = mysqli_query($con, "UPDATE complain SET status='$status' , time_constraint='$timer' , cost='$cost' WHERE id='$id'");
 
         }
-
-        $query = mysqli_query($con, "UPDATE complain SET status='$status' , time_constraint='$timer' , cost='$cost' WHERE id='$id'");
-
-
         header("Location:admindashboard.php");
 
     }
@@ -1130,7 +1128,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
         $(".dropdown-item").click(function () {
 
             var val = $(this).text();
-            console.log(val + "clicked");
             $("#dropdownMenuLink").text($(this).text());
 
             document.cookie = "status=" + $(this).text();

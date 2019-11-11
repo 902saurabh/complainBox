@@ -211,7 +211,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
 				<div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">List of forwared Complains</h4>
+                  <h4 class="card-title ">List of Forwarded Complains</h4>
                   <p class="card-category">  </p>
                 </div>
                 <div class="card-body">
@@ -223,7 +223,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                         </th>
 						
                         <th>
-                          Area Of Work
+                          Area Of Service
                         </th>
 						<th>
                           Detail

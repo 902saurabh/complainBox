@@ -22,6 +22,9 @@ if (isset($_POST["id"])) {
         $sql2 = "UPDATE user SET imgurl='" . $_POST["imgurl"] . "' WHERE email='" . $_POST["email"] . "'";
 //        $sql2 = "UPDATE user SET head_name='" . $_POST["name"] . "' WHERE email='" . $_POST["email"] . "'";
         $con->query($sql2);
+        $sql3 = "UPDATE user SET head_name='" . $_POST["name"] . "' WHERE email='" . $_POST["email"] . "'";
+        $con->query($sql3);
+
         $usertype = "Department";
 
         $_SESSION["type"] = "Department";

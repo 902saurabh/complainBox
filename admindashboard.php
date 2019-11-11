@@ -352,7 +352,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                           Status
                         </th>
 						<th>
-                          Department
+                          Area of Service
                         </th>
 						
 						<th>
@@ -413,7 +413,7 @@ AND  status not like '%Resolved%' ORDER BY complaindate DESC ";
                     <div class="col-lg-12 col-md-12">
                         <div class="card">
                             <div class="card-header card-header-tabs card-header-primary">
-                                <h4 class="card-title">Select department to view complains </h4>
+                                <h4 class="card-title">Select area of service to view complains </h4>
                                 <br/>
                                 <div class="nav-tabs-navigation">
                                     <div class="nav-tabs-wrapper">

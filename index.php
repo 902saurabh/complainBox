@@ -49,19 +49,19 @@ if (isset($_SESSION['type'])) {
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h1 class="title">COMPLAIN BOX</h1>
+                <h1 class="title">COMPLAINT BOX</h1>
                 <h1 class="title"> One Step Solution</h1>
                 <h4>A portal for all your complaints, Focus on complaining about the problem you have, rather than
                     staying with the issue.</h4>
                 <br>
-              <h4 ><b>Login in with Somaiya Mail</b></h4>
-				  <div class="row">
-                                            <div class="col-md-12">
-                                            
-                                                    <div id="my-signin1" onclick="ClickLogin()" data-onsuccess="onSignIn"></div>
-                                              
-                                            </div>
-                                        </div>
+                <h4><b>Login in with Somaiya Mail</b></h4>
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div id="my-signin1" onclick="ClickLogin()" data-onsuccess="onSignIn"></div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -123,190 +123,190 @@ if (isset($_SESSION['type'])) {
                 </div>
             </div>
 
-  <!--          <div class="page-header header-filter"
-                 style="background-image: url('assets/img/cam.jpg'); background-size: cover; background-position: top center;">
-                <div class="container">
-                    <div class="row" id="login">
-                        <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-                            <div class="card card-login">
-                                <form class="form" method="post" action="logindb.php">
-                                    <div class="card-header card-header-primary text-center" style="margin:0;">
-                                        <h4 class="card-title" style="font-size:">Login </h4>
-                                        <div class="social-line">
+            <!--          <div class="page-header header-filter"
+                           style="background-image: url('assets/img/cam.jpg'); background-size: cover; background-position: top center;">
+                          <div class="container">
+                              <div class="row" id="login">
+                                  <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+                                      <div class="card card-login">
+                                          <form class="form" method="post" action="logindb.php">
+                                              <div class="card-header card-header-primary text-center" style="margin:0;">
+                                                  <h4 class="card-title" style="font-size:">Login </h4>
+                                                  <div class="social-line">
 
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                  <i class="material-icons">perm_identity</i>
-                                                </span>
-                                            </div>
-                                            <input type="text" class="form-control" name="username"
-                                                   placeholder="Username..." required="true">
-                                        </div>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                  <i class="material-icons">lock_outline</i>
-                                                </span>
-                                            </div>
-                                            <input type="password" class="form-control" name="password"
-                                                   placeholder="Password..." required="true">
-                                        </div>
-
-
-                                    </div>
-
-                                    <div class="footer text-center">
-                                        <button type="submit" class="btn btn-primary">Login
-                                        </button>
-                                        <br>
-                                        <br>
-                                     
-                                        <p><b>Login Using Somaiya Mail</b></p>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <center>
-                                                    <div id="my-signin1" onclick="ClickLogin()" data-onsuccess="onSignIn"></div>
-                                                </center>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
--->
-
-        <?php
-        include("footer.php");
-        ?>
-        <!--   Core JS Files   -->
-        <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
-        <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
-        <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
-        <script src="assets/js/plugins/moment.min.js"></script>
+                                                  </div>
+                                              </div>
+                                              <div class="card-body">
+                                                  <div class="input-group">
+                                                      <div class="input-group-prepend">
+                                                          <span class="input-group-text">
+                                                            <i class="material-icons">perm_identity</i>
+                                                          </span>
+                                                      </div>
+                                                      <input type="text" class="form-control" name="username"
+                                                             placeholder="Username..." required="true">
+                                                  </div>
+                                                  <div class="input-group">
+                                                      <div class="input-group-prepend">
+                                                          <span class="input-group-text">
+                                                            <i class="material-icons">lock_outline</i>
+                                                          </span>
+                                                      </div>
+                                                      <input type="password" class="form-control" name="password"
+                                                             placeholder="Password..." required="true">
+                                                  </div>
 
 
-        <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-        <script src="assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+                                              </div>
 
-        <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
-        <script src="assets/js/material-kit.js" type="text/javascript"></script>
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-        <script>
+                                              <div class="footer text-center">
+                                                  <button type="submit" class="btn btn-primary">Login
+                                                  </button>
+                                                  <br>
+                                                  <br>
 
-        	var clicked=false;
-        	function ClickLogin()
-		{
-			clicked=true;
-		}
+                                                  <p><b>Login Using Somaiya Mail</b></p>
+                                                  <div class="row">
+                                                      <div class="col-md-12">
+                                                          <center>
+                                                              <div id="my-signin1" onclick="ClickLogin()" data-onsuccess="onSignIn"></div>
+                                                          </center>
+                                                      </div>
+                                                  </div>
 
-            function onSuccess(googleUser) {
-				
-				$('#my-signin1 div div span span:last').text("Sign in");
-				if(clicked){
-					$('#my-signin1 div div span span:last').text("Signed In");
-                var profile = googleUser.getBasicProfile();
-                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-                console.log('Name: ' + profile.getName());
-                console.log('Image URL: ' + profile.getImageUrl());
-                console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+                                              </div>
 
-                if (profile) {
-                    $.ajax({
-                        type: 'POST',
-                        url: 'verifyuser.php',
-                        data: {
-                            id: profile.getId(),
-                            name: profile.getName(),
-                            email: profile.getEmail(),
-                            imgurl: profile.getImageUrl()
+                                      </div>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+          -->
+
+            <?php
+            include("footer.php");
+            ?>
+            <!--   Core JS Files   -->
+            <script src="assets/js/core/jquery.min.js" type="text/javascript"></script>
+            <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
+            <script src="assets/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+            <script src="assets/js/plugins/moment.min.js"></script>
+
+
+            <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+            <script src="assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+
+            <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+            <script src="assets/js/material-kit.js" type="text/javascript"></script>
+            <script src="https://apis.google.com/js/platform.js" async defer></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+            <script>
+
+                var clicked = false;
+
+                function ClickLogin() {
+                    clicked = true;
+                }
+
+                function onSuccess(googleUser) {
+
+                    $('#my-signin1 div div span span:last').text("Sign in");
+                    if (clicked) {
+                        $('#my-signin1 div div span span:last').text("Signed In");
+                        var profile = googleUser.getBasicProfile();
+                        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+                        console.log('Name: ' + profile.getName());
+                        console.log('Image URL: ' + profile.getImageUrl());
+                        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+                        if (profile) {
+                            $.ajax({
+                                type: 'POST',
+                                url: 'verifyuser.php',
+                                data: {
+                                    id: profile.getId(),
+                                    name: profile.getName(),
+                                    email: profile.getEmail(),
+                                    imgurl: profile.getImageUrl()
+                                }
+                            }).done(function (usertype) {
+                                console.log(usertype);
+
+
+                                if (usertype == "Department") {
+                                    console.log("In dept");
+                                    window.location.href = 'depthome.php';
+                                } else if (usertype == "admin") {
+                                    console.log("Admin");
+                                    window.location.href = 'admindashboard.php';
+                                } else if (usertype == "Manager") {
+                                    console.log("In Manager");
+                                    window.location.href = 'managerdashboard.php';
+                                } else if (usertype == "User") {
+                                    console.log("In user");
+                                    window.location.href = 'dashboard.php';
+                                } else if (usertype == "Firstuser") {
+                                    console.log("In first user");
+                                    window.location.href = 'dashboard.php';
+                                }
+
+                                //window.location.href = 'dashboard.php';
+
+                            }).fail(function () {
+                                alert("Error occur. Try again later");
+                            });
                         }
-                    }).done(function (usertype) {
-                        console.log(usertype);
+                    }
+                }
 
+                function onFailure(error) {
+                    console.log(error);
 
-                        if (usertype == "Department") {
-                            console.log("In dept");
-                            window.location.href = 'depthome.php';
-                        } else if (usertype == "admin") {
-                            console.log("Admin");
-                            window.location.href = 'admindashboard.php';
-                        } else if (usertype == "Manager") {
-                            console.log("In Manager");
-                            window.location.href = 'managerdashboard.php';
-                        } else if (usertype == "User") {
-                            console.log("In user");
-                            window.location.href = 'dashboard.php';
-                        } else if (usertype == "Firstuser") {
-                            console.log("In first user");
-                            window.location.href = 'dashboard.php';
-                        }
+                }
 
-                        //window.location.href = 'dashboard.php';
+                function renderButton() {
 
-                    }).fail(function () {
-                        alert("Error occur. Try again later");
+                    gapi.signin2.render('my-signin1', {
+                        'scope': 'profile email',
+                        'width': 240,
+                        'height': 50,
+                        'longtitle': false,
+                        'theme': 'dark',
+                        'prompt': 'select_account',
+                        'onsuccess': onSuccess,
+                        'onfailure': onFailure
                     });
                 }
-            }
-        }
+            </script>
+            <script>
+                $(document).ready(function () {
+                    // Add smooth scrolling to all links
+                    $("a").on('click', function (event) {
 
-            function onFailure(error) {
-                console.log(error);
+                        // Make sure this.hash has a value before overriding default behavior
+                        if (this.hash !== "") {
+                            // Prevent default anchor click behavior
+                            event.preventDefault();
 
-            }
+                            // Store hash
+                            var hash = this.hash;
 
-            function renderButton() {
-	
-                gapi.signin2.render('my-signin1', {
-                    'scope': 'profile email',
-                    'width': 240,
-                    'height': 50,
-                    'longtitle': false,
-                    'theme': 'dark',
-                    'prompt': 'select_account',
-                    'onsuccess': onSuccess,
-                    'onfailure': onFailure
+                            // Using jQuery's animate() method to add smooth page scroll
+                            // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                            $('html, body').animate({
+                                scrollTop: $(hash).offset().top - 100
+                            }, 1000, function () {
+
+                                // Add hash (#) to URL when done scrolling (default click behavior)
+                                window.location.hash = hash;
+                            });
+                        } // End if
+                    });
                 });
-            }
-        </script>
-        <script>
-            $(document).ready(function () {
-                // Add smooth scrolling to all links
-                $("a").on('click', function (event) {
-
-                    // Make sure this.hash has a value before overriding default behavior
-                    if (this.hash !== "") {
-                        // Prevent default anchor click behavior
-                        event.preventDefault();
-
-                        // Store hash
-                        var hash = this.hash;
-
-                        // Using jQuery's animate() method to add smooth page scroll
-                        // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-                        $('html, body').animate({
-                            scrollTop: $(hash).offset().top - 100
-                        }, 1000, function () {
-
-                            // Add hash (#) to URL when done scrolling (default click behavior)
-                            window.location.hash = hash;
-                        });
-                    } // End if
-                });
-            });
-        </script>
+            </script>
 
 </body>
 

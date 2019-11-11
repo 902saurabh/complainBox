@@ -368,7 +368,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                         </th>
 						
                         <th>
-                          Area Of Work
+                          Area Of Service
                         </th>
 						<th>
                           Detail
@@ -965,7 +965,7 @@ while ($row1 = mysqli_fetch_array($result1)) {
                     $mail->addAddress($mail_to);     // Add a recipient
 
 
-                  // ***********notify all************//
+                    // ***********notify all************//
                     /*
 
                     $set_dep = mysqli_query($con, "SELECT Departmentname from complain where id='$id'");
@@ -995,9 +995,8 @@ while ($row1 = mysqli_fetch_array($result1)) {
 
                       */
 
-                        // ***********notify all************//
+                    // ***********notify all************//
 
-                 
 
                     // Attachments
                     //  if($file_path!="")
