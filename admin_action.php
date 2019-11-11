@@ -789,19 +789,23 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
         $cost = $_POST['cost'];
         $adminremark = $_POST['adminremark'];
         $adminremark = mysqli_real_escape_string($con, $adminremark);
-
-        if (isset($adminremark)) {
+        $check = 0;
+        if (!empty($adminremark)) {
             $sql99 = "UPDATE admincomplain SET admin_remark='$adminremark' WHERE ogid='$id'";
             $query = mysqli_query($con, $sql99);
+            $check = 1;
 
-        } else {
+        }
+        if ($check == 0) {
+//              $query = mysqli_query($con, "UPDATE complain SET status='$status'  , cost='$cost' WHERE id='$id'");
+            $query = mysqli_query($con, "UPDATE complain SET status='$status' , time_constraint='$timer' WHERE id='$id'");
 
 
 //$sql7="UPDATE complain SET status='".$status."' , time_constraint=".$timer." ,cost=".$cost." WHERE id=".$id.";";
 //echo $sql7;
 
             if ($status == "Resolved") {
-                //$query8 = mysqli_query($con,"SELECT * FROM complain where id='$id'");
+                $query8 = mysqli_query($con, "SELECT * FROM complain where id='$id'");
                 //row8 = mysqli_fetch_array($query8);
                 /*if($row8['solved_by']=="NULL"){
                   $query8 = mysqli_query($con,"INSERT into complain(solved_by) values('') where id =")
@@ -811,6 +815,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                 $query = mysqli_query($con, "UPDATE complain SET solved_by='$uname' WHERE id='$id'");
                 $dt = date("Y-m-d H:i:s");
                 $query = mysqli_query($con, "UPDATE complain SET resolved_date='$dt' where id='$id'");
+                // $query = mysqli_query($con, "UPDATE complain SET status='$status'  , cost='$cost' WHERE id='$id'");
 
 
                 $query = mysqli_query($con, "SELECT * FROM complain WHERE id='$id'");
@@ -890,7 +895,6 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 
             }
 
-            $query = mysqli_query($con, "UPDATE complain SET status='$status' , time_constraint='$timer' , cost='$cost' WHERE id='$id'");
 
         }
         header("Location:admindashboard.php");

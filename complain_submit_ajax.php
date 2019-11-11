@@ -27,22 +27,28 @@ $building = $row['building'];
 $location = $row['location'];
 $contact = $row['contactnum'];
 $priority = $row['priority'];
-
+$attach_var = "";
+if (!empty($file_path)) {
+    $attach_var = "Please find the attachment.";
+}
 $msg = "Dear Sir/Ma'am,<br>
-<b>New complain been registered for " . $department . " area of work</b><br>
-Complain details are,<br>
-<strong>Complain ID:</strong> " . $id . "<br>
+<b>New complaint  registered for " . $department . " area of service</b><br>
+Complaint details are,<br>
+<strong>Complaint ID:</strong> " . $id . "<br>
 <strong>Building:</strong> " . $building . "<br>
 <strong>Location:</strong> " . $location . "<br>
 <strong>Description:</strong> " . $body . "<br>
 <strong>Sender Name:</strong> " . $sender . "<br>
 <strong>Sender Email:</strong> " . $sender_mail . "<br>
-<strong>Contact Number:</strong>" . $contact . "<br><br><br>
+<strong>Contact Number:</strong>" . $contact . "<br>
+<strong>" . $attach_var . "</strong><br></br>
+
 <hr>
 <strong>Note:</strong><br>
 <font color='blue'>This is an automated system generated mail.</font><br>
 <font color='red'>Do not reply to this email.</font>
 ";
+
 //$department= $_POST['department'];
 //$location = $_POST['location'];
 //$building = $_POST['building'];
@@ -84,16 +90,16 @@ try {
 //        $len = $len + 1;
 //    }
 
-    $txt="";
+    $txt = "";
 
-    if($dp=="Emergency"){
+    if ($dp == "Emergency") {
 
-        
-          $all = mysqli_query($con,"SELECT email from user where usertype != 'User'");
 
-          while ($row = mysqli_fetch_array($all)) {
-                $email = $row['email'];
-                $mail->addAddress($email);
+        $all = mysqli_query($con, "SELECT email from user where usertype != 'User'");
+
+        while ($row = mysqli_fetch_array($all)) {
+            $email = $row['email'];
+            $mail->addAddress($email);
         }
 
 
@@ -116,38 +122,37 @@ try {
 
         */
 
-         //   by comma splitting//
+        //   by comma splitting//
 
-      $txt .= "An Emergency";
+        $txt .= "Attention! Immediate action required. An Emergency";
 
-    }else{
+    } else {
 
 
-         while ($row = mysqli_fetch_array($dep)) {
-                $email = $row['email'];
-                $mail->addAddress($email);
-            }
+        while ($row = mysqli_fetch_array($dep)) {
+            $email = $row['email'];
+            $mail->addAddress($email);
+        }
 
-    if ($priority == 'critical') {
+        if ($priority == 'critical') {
 //        echo "<script>alert('hello');</script>";
-        $q = mysqli_query($con, "SELECT  email from user where usertype='admin' or usertype='Manager'");
-        while ($row = mysqli_fetch_array($q)) {
-            $mails = explode(",", $row['email']);
-            $len = 0;
-            while ($len != sizeof($mails)) {
-                $mail->addAddress($mails[$len]);
-                $len = $len + 1;
+            $q = mysqli_query($con, "SELECT  email from user where usertype='admin' or usertype='Manager'");
+            while ($row = mysqli_fetch_array($q)) {
+                $mails = explode(",", $row['email']);
+                $len = 0;
+                while ($len != sizeof($mails)) {
+                    $mail->addAddress($mails[$len]);
+                    $len = $len + 1;
+                }
+
             }
 
         }
 
+        $txt .= "New";
+
     }
 
-    $txt .= "New";
-   
-    }
-
-    
 
     // Add a recipient
 
@@ -160,10 +165,12 @@ try {
     // Content
     //$var=$_POST['body'];
     //$var='Test';//$_POST['body'];
+
+
     $mail->isHTML(true);                                  // Set email format to HTML
-    $mail->Subject = $txt.' Complain Register with id  ' . $id;
+    $mail->Subject = $txt . ' Complain Register with id  ' . $id;
     $mail->Body = $msg;
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
 
     $mail->send();
     echo 'Message has been sent';
