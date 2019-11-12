@@ -312,9 +312,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                                                 <ul class="dropdown-menu" style="cursor:pointer;"
                                                     aria-labelledby="dropdownMenuLink" name="ul" required>
                                                     <li class="dropdown-item" id="item2" href="#">ARYABHATTA(A)</li>
-                                                    <li class="dropdown-item" id="item3" href="#">
-                                                        BHASKARACHARYA(B)
-                                                    </li>
+                                                    <li class="dropdown-item" id="item3" href="#">BHASKARACHARYA(B)</li>
                                                 </ul>
                                             </div>
                                         </div>
