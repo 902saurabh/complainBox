@@ -26,9 +26,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>
-        Admin Dashboard | Complain Box
-    </title>
+    <title> F M S </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     <!--     Fonts and icons     -->
@@ -51,7 +49,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
       -->
         <div class="logo">
             <a class="simple-text logo-normal">
-            FMS </a>
+                FMS </a>
         </div>
 
 
@@ -328,7 +326,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 		    <div class="col-lg-12 col-md-12">
               <div class="card">
                 <div class="card-header card-header-warning">
-                  <h4 class="card-title">Forwaded Complain</h4>
+                  <h4 class="card-title">Forwarded Complain</h4>
                   <p class="card-category">Action required</p>
                 </div>
                 <div class="card-body table-responsive">
@@ -356,6 +354,8 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
 						
 						<th>
                           Remark
+                        </th><th>
+                          Admin Remark
                         </th>
 						<th>
                           Action
@@ -364,7 +364,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
                       <tbody>';
 
 
-                    $sql = "SELECT complain.id,complaindate,description,status,Departmentname,remark,priority FROM complain 
+                    $sql = "SELECT complain.id,complaindate,description,status,Departmentname,remark,priority,admin_remark FROM complain 
 INNER JOIN admincomplain ON admincomplain.ogid=complain.id  
 AND  status not like '%Resolved%' ORDER BY complaindate DESC ";
                     $result = mysqli_query($con, $sql);
@@ -393,6 +393,7 @@ AND  status not like '%Resolved%' ORDER BY complaindate DESC ";
                         echo "'  style='    font-weight: 500;'>" . $row['status'] . "</td>";
                         echo "<td>" . $row['Departmentname'] . "</td>";
                         echo "<td>" . $row['remark'] . "</td>";
+                        echo "<td>" . $row['admin_remark'] . "</td>";
                         echo '<td><button type="button" class="btn btn-warning" name="' . $row['id'] . '" onclick="redirectme(event)">Take Action!</button></td></tr>';
                     }
 

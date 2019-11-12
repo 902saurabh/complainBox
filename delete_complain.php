@@ -78,9 +78,7 @@ echo $var;
 
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <title>
-
-        </title>
+        <title> F M S </title>
     </head>
     <body>
     <div class="wrapper" id="completebody" style="width:100% ; height:100%;">

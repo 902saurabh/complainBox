@@ -25,9 +25,17 @@ if (isset($_POST["id"])) {
         $sql3 = "UPDATE user SET head_name='" . $_POST["name"] . "' WHERE email='" . $_POST["email"] . "'";
         $con->query($sql3);
 
-        $usertype = "Department";
 
-        $_SESSION["type"] = "Department";
+		 $sql = "SELECT usertype FROM user WHERE email like '%" . $_POST["email"] . "%' AND usertype='Manager'";
+    $res = mysqli_query($con, $sql);
+    $row = $res->fetch_assoc();
+	if(mysqli_num_rows($res)>0){
+        $usertype = "Manager";
+        $_SESSION["type"] = "Manager";
+	}else{
+		$usertype = "Department";																					   
+	$_SESSION["type"] = "Department";
+	}
         echo $usertype;//return value to ajax
     } else if ($row["usertype"] == "Manager") {
         $sql2 = "UPDATE user SET imgurl='" . $_POST["imgurl"] . "' WHERE email='" . $_POST["email"] . "'";

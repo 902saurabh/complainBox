@@ -16,7 +16,7 @@ if (isset($_GET['department'])) {
     <!-- add scripts -->
 
 
-    <title></title>
+    <title> F M S </title>
 </head>
 <body>
 <div class="bbody">

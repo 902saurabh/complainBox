@@ -37,17 +37,20 @@ if (!isset($_SESSION['name'])) {
     }
 
     if ($row['usertype'] != 'admin') {
-        if ($row['usertype'] == 'User') {
-            header("Location: dashboard.php");
-            exit();
-        } else if ($row['usertype'] == 'Department') {
-            header("Location: depthome.php");
-            exit();
+        if ($row['usertype'] == 'Manager') {
 
-        } else {
-            header("Location: index.php");
-            exit();
-        }
+        } else
+            if ($row['usertype'] == 'User') {
+                header("Location: dashboard.php");
+                exit();
+            } else if ($row['usertype'] == 'Department') {
+                header("Location: depthome.php");
+                exit();
+
+            } else {
+                header("Location: index.php");
+                exit();
+            }
     }
 
 }
@@ -69,9 +72,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>
-        Complain Box
-    </title>
+    <title> F M S </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     <!--     Fonts and icons     -->
@@ -94,7 +95,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
       -->
         <div class="logo">
             <a href="#" class="simple-text logo-normal">
-            FMS </a>
+                FMS </a>
         </div>
 
 
@@ -790,6 +791,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
         $adminremark = mysqli_real_escape_string($con, $adminremark);
         $check = 0;
         if (!empty($adminremark)) {
+            $adminremark = $adminremark . " by " . $_SESSION['name'];
             $sql99 = "UPDATE admincomplain SET admin_remark='$adminremark' WHERE ogid='$id'";
             $query = mysqli_query($con, $sql99);
             $check = 1;
@@ -797,7 +799,7 @@ $totinprogresscomp = mysqli_num_rows(mysqli_query($con, "SELECT * FROM complain 
         }
         if ($check == 0) {
 //              $query = mysqli_query($con, "UPDATE complain SET status='$status'  , cost='$cost' WHERE id='$id'");
-            $query = mysqli_query($con, "UPDATE complain SET status='$status' , time_constraint='$timer' WHERE id='$id'");
+            $query = mysqli_query($con, "UPDATE complain SET status='$status' , time_constraint='$timer' , cost='$cost'WHERE id='$id'");
 
 
 //$sql7="UPDATE complain SET status='".$status."' , time_constraint=".$timer." ,cost=".$cost." WHERE id=".$id.";";

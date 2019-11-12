@@ -30,7 +30,7 @@ if (isset($_SESSION['type'])) {
     <meta name="google-signin-client_id"
           content="1085777605069-2qss1bn1n04qpq0t8ip51o8ulkh1gdte.apps.googleusercontent.com">
 
-    <title> Home | Complain Box </title>
+    <title> F M S </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     <!--     Fonts and icons     -->
